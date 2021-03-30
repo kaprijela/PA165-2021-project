@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author jan gavlik
  */
-:
+
 public interface CompetitionDao {
     public Competition findById(Long id);
     public void create(Competition c);

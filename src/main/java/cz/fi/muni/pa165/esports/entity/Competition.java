@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @author jan gavlik
@@ -74,5 +75,22 @@ public class Competition {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Competition that = (Competition) o;
+        return prizepool == that.prizepool &&
+                name.equals(that.name) &&
+                game == that.game &&
+                location.equals(that.location) &&
+                date.equals(that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, game, location, prizepool, date);
     }
 }
