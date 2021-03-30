@@ -80,17 +80,17 @@ public class Competition {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Competition)) return false;
         Competition that = (Competition) o;
-        return prizepool == that.prizepool &&
-                name.equals(that.name) &&
-                game == that.game &&
-                location.equals(that.location) &&
-                date.equals(that.date);
+        return getPrizepool() == that.getPrizepool() &&
+                getName().equals(that.getName()) &&
+                getGame() == that.getGame() &&
+                getLocation().equals(that.getLocation()) &&
+                getDate().equals(that.getDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, game, location, prizepool, date);
+        return Objects.hash(getName(), getGame(), getLocation(), getPrizepool(), getDate());
     }
 }
