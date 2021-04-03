@@ -35,6 +35,7 @@ public class Team {
 
     private String description;
 
+    @OneToMany(mappedBy = "team")
     private Set<Player> players = new HashSet<>();
 
     /* getters and setters */
