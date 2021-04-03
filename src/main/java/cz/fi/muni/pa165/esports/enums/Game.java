@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.esports.entity;
+package cz.fi.muni.pa165.esports.enums;
 
 /**
  * @author jan gavlik

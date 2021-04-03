@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.esports.entity;
 
+import cz.fi.muni.pa165.esports.enums.Game;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
