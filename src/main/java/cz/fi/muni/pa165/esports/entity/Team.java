@@ -27,8 +27,10 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
+    @Column(unique = true, nullable = false)
     private String abbreviation;
 
     private String description;
