@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.esports.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -66,5 +67,18 @@ public class Team {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Team)) return false;
+        Team team = (Team) o;
+        return getName().equals(team.getName()) && getAbbreviation().equals(team.getAbbreviation());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getAbbreviation());
     }
 }
