@@ -1,6 +1,10 @@
 package cz.fi.muni.pa165.esports.entity;
 
+
+import cz.fi.muni.pa165.esports.enums.Game;
+
 import javax.persistence.*;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
