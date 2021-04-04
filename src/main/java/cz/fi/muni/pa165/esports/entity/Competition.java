@@ -1,13 +1,13 @@
 package cz.fi.muni.pa165.esports.entity;
 
+
 import cz.fi.muni.pa165.esports.enums.Game;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author jan gavlik
@@ -23,6 +23,9 @@ public class Competition {
     private String location;
     private int prizepool;
     private LocalDate date;
+
+    @OneToMany
+    private Set<Match> matches;
 
     public Competition(Long id) {
         this.id = id;
@@ -77,6 +80,19 @@ public class Competition {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+
+    public Set<Match> getMatches() {
+        return matches;
+    }
+
+    public void addMatch(Match match) {
+        matches.add(match);
+    }
+
+    public void setMatches(Set<Match> matches) {
+        this.matches = matches;
     }
 
     @Override
