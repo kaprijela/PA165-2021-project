@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.entity;
+package cz.fi.muni.pa165.esports.entity;
 
 import java.util.*;
 
@@ -19,11 +19,11 @@ public class Match {
     private int score;
     private long match_number;
 
-    @OneToMany(mappedBy = "match")
-    private Set<Team> teams = new HashSet<>();
-
-    @OneToMany(mappedBy = "match")
-    private Set<Player> players = new HashSet<>();
+//    @ManyToMany(mappedBy = "match")
+//    private Set<Team> teams = new HashSet<>();
+//
+//    @ManyToMany(mappedBy = "match")
+//    private Set<Player> players = new HashSet<>();
 
     @ManyToOne
     private Competition competition;
@@ -70,32 +70,32 @@ public class Match {
         this.match_number = match_number;
     }
 
-    //Relations getters and setters
-    public Set<Team> getTeams(){
-        return teams;
-    }
-
-    public void setTeams(Set<Team> teams){
-        this.teams = teams;
-    }
-
-    public void addTeam(Team team){
-        teams.add(team);
-        team.setMatch(this);
-    }
-
-    public Set<Player> getPlayers(){
-        return players;
-    }
-
-    public void setPlayers(Set<Player> players){
-        this.players = players;
-    }
-
-    public void addPlayer(Player player){
-        players.add(player);
-        player.setMatch(this);
-    }
+//    //Relations getters and setters
+//    public Set<Team> getTeams(){
+//        return teams;
+//    }
+//
+//    public void setTeams(Set<Team> teams){
+//        this.teams = teams;
+//    }
+//
+//    public void addTeam(Team team){
+//        teams.add(team);
+//        team.addMatch(this);
+//    }
+//
+//    public Set<Player> getPlayers(){
+//        return players;
+//    }
+//
+//    public void setPlayers(Set<Player> players){
+//        this.players = players;
+//    }
+//
+//    public void addPlayer(Player player){
+//        players.add(player);
+//        player.addMatch(this);
+//    }
 
     public Competition getCompetitions(){
         return competition;
@@ -106,7 +106,7 @@ public class Match {
     }
 
     public void addCompetition(Competition competition){
-        competition.setMatch(this);
+        competition.addMatch(this);
     }
 
     @Override
