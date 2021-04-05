@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.esports.dao;
 import cz.fi.muni.pa165.esports.entity.Player;
 import cz.fi.muni.pa165.esports.enums.Gender;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import java.util.List;
  * @author Radovan Tomasik
  */
 @Repository
+@Transactional
 public class PlayerDaoImpl implements PlayerDao {
     @PersistenceContext
     private EntityManager em;

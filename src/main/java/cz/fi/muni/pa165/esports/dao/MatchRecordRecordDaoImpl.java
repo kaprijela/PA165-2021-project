@@ -1,7 +1,8 @@
 package cz.fi.muni.pa165.esports.dao;
 
-import cz.fi.muni.pa165.esports.entity.Match;
+import cz.fi.muni.pa165.esports.entity.MatchRecord;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,35 +14,36 @@ import java.util.List;
 */
 
 @Repository
-public class MatchDaoImpl implements MatchDao {
+@Transactional
+public class MatchRecordRecordDaoImpl implements MatchRecordDao {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public Match findById(Long id) {
-        return em.find(Match.class, id);
+    public MatchRecord findById(Long id) {
+        return em.find(MatchRecord.class, id);
     }
 
     @Override
-    public void create(Match match) {
-        em.persist(match);
+    public void create(MatchRecord matchRecord) {
+        em.persist(matchRecord);
     }
 
     @Override
-    public void delete(Match match) {
-        em.remove(match);
+    public void delete(MatchRecord matchRecord) {
+        em.remove(matchRecord);
     }
 
     @Override
-    public List<Match> findAll() {
-        return em.createQuery("select m from Match m", Match.class).getResultList();
+    public List<MatchRecord> findAll() {
+        return em.createQuery("select m from MatchRecord m", MatchRecord.class).getResultList();
     }
 
     @Override
-    public Match findByName(String name) {
+    public MatchRecord findByName(String name) {
         try {
-            return em.createQuery("select m from Match m where m.name = :name", Match.class)
+            return em.createQuery("select m from MatchRecord m where m.name = :name", MatchRecord.class)
                     .setParameter("name", name).getSingleResult();
         } catch (NoResultException nfr){
             return null;
@@ -49,9 +51,9 @@ public class MatchDaoImpl implements MatchDao {
     }
 
     @Override
-    public Match findByMatchNumber(Long match_number) {
+    public MatchRecord findByMatchNumber(Long match_number) {
         try {
-            return em.createQuery("select m from Match m where m.match_number = :mn", Match.class)
+            return em.createQuery("select m from MatchRecord m where m.match_number = :mn", MatchRecord.class)
                     .setParameter("mn", match_number).getSingleResult();
         } catch (NoResultException nfr){
             return null;
@@ -70,9 +72,9 @@ public class MatchDaoImpl implements MatchDao {
 //    }
 
     @Override
-    public List<Match> findPlayers() {
+    public List<MatchRecord> findPlayers() {
         try {
-            return em.createQuery("select m from Match m join fetch m.players", Match.class).getResultList();
+            return em.createQuery("select m from MatchRecord m join fetch m.players", MatchRecord.class).getResultList();
         } catch (NoResultException nfr){
             return null;
         }

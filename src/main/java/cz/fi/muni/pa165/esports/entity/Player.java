@@ -26,6 +26,8 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+
+
     public Player() {
     }
 

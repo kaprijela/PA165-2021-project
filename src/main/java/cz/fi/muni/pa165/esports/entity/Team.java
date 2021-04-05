@@ -39,6 +39,9 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private Set<Player> players = new HashSet<>();
 
+    @OneToMany(mappedBy = "team")
+    private Set<MatchRecord> matchRecords = new HashSet<>();
+
     /* getters and setters */
 
     public Long getId() {
