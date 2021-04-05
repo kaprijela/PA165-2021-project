@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.esports.dao;
 
 import cz.fi.muni.pa165.esports.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.esports.entity.Team;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -9,7 +10,9 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
@@ -31,7 +34,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     private Team t3;
     private Team t4;
 
-    @BeforeMethod
+    @BeforeClass
     public void createTeams(){
         t1 = new Team();
         t2 = new Team();

@@ -25,7 +25,7 @@ public class Competition {
     private LocalDate date;
 
     @OneToMany
-    private Set<Match> matches;
+    private Set<MatchRecord> matchRecords;
 
     public Competition(Long id) {
         this.id = id;
@@ -83,16 +83,16 @@ public class Competition {
     }
 
 
-    public Set<Match> getMatches() {
-        return matches;
+    public Set<MatchRecord> getMatches() {
+        return matchRecords;
     }
 
-    public void addMatch(Match match) {
-        matches.add(match);
+    public void addMatch(MatchRecord matchRecord) {
+        matchRecords.add(matchRecord);
     }
 
-    public void setMatches(Set<Match> matches) {
-        this.matches = matches;
+    public void setMatches(Set<MatchRecord> matchRecords) {
+        this.matchRecords = matchRecords;
     }
 
     @Override
