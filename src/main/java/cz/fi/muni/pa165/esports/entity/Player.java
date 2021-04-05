@@ -13,15 +13,24 @@ import java.util.Objects;
 public class Player {
     @Column(nullable = false)
     private String name;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long player_id;
+
+    @ManyToOne
+    private Team team;
+
     private Integer age;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     public Player() {
+    }
+
+    public Player(Long player_id) {
+        this.player_id = player_id;
     }
 
     public String getName() {
@@ -38,6 +47,14 @@ public class Player {
 
     public void setPlayer_id(Long player_id) {
         this.player_id = player_id;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public Integer getAge() {

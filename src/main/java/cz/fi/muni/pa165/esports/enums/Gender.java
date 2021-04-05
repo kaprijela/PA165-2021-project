@@ -6,5 +6,5 @@ package cz.fi.muni.pa165.esports.enums;
 public enum Gender {
     MALE,
     FEMALE,
-    SOMETHINGELSE
+    OTHER
 }

@@ -11,6 +11,7 @@ import java.util.List;
 public interface PlayerDao {
     public Player findById(Long id);
     public void create(Player player);
+    public void delete(Player player);
     public List<Player> findAll();
     public List<Player> findByName(String name);
     public List<Player> findByGender(Gender gender);
