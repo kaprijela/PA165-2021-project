@@ -27,6 +27,11 @@ public class PlayerDaoImpl implements PlayerDao {
     }
 
     @Override
+    public void delete(Player player) {
+        em.remove(player);
+    }
+
+    @Override
     public List<Player> findAll() {
         return em.createQuery("select p from Player p", Player.class).getResultList();
     }
