@@ -19,11 +19,11 @@ public class Match {
     private int score;
     private long match_number;
 
-//    @ManyToMany(mappedBy = "match")
-//    private Set<Team> teams = new HashSet<>();
-//
-//    @ManyToMany(mappedBy = "match")
-//    private Set<Player> players = new HashSet<>();
+    @OneToMany(mappedBy = "match")
+    private Set<Team> teams = new HashSet<>();
+
+    @OneToMany(mappedBy = "match")
+    private Set<Player> players = new HashSet<>();
 
     @ManyToOne
     private Competition competition;
@@ -70,32 +70,30 @@ public class Match {
         this.match_number = match_number;
     }
 
-//    //Relations getters and setters
-//    public Set<Team> getTeams(){
-//        return teams;
-//    }
-//
-//    public void setTeams(Set<Team> teams){
-//        this.teams = teams;
-//    }
-//
-//    public void addTeam(Team team){
-//        teams.add(team);
-//        team.addMatch(this);
-//    }
-//
-//    public Set<Player> getPlayers(){
-//        return players;
-//    }
-//
-//    public void setPlayers(Set<Player> players){
-//        this.players = players;
-//    }
-//
-//    public void addPlayer(Player player){
-//        players.add(player);
-//        player.addMatch(this);
-//    }
+    //Relations getters and setters
+    public Set<Team> getTeams(){
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams){
+        this.teams = teams;
+    }
+
+    public void addTeam(Team team){
+        teams.add(team);
+    }
+
+    public Set<Player> getPlayers(){
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players){
+        this.players = players;
+    }
+
+    public void addPlayer(Player player){
+        players.add(player);
+    }
 
     public Competition getCompetitions(){
         return competition;
