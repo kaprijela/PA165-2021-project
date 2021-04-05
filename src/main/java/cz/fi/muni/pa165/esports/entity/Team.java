@@ -1,9 +1,10 @@
 package cz.fi.muni.pa165.esports.entity;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * Team is an entity that represents an eSports team.
@@ -70,6 +71,14 @@ public class Team {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Player> getPlayers() {
+        return Collections.unmodifiableSet(players);
+    }
+
+    public void addPlayer(Player player) {
+        this.players.add(player);
     }
 
     @Override
