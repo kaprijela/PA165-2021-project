@@ -75,7 +75,7 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
     @Override
     public List<Player> findPlayers() {
         try {
-            return em.createQuery("select m.players from MatchRecord m", Player.class).getResultList();
+            return em.createQuery("select m.player from MatchRecord m", Player.class).getResultList();
         } catch (NoResultException nfr){
             return null;
         }

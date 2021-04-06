@@ -16,7 +16,6 @@ public interface MatchRecordDao {
     public List<MatchRecord> findAll();
     public MatchRecord findByName(String name);
     public MatchRecord findByMatchNumber(Long match_number);
-    //public Match findByPlayer(Player player);
     public List<Player> findPlayers();
 }
 
