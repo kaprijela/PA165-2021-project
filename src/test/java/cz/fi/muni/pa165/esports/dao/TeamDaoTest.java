@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.esports.dao;
 
 import cz.fi.muni.pa165.esports.PersistenceSampleApplicationContext;
+import cz.fi.muni.pa165.esports.entity.Player;
 import cz.fi.muni.pa165.esports.entity.Team;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,19 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     private Team t3;
     private Team t4;
 
+    private Player p1;
+    private Player p2;
+
     @BeforeClass
     public void createTeams(){
         t1 = new Team();
         t2 = new Team();
         t3 = new Team();
         t4 = new Team();
+
+        p1 = new Player();
+        p2 = new Player();
+
 
         t1.setName("Orcs");
         t2.setName("Elves");
@@ -50,6 +58,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         t2.setAbbreviation("E");
         t3.setAbbreviation("MOG");
         t4.setAbbreviation("D");
+
 
         teamDao.create(t1);
         teamDao.create(t2);
@@ -85,4 +94,18 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(teamDao.findByAbbreviation("MOG").getId(), t3.getId());
         Assert.assertEquals(teamDao.findByAbbreviation("D").getId(), t4.getId());
     }
+    @Test
+    public void removeTeam(){
+        teamDao.delete(t4);
+        Assert.assertNull(teamDao.findById(t4.getId()));
+    }
+    @Test
+    public void addPlayers(){
+        t2.addPlayer(p1);
+        t2.addPlayer(p2);
+        Assert.assertEquals(t2.getPlayers().size(), 2);
+    }
+
+    @Test
+    public void removePlayers(){}
 }
