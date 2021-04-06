@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.esports.dao;
 
 import cz.fi.muni.pa165.esports.entity.MatchRecord;
+import cz.fi.muni.pa165.esports.entity.Player;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,11 +73,12 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
 //    }
 
     @Override
-    public List<MatchRecord> findPlayers() {
+    public List<Player> findPlayers() {
         try {
-            return em.createQuery("select m from MatchRecord m join fetch m.players", MatchRecord.class).getResultList();
+            return em.createQuery("select m.players from MatchRecord m", Player.class).getResultList();
         } catch (NoResultException nfr){
             return null;
         }
     }
+
 }

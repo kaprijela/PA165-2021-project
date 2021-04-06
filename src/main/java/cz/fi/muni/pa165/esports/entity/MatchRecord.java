@@ -5,9 +5,10 @@ import java.util.*;
 import javax.persistence.*;
 //import javax.validation.constraints.NotNull;
 
-/*
-    @Author Elena Álvarez
-*/
+
+/**
+ @Author Elena Álvarez
+ */
 
 @Entity
 public class MatchRecord {
@@ -19,22 +20,20 @@ public class MatchRecord {
     private int score;
     private long match_number;
 
-    @ManyToOne
-    private Team team;
+    @OneToMany(mappedBy = "match")
+    private Set<Team> teams = new HashSet<>();
 
-    @ManyToOne
-    private Player player;
+    @OneToMany(mappedBy = "match")
+    private Set<Player> players = new HashSet<>();
 
     @ManyToOne
     private Competition competition;
 
     //Constructors
-    public MatchRecord() {
-    }
-
+    public MatchRecord() { }
     public MatchRecord(String name, long match_number, int score) {
         this.match_number = match_number;
-        this.name = name;
+        this.name= name;
         this.score = score;
     }
 
@@ -72,40 +71,47 @@ public class MatchRecord {
         this.match_number = match_number;
     }
 
-    public Team getTeam() {
-        return team;
+    //Relations getters and setters
+    public Set<Team> getTeams(){
+        return teams;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeams(Set<Team> teams){
+        this.teams = teams;
     }
 
-    public Player getPlayer() {
-        return player;
+    public void addTeam(Team team){
+        teams.add(team);
+        //team.setMatch(this);
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public Set<Player> getPlayers(){
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players){
+        this.players = players;
+    }
+
+    public void addPlayer(Player player){
+        players.add(player);
+        //player.setMatch(this);
     }
 
     public Competition getCompetition() {
         return competition;
     }
 
-    public void setCompetition(Competition competitions) {
+    public void setCompetition(Competition competition) {
         this.competition = competition;
-    }
-
-    public void addCompetition(Competition competition) {
-        competition.addMatch(this);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MatchRecord)) return false;
-        MatchRecord matchRecord = (MatchRecord) o;
-        return getScore() == matchRecord.getScore() && getMatch_number() == matchRecord.getMatch_number() && getName().equals(matchRecord.getName());
+        MatchRecord match = (MatchRecord) o;
+        return getScore() == match.getScore() && getMatch_number() == match.getMatch_number() && getName().equals(match.getName());
     }
 
     @Override
