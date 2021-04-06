@@ -25,7 +25,7 @@ public interface TeamDao {
 
     /**
      * Fetches a team according to its ID from the database.
-     * @param id of the sought team entity
+     * @param id ID of the sought team entity
      * @return team entity if found, else null
      */
     Team findById(Long id);
@@ -38,14 +38,14 @@ public interface TeamDao {
 
     /**
      * Fetches a team according to its (unique) name.
-     * @param name of the sought team
+     * @param name name of the sought team
      * @return team entity if found, else null
      */
     Team findByName(String name);
 
     /**
      * Fetches a team according to its (unique) abbreviation.
-     * @param abbreviation of the sought team
+     * @param abbreviation abbreviation of the sought team
      * @return team entity if found, else null
      */
     Team findByAbbreviation(String abbreviation);
