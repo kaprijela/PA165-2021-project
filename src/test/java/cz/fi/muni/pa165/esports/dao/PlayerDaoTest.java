@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.esports.PersistenceSampleApplicationContext;
 import cz.fi.muni.pa165.esports.entity.Player;
 import cz.fi.muni.pa165.esports.enums.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +13,16 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 
 /**
  * Tests for {@link PlayerDao}
+ *
  * @author Gabriela Kandova
  */
 
@@ -94,7 +99,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(foundPlayer.getGender(), mrWhite.getGender());
     }
 
-    @Test(expectedExceptions = { PersistenceException.class })
+    @Test(expectedExceptions = { DataAccessException.class })
     public void testCreateNoName() {
         playerDao.create(mrPink);
     }
