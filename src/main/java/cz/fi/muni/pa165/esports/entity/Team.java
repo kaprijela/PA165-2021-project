@@ -84,6 +84,10 @@ public class Team {
         this.players.add(player);
     }
 
+    public void removePlayer(Player player) {
+        this.players.remove(player);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
