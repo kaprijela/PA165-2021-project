@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
+ * An implementation of {@link TeamDao}.
+ *
  * @author Gabriela Kandova
  */
 
