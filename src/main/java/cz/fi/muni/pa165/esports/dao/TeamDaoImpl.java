@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
+ * An implementation of {@link TeamDao}.
+ *
  * @author Gabriela Kandova
  */
 
@@ -27,7 +29,11 @@ public class TeamDaoImpl implements TeamDao {
 
     @Override
     public void delete(Team team) {
-        em.remove(team);
+        if (em.contains(team)) {
+            em.remove(team);
+        } else {
+            em.remove(em.merge(team));
+        }
     }
 
     @Override

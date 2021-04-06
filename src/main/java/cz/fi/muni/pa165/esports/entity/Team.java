@@ -10,6 +10,8 @@ import java.util.Set;
  * Team is an entity that represents an eSports team.
  * A team consists of players and participates in competitions.
  *
+ * Two team instances are equal if they have the same name and abbreviation.
+ *
  * @author Gabriela Kandova
  */
 
@@ -28,17 +30,34 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * A team must have a unique name.
+     */
     @Column(unique = true, nullable = false)
     private String name;
 
+    /**
+     * A team must also have a unique abbreviation.
+     */
     @Column(unique = true, nullable = false)
     private String abbreviation;
 
+    /**
+     * Team description is optional.
+     */
     private String description;
 
+    /**
+     * A team consists of zero or more players.
+     * At any time, a player can belong to at most one team.
+     */
     @OneToMany(mappedBy = "team")
     private Set<Player> players = new HashSet<>();
 
+    /**
+     * A team participates in competitions.
+     * Zero or more match records refer to the team based on such participation.
+     */
     @OneToMany(mappedBy = "team")
     private Set<MatchRecord> matchRecords = new HashSet<>();
 
@@ -82,6 +101,10 @@ public class Team {
 
     public void addPlayer(Player player) {
         this.players.add(player);
+    }
+
+    public void removePlayer(Player player) {
+        this.players.remove(player);
     }
 
     @Override

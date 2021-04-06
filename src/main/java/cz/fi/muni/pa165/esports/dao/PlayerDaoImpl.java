@@ -30,7 +30,11 @@ public class PlayerDaoImpl implements PlayerDao {
 
     @Override
     public void delete(Player player) {
-        em.remove(player);
+        if (em.contains(player)) {
+            em.remove(player);
+        } else {
+            em.remove(em.merge(player));
+        }
     }
 
     @Override
