@@ -20,6 +20,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * @author Radovan Tomasik
+ * Class for testing TeamDao
+ */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @Transactional
 public class TeamDaoTest extends AbstractTestNGSpringContextTests {
