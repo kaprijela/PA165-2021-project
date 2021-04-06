@@ -9,9 +9,36 @@ import java.util.List;
  */
 
 public interface CompetitionDao {
-    public Competition findById(Long id);
-    public void create(Competition c);
-    public void delete(Competition c);
-    public List<Competition> findAll();
-    public Competition findByName(String name);
+    /**
+     * Add a Competition to database.
+     * @param c Entity to be persisted
+     */
+    void create(Competition c);
+
+    /**
+     * Delete a competition from database.
+     * If the Entity is not managed,
+     * will be merged and then deleted.
+     * @param c Competition to be deleted
+     */
+    void delete(Competition c);
+
+    /**
+     * Find team by its unique id.
+     * @param id Long id
+     * @return Competion
+     */
+    Competition findById(Long id);
+
+    /**
+     * @return Returns all Competions
+     */
+    List<Competition> findAll();
+
+    /**
+     * Find a competion unique name
+     * @param name Name of Competition
+     * @return Return the Competion with name
+     */
+    Competition findByName(String name);
 }

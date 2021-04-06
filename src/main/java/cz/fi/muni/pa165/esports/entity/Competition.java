@@ -18,12 +18,20 @@ public class Competition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * name of competition - has to be unique
+     */
+    @Column(unique = true)
     private String name;
     private Game game;
     private String location;
     private int prizepool;
     private LocalDate date;
 
+    /**
+     * multiple MachRecord for each competition
+     */
     @OneToMany
     private Set<MatchRecord> matchRecords;
 
