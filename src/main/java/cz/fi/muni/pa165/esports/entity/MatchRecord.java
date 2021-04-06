@@ -20,8 +20,8 @@ public class MatchRecord {
     private int score;
     private long match_number;
 
-    @OneToMany(mappedBy = "match")
-    private Set<Team> teams = new HashSet<>();
+@ManyToOne
+    private Team team;
 
     @OneToMany(mappedBy = "match")
     private Set<Player> players = new HashSet<>();
