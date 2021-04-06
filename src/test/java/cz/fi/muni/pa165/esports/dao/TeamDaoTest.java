@@ -30,6 +30,9 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     public TeamDao teamDao;
 
+    @Autowired
+    public PlayerDao playerDao;
+
     private Team t1;
     private Team t2;
     private Team t3;
@@ -48,6 +51,8 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         p1 = new Player();
         p2 = new Player();
 
+        p1.setName("IDK");
+        p2.setName("IDK");
 
         t1.setName("Orcs");
         t2.setName("Elves");
@@ -59,6 +64,8 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         t3.setAbbreviation("MOG");
         t4.setAbbreviation("D");
 
+        playerDao.create(p1);
+        playerDao.create(p2);
 
         teamDao.create(t1);
         teamDao.create(t2);
@@ -107,5 +114,9 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void removePlayers(){}
+    public void removePlayers(){
+        t2.removePlayer(p1);
+        t2.removePlayer(p2);
+        Assert.assertEquals(t2.getPlayers().size(), 0);
+    }
 }
