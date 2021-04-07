@@ -11,7 +11,9 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
-
+/**
+ * @author Elena Álvarez
+ */
 @Repository
 @Transactional
 public class MatchRecordRecordDaoImpl implements MatchRecordDao {
