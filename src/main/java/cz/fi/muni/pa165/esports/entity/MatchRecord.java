@@ -76,8 +76,8 @@ public class MatchRecord {
         return teams;
     }
 
-    public void setTeams(Set<Team> teams){
-        this.teams = teams;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public void addTeam(Team team){
