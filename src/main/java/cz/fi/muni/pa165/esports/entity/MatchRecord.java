@@ -95,16 +95,17 @@ public class MatchRecord {
         competition.addMatch(this);
     }
 
+    //Equals and HashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MatchRecord)) return false;
         MatchRecord that = (MatchRecord) o;
-        return getScore() == that.getScore() && getMatchnumber() == that.getMatchnumber();
+        return getMatchnumber() == that.getMatchnumber() && getTeam().equals(that.getTeam()) && getPlayer().equals(that.getPlayer()) && getCompetition().equals(that.getCompetition());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getScore(), getMatchnumber());
+        return Objects.hash(getMatchnumber(), getTeam(), getPlayer(), getCompetition());
     }
 }
