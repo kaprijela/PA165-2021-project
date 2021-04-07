@@ -87,13 +87,10 @@ public class MatchRecord {
         return competition;
     }
 
-    public void setCompetition(Competition competitions) {
+    public void setCompetition(Competition competition) {
         this.competition = competition;
     }
 
-    public void addCompetition(Competition competition) {
-        competition.addMatch(this);
-    }
 
     //Equals and HashCode
     @Override

@@ -50,38 +50,32 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        em.createQuery("delete from Player").executeUpdate();
+        //em.createQuery("delete from Player").executeUpdate();
 
         mrWhite = new Player();
         mrWhite.setName("Larry");
-        mrWhite.setYear(1970);
         mrWhite.setGender(Gender.MALE);
 
         mrOrange = new Player();
         mrOrange.setName("Freddy");
-        mrOrange.setYear(1990);
         mrOrange.setGender(Gender.MALE);
         em.persist(mrOrange);
 
         mrPink = new Player();
         mrPink.setName(null);
-        mrPink.setYear(1990);
         mrPink.setGender(Gender.MALE);
 
         mrBrown = new Player();
         mrBrown.setName("Mr. Brown");
-        mrBrown.setYear(1993);
         mrBrown.setGender(Gender.MALE);
 
         mrBlonde = new Player();
         mrBlonde.setName("Mr. Blonde");
-        mrBlonde.setYear(1989);
         mrBlonde.setGender(Gender.MALE);
         em.persist(mrBlonde);
 
         mrsRed = new Player();
         mrsRed.setName(mrWhite.getName());
-        mrsRed.setYear(1980);
         mrsRed.setGender(Gender.FEMALE);
         em.persist(mrsRed);
 
@@ -97,7 +91,6 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(foundPlayer);
         Assert.assertEquals(mrWhite, foundPlayer);
         Assert.assertEquals(foundPlayer.getName(), mrWhite.getName());
-        Assert.assertEquals(foundPlayer.getAge(), mrWhite.getAge());
         Assert.assertEquals(foundPlayer.getGender(), mrWhite.getGender());
     }
 
@@ -113,7 +106,6 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(foundPlayer);
         Assert.assertEquals(foundPlayer, mrWhite);
         Assert.assertEquals(foundPlayer.getName(), mrWhite.getName());
-        Assert.assertEquals(foundPlayer.getAge(), mrWhite.getAge());
         Assert.assertEquals(foundPlayer.getGender(), mrWhite.getGender());
     }
 
@@ -138,7 +130,6 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         List<Player> foundPlayers = playerDao.findAll();
         Assert.assertNotNull(foundPlayers);
         Assert.assertEquals(foundPlayers.size(), 3);
-        
         assertContainsPlayerWithName(foundPlayers, mrWhite.getName());
         assertContainsPlayerWithName(foundPlayers, mrOrange.getName());
         assertContainsPlayerWithName(foundPlayers, mrsRed.getName());
@@ -200,11 +191,11 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     @AfterClass
     private void cleanUp() {
         em.getTransaction().begin();
-        em.createQuery("delete from Player where player_id in (:p1, :p2, :p3, :p4)")
-                .setParameter("p1", mrWhite.getPlayer_id())
-                .setParameter("p2", mrOrange.getPlayer_id())
-                .setParameter("p3", mrBlonde.getPlayer_id())
-                .setParameter("p4", mrsRed.getPlayer_id())
+        em.createQuery("delete from Player where id in (:p1, :p2, :p3, :p4)")
+                .setParameter("p1", mrWhite.getId())
+                .setParameter("p2", mrOrange.getId())
+                .setParameter("p3", mrBlonde.getId())
+                .setParameter("p4", mrsRed.getId())
                 .executeUpdate();
         em.getTransaction().commit();
 
