@@ -32,7 +32,11 @@ public class CompetitionDaoImpl implements CompetitionDao {
 
     @Override
     public void delete(Competition competition) {
-        em.remove(competition);
+        if (em.contains(competition)) {
+            em.remove(competition);
+        } else {
+            em.remove(em.merge(competition));
+        }
     }
 
     @Override

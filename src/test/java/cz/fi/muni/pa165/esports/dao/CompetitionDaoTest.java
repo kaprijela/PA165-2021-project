@@ -84,4 +84,16 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(compeDao.findByName("Masters Clash Championship").getId(), c3.getId());
     }
 
+    @Test
+    public void deleteTest(){
+        Competition competition = new Competition();
+        competition.setName("Japan League 2020");
+        compeDao.create(competition);
+        Competition byName = compeDao.findByName("Japan League 2020");
+        Assert.assertNotNull(byName);
+        compeDao.delete(competition);
+        byName = compeDao.findByName("Japan League 2020");
+        Assert.assertNull(byName);
+    }
+
 }
