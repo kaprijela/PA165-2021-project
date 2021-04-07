@@ -80,9 +80,8 @@ public class MatchRecord {
         this.team = team;
     }
 
-    public void addTeam(Team team){
-        teams.add(team);
-        //team.setMatch(this);
+    public Player getPlayer() {
+        return player;
     }
 
     public void setPlayer(Player player) {
