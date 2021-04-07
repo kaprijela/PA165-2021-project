@@ -13,18 +13,21 @@ import java.util.List;
 public interface TeamDao {
     /**
      * Adds a team to the database.
+     *
      * @param team entity to be persisted
      */
     void create(Team team);
 
     /**
      * Deletes a team from the database.
+     *
      * @param team entity to be deleted
      */
     void delete(Team team);
 
     /**
      * Fetches a team according to its ID from the database.
+     *
      * @param id ID of the sought team entity
      * @return team entity if found, else null
      */
@@ -32,12 +35,14 @@ public interface TeamDao {
 
     /**
      * Fetches all teams.
+     *
      * @return list of all team entities in the database
      */
     List<Team> findAll();
 
     /**
      * Fetches a team according to its (unique) name.
+     *
      * @param name name of the sought team
      * @return team entity if found, else null
      */
@@ -45,6 +50,7 @@ public interface TeamDao {
 
     /**
      * Fetches a team according to its (unique) abbreviation.
+     *
      * @param abbreviation abbreviation of the sought team
      * @return team entity if found, else null
      */
