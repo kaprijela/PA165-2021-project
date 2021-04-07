@@ -42,10 +42,10 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
     }
 
     @Override
-    public MatchRecord findByMatchNumber(Long match_number) {
+    public MatchRecord findByMatchNumber(Long matchnumber) {
         try {
             return em.createQuery("select m from MatchRecord m where m.matchnumber = :mn", MatchRecord.class)
-                    .setParameter("mn", match_number).getSingleResult();
+                    .setParameter("mn", matchnumber).getSingleResult();
         } catch (NoResultException nfr){
             return null;
         }
