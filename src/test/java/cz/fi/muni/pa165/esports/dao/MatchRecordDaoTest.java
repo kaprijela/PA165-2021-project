@@ -23,16 +23,9 @@ public class MatchRecordDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void createTest() {
         MatchRecord matchRecord = new MatchRecord();
-        matchRecord.setName("Match");
+        //matchRecord.setName("Match");
         matchRecordDao.create(matchRecord);
         Assert.assertFalse(matchRecordDao.findAll().isEmpty());
-    }
-
-    @Test
-    public void findByName(){
-        MatchRecord matchRecord = matchRecordDao.findByName("Match");
-        Long id = matchRecord.getId();
-        Assert.assertEquals((long) id, 1L);
     }
 
     @Test

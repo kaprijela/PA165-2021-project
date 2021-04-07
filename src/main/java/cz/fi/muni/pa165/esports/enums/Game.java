@@ -1,7 +1,8 @@
 package cz.fi.muni.pa165.esports.enums;
-
 /**
- * @author jan gavlik
+ * @author Elena Álvarez
  */
 public enum Game {
+    FIFA,
+    LOL
 }

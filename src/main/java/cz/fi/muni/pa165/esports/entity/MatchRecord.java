@@ -5,9 +5,10 @@ import java.util.*;
 import javax.persistence.*;
 //import javax.validation.constraints.NotNull;
 
-/*
-    @Author Elena Álvarez
-*/
+
+/**
+ @author Elena Álvarez
+ */
 
 @Entity
 public class MatchRecord {
@@ -15,9 +16,8 @@ public class MatchRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
     private int score;
-    private long match_number;
+    private long matchNumber;
 
     @ManyToOne
     private Team team;
@@ -32,12 +32,14 @@ public class MatchRecord {
     public MatchRecord() {
     }
 
-    public MatchRecord(String name, long match_number, int score) {
-        this.match_number = match_number;
-        this.name = name;
+    public MatchRecord(long matchNumber, int score) {
+        this.matchNumber = matchNumber;
         this.score = score;
     }
 
+    public MatchRecord(Long id) {
+        this.id = id;
+    }
 
     //Getters and Setters
     public Long getId() {
@@ -48,13 +50,6 @@ public class MatchRecord {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getScore() {
         return score;
@@ -64,12 +59,12 @@ public class MatchRecord {
         this.score = score;
     }
 
-    public long getMatch_number() {
-        return match_number;
+    public long getMatchNumber() {
+        return matchNumber;
     }
 
-    public void setMatch_number(long match_number) {
-        this.match_number = match_number;
+    public void setMatchNumber(long matchNumber) {
+        this.matchNumber = matchNumber;
     }
 
     public Team getTeam() {
@@ -100,16 +95,17 @@ public class MatchRecord {
         competition.addMatch(this);
     }
 
+    //Equals and HashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MatchRecord)) return false;
-        MatchRecord matchRecord = (MatchRecord) o;
-        return getScore() == matchRecord.getScore() && getMatch_number() == matchRecord.getMatch_number() && getName().equals(matchRecord.getName());
+        MatchRecord that = (MatchRecord) o;
+        return getMatchNumber() == that.getMatchNumber() && getTeam().equals(that.getTeam()) && getPlayer().equals(that.getPlayer()) && getCompetition().equals(that.getCompetition());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getScore(), getMatch_number());
+        return Objects.hash(getMatchNumber(), getTeam(), getPlayer(), getCompetition());
     }
 }
