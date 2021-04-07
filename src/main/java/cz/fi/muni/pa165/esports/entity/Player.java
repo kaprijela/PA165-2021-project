@@ -25,11 +25,8 @@ public class Player {
     @ManyToOne
     private Team team;
 
-
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-
 
     public Player() {
     }
@@ -72,16 +69,22 @@ public class Player {
         this.gender = gender;
     }
 
+    /**
+     * This implementation of equals is is this way because we allow tow players with the same name and gender to be on
+     * the same team.
+     * @param o object
+     * @return true or false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Player)) return false;
         Player player = (Player) o;
-        return getName().equals(player.getName()) && Objects.equals(getTeam(), player.getTeam()) && getGender() == player.getGender();
+        return getName().equals(player.getName()) && getId().equals(player.getId()) && Objects.equals(getTeam(), player.getTeam()) && getGender() == player.getGender();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getTeam(), getGender());
+        return Objects.hash(getName(), getId(), getTeam(), getGender());
     }
 }
