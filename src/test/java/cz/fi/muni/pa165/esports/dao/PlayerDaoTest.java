@@ -52,34 +52,34 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
         mrWhite = new Player();
         mrWhite.setName("Larry");
-        mrWhite.setAge(50);
+        mrWhite.setYear(1970);
         mrWhite.setGender(Gender.MALE);
 
         mrOrange = new Player();
         mrOrange.setName("Freddy");
-        mrOrange.setAge(30);
+        mrOrange.setYear(1990);
         mrOrange.setGender(Gender.MALE);
         em.persist(mrOrange);
 
         mrPink = new Player();
         mrPink.setName(null);
-        mrPink.setAge(30);
+        mrPink.setYear(1990);
         mrPink.setGender(Gender.MALE);
 
         mrBrown = new Player();
         mrBrown.setName("Mr. Brown");
-        mrBrown.setAge(28);
+        mrBrown.setYear(1993);
         mrBrown.setGender(Gender.MALE);
 
         mrBlonde = new Player();
         mrBlonde.setName("Mr. Blonde");
-        mrBlonde.setAge(32);
+        mrBlonde.setYear(1989);
         mrBlonde.setGender(Gender.MALE);
         em.persist(mrBlonde);
 
         mrsRed = new Player();
         mrsRed.setName(mrWhite.getName());
-        mrsRed.setAge(40);
+        mrsRed.setYear(1980);
         mrsRed.setGender(Gender.FEMALE);
         em.persist(mrsRed);
 
@@ -90,7 +90,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     public void testCreate() {
         playerDao.create(mrWhite);
 
-        Player foundPlayer = em.find(Player.class, mrWhite.getPlayer_id());
+        Player foundPlayer = em.find(Player.class, mrWhite.getId());
 
         Assert.assertNotNull(foundPlayer);
         Assert.assertEquals(mrWhite, foundPlayer);
@@ -106,7 +106,7 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindByIdFound() {
-        Player foundPlayer = playerDao.findById(mrWhite.getPlayer_id());
+        Player foundPlayer = playerDao.findById(mrWhite.getId());
 
         Assert.assertNotNull(foundPlayer);
         Assert.assertEquals(foundPlayer, mrWhite);
@@ -118,16 +118,16 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testDelete() {
         // using DAO as find and delete have to be in the same entity manager
-        Player foundPlayer = playerDao.findById(mrBlonde.getPlayer_id());
+        Player foundPlayer = playerDao.findById(mrBlonde.getId());
         playerDao.delete(foundPlayer);
 
-        foundPlayer = playerDao.findById(mrBlonde.getPlayer_id());
+        foundPlayer = playerDao.findById(mrBlonde.getId());
         Assert.assertNull(foundPlayer);
     }
 
     @Test
     public void testFindByIdNotFound() {
-        Player foundPlayer = playerDao.findById(mrBlonde.getPlayer_id());
+        Player foundPlayer = playerDao.findById(mrBlonde.getId());
         Assert.assertNull(foundPlayer);
     }
 
