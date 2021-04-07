@@ -33,7 +33,11 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
 
     @Override
     public void delete(MatchRecord matchRecord) {
-        em.remove(matchRecord);
+        if (em.contains(matchRecord)) {
+            em.remove(matchRecord);
+        } else {
+            em.remove(em.merge(matchRecord));
+        }
     }
 
     @Override
@@ -44,7 +48,7 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
     @Override
     public List<MatchRecord> findByPlayer(Player player) {
         try {
-            return em.createQuery("select m.player from MatchRecord m where m.player = :player ", MatchRecord.class)
+            return em.createQuery("select m from MatchRecord m where m.player = :player ", MatchRecord.class)
                     .setParameter("player", player).getResultList();
         } catch (NoResultException nfr){
             return null;
