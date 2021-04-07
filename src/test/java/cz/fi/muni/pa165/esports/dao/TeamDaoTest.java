@@ -11,10 +11,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -55,8 +52,8 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         p1 = new Player();
         p2 = new Player();
 
-        p1.setName("IDK");
-        p2.setName("IDK");
+        p1.setName("Leia");
+        p2.setName("Luke");
 
         t1.setName("Orcs");
         t2.setName("Elves");
@@ -122,5 +119,10 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         t2.removePlayer(p1);
         t2.removePlayer(p2);
         Assert.assertEquals(t2.getPlayers().size(), 0);
+    }
+    @AfterClass
+    public void cleanUp(){
+        playerDao.delete(p1);
+        playerDao.delete(p2);
     }
 }

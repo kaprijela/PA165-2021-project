@@ -3,7 +3,6 @@ package cz.fi.muni.pa165.esports.entity;
 import cz.fi.muni.pa165.esports.enums.Gender;
 
 import javax.persistence.*;
-import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -25,10 +24,7 @@ public class Player {
 
     @ManyToOne
     private Team team;
-    /**
-     * Represents a year of birth
-     */
-    private Integer year;
+
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -68,15 +64,6 @@ public class Player {
         this.team = team;
     }
 
-    public Integer getAge() {
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        return currentYear - this.year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
     public Gender getGender() {
         return gender;
     }
@@ -90,11 +77,11 @@ public class Player {
         if (this == o) return true;
         if (!(o instanceof Player)) return false;
         Player player = (Player) o;
-        return getId().equals(player.getId());
+        return getName().equals(player.getName()) && Objects.equals(getTeam(), player.getTeam()) && getGender() == player.getGender();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getName(), getTeam(), getGender());
     }
 }
