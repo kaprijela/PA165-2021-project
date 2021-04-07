@@ -72,8 +72,8 @@ public class MatchRecord {
     }
 
     //Relations getters and setters
-    public Set<Team> getTeams(){
-        return teams;
+    public Team getTeam() {
+        return team;
     }
 
     public void setTeam(Team team) {
