@@ -40,9 +40,9 @@ public interface MatchRecordDao {
     /**
      * Fetches all MatchRecords.
      * @param player
-     * @return return all MatchRecords for a given player (List<Player>)
+     * @return return all MatchRecords for a given player 
      */
-    public List<MatchRecord> findPlayer(Player player);
+    public List<MatchRecord> findByPlayer(Player player);
 
 
 }

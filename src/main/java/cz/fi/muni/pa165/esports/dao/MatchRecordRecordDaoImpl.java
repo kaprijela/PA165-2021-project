@@ -42,7 +42,7 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
     }
 
     @Override
-    public List<MatchRecord> findPlayer(Player player) {
+    public List<MatchRecord> findByPlayer(Player player) {
         try {
             return em.createQuery("select m.player from MatchRecord m where m.player = :player ", MatchRecord.class)
                     .setParameter("player", player).getResultList();
