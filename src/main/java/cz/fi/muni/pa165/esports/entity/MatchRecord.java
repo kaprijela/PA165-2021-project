@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 
 /**
- @Author Elena Álvarez
+ @author Elena Álvarez
  */
 
 @Entity
@@ -16,7 +16,6 @@ public class MatchRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
     private int score;
     private long match_number;
 
@@ -33,12 +32,14 @@ public class MatchRecord {
     public MatchRecord() {
     }
 
-    public MatchRecord(String name, long match_number, int score) {
+    public MatchRecord(long match_number, int score) {
         this.match_number = match_number;
-        this.name = name;
         this.score = score;
     }
 
+    public MatchRecord(Long id) {
+        this.id = id;
+    }
 
     //Getters and Setters
     public Long getId() {
@@ -49,13 +50,6 @@ public class MatchRecord {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getScore() {
         return score;
@@ -105,12 +99,12 @@ public class MatchRecord {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MatchRecord)) return false;
-        MatchRecord matchRecord = (MatchRecord) o;
-        return getScore() == matchRecord.getScore() && getMatch_number() == matchRecord.getMatch_number() && getName().equals(matchRecord.getName());
+        MatchRecord that = (MatchRecord) o;
+        return getScore() == that.getScore() && getMatch_number() == that.getMatch_number();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getScore(), getMatch_number());
+        return Objects.hash(getScore(), getMatch_number());
     }
 }

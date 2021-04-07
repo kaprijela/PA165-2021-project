@@ -10,9 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/*
-    @Author Elena Álvarez
-*/
+
 
 @Repository
 @Transactional
@@ -42,16 +40,6 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
     }
 
     @Override
-    public MatchRecord findByName(String name) {
-        try {
-            return em.createQuery("select m from MatchRecord m where m.name = :name", MatchRecord.class)
-                    .setParameter("name", name).getSingleResult();
-        } catch (NoResultException nfr){
-            return null;
-        }
-    }
-
-    @Override
     public MatchRecord findByMatchNumber(Long match_number) {
         try {
             return em.createQuery("select m from MatchRecord m where m.match_number = :mn", MatchRecord.class)
@@ -62,20 +50,11 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
     }
 
 
-//    @Override
-//    public Match findByPlayer(Player player) {
-//        try {
-//            return em.createQuery("select m from Match m join fetch m.players  p where p.id = :id", Match.class)
-//                    .setParameter("id", player.id).getSingleResult();
-//        } catch (NoResultException nfr){
-//            return null;
-//        }
-//    }
-
     @Override
-    public List<Player> findPlayers() {
+    public List<Player> findPlayers(Long match_number) {
         try {
-            return em.createQuery("select m.player from MatchRecord m", Player.class).getResultList();
+            return em.createQuery("select m.player from MatchRecord m where m.match_number = :match_number ", Player.class)
+                    .setParameter("match_number", match_number).getResultList();
         } catch (NoResultException nfr){
             return null;
         }

@@ -21,6 +21,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ @author Elena Álvarez
+ */
+
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @Transactional
 public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
