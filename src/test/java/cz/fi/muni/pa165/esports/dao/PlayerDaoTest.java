@@ -50,6 +50,8 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
         em = emf.createEntityManager();
         em.getTransaction().begin();
 
+        em.createQuery("delete from Player").executeUpdate();
+
         mrWhite = new Player();
         mrWhite.setName("Larry");
         mrWhite.setAge(50);
