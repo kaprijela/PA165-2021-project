@@ -26,7 +26,7 @@ public interface MatchRecordDao {
 
     /**
      * Fetches a MatchRecord according to its ID from the database.
-     * @param id of the sought team entity
+     * @param id of the sought MatchRecord entity
      * @return MatchRecord entity if found, else null
      */
     public MatchRecord findById(Long id);
@@ -37,19 +37,13 @@ public interface MatchRecordDao {
      */
     public List<MatchRecord> findAll();
 
-
     /**
-     * Fetches a MatchRecords according to its match_number.
-     * @param matchnumber of the MatchRecords
-     * @return MatchRecords entity if found, else null
+     * Fetches all MatchRecords.
+     * @param player
+     * @return return all MatchRecords for a given player (List<Player>)
      */
-    public MatchRecord findByMatchNumber(Long matchnumber);
+    public List<MatchRecord> findPlayer(Player player);
 
-    /**
-     * Fetches all players.
-     * @param matchnumber of the MatchRecords
-     * @return list of all Players entities with that match_number and Competition in the database
-     */
-    public List<Player> findPlayers(Long matchnumber);
+
 }
 

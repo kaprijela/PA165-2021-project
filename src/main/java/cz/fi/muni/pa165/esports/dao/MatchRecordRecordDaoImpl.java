@@ -42,24 +42,14 @@ public class MatchRecordRecordDaoImpl implements MatchRecordDao {
     }
 
     @Override
-    public MatchRecord findByMatchNumber(Long matchnumber) {
+    public List<MatchRecord> findPlayer(Player player) {
         try {
-            return em.createQuery("select m from MatchRecord m where m.matchnumber = :mn", MatchRecord.class)
-                    .setParameter("mn", matchnumber).getSingleResult();
+            return em.createQuery("select m.player from MatchRecord m where m.player = :player ", MatchRecord.class)
+                    .setParameter("player", player).getResultList();
         } catch (NoResultException nfr){
             return null;
         }
     }
 
-
-    @Override
-    public List<Player> findPlayers(Long match_number) {
-        try {
-            return em.createQuery("select m.player from MatchRecord m where m.matchnumber = :match_number ", Player.class)
-                    .setParameter("match_number", match_number).getResultList();
-        } catch (NoResultException nfr){
-            return null;
-        }
-    }
 
 }

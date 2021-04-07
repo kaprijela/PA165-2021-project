@@ -17,7 +17,7 @@ public class MatchRecord {
     private Long id;
 
     private int score;
-    private long matchnumber;
+    private long matchNumber;
 
     @ManyToOne
     private Team team;
@@ -32,8 +32,8 @@ public class MatchRecord {
     public MatchRecord() {
     }
 
-    public MatchRecord(long matchnumber, int score) {
-        this.matchnumber = matchnumber;
+    public MatchRecord(long matchNumber, int score) {
+        this.matchNumber = matchNumber;
         this.score = score;
     }
 
@@ -59,12 +59,12 @@ public class MatchRecord {
         this.score = score;
     }
 
-    public long getMatchnumber() {
-        return matchnumber;
+    public long getMatchNumber() {
+        return matchNumber;
     }
 
-    public void setMatchnumber(long match_number) {
-        this.matchnumber = match_number;
+    public void setMatchNumber(long matchNumber) {
+        this.matchNumber = matchNumber;
     }
 
     public Team getTeam() {
@@ -101,11 +101,11 @@ public class MatchRecord {
         if (this == o) return true;
         if (!(o instanceof MatchRecord)) return false;
         MatchRecord that = (MatchRecord) o;
-        return getMatchnumber() == that.getMatchnumber() && getTeam().equals(that.getTeam()) && getPlayer().equals(that.getPlayer()) && getCompetition().equals(that.getCompetition());
+        return getMatchNumber() == that.getMatchNumber() && getTeam().equals(that.getTeam()) && getPlayer().equals(that.getPlayer()) && getCompetition().equals(that.getCompetition());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMatchnumber(), getTeam(), getPlayer(), getCompetition());
+        return Objects.hash(getMatchNumber(), getTeam(), getPlayer(), getCompetition());
     }
 }
