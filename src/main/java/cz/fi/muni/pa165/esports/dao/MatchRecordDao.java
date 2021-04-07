@@ -40,16 +40,16 @@ public interface MatchRecordDao {
 
     /**
      * Fetches a MatchRecords according to its match_number.
-     * @param match_number of the MatchRecords
+     * @param matchnumber of the MatchRecords
      * @return MatchRecords entity if found, else null
      */
-    public MatchRecord findByMatchNumber(Long match_number);
+    public MatchRecord findByMatchNumber(Long matchnumber);
 
     /**
      * Fetches all players.
-     * @param match_number of the MatchRecords
+     * @param matchnumber of the MatchRecords
      * @return list of all Players entities with that match_number and Competition in the database
      */
-    public List<Player> findPlayers(Long match_number);
+    public List<Player> findPlayers(Long matchnumber);
 }
 
