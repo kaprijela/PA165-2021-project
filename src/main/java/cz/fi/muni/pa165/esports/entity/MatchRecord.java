@@ -85,17 +85,8 @@ public class MatchRecord {
         //team.setMatch(this);
     }
 
-    public Set<Player> getPlayers(){
-        return players;
-    }
-
-    public void setPlayers(Set<Player> players){
-        this.players = players;
-    }
-
-    public void addPlayer(Player player){
-        players.add(player);
-        //player.setMatch(this);
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public Competition getCompetition() {
