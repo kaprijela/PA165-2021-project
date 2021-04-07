@@ -21,11 +21,13 @@ public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long player_id;
+    private Long id;
 
     @ManyToOne
     private Team team;
-
+    /**
+     * Represents a year of birth
+     */
     private Integer year;
 
     @Enumerated(EnumType.STRING)
@@ -36,8 +38,8 @@ public class Player {
     public Player() {
     }
 
-    public Player(Long player_id) {
-        this.player_id = player_id;
+    public Player(Long id) {
+        this.id = id;
     }
 
     /* getters and setters */
@@ -50,12 +52,12 @@ public class Player {
         this.name = name;
     }
 
-    public Long getPlayer_id() {
-        return player_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setPlayer_id(Long player_id) {
-        this.player_id = player_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Team getTeam() {
@@ -88,11 +90,11 @@ public class Player {
         if (this == o) return true;
         if (!(o instanceof Player)) return false;
         Player player = (Player) o;
-        return getPlayer_id().equals(player.getPlayer_id());
+        return getId().equals(player.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPlayer_id());
+        return Objects.hash(getId());
     }
 }
