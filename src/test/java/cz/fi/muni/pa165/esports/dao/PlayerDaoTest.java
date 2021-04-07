@@ -197,6 +197,15 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
 
     @AfterClass
     private void cleanUp() {
+        em.getTransaction().begin();
+        em.createQuery("delete from Player where player_id in (:p1, :p2, :p3, :p4)")
+                .setParameter("p1", mrWhite.getPlayer_id())
+                .setParameter("p2", mrOrange.getPlayer_id())
+                .setParameter("p3", mrBlonde.getPlayer_id())
+                .setParameter("p4", mrsRed.getPlayer_id())
+                .executeUpdate();
+        em.getTransaction().commit();
+
         if (em != null) {
             em.close();
         }
