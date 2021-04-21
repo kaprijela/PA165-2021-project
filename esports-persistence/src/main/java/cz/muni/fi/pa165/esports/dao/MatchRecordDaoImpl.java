@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.esports.dao;
 
+import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import org.springframework.stereotype.Repository;
@@ -50,6 +51,16 @@ public class MatchRecordDaoImpl implements MatchRecordDao {
         try {
             return em.createQuery("select m from MatchRecord m where m.player = :player ", MatchRecord.class)
                     .setParameter("player", player).getResultList();
+        } catch (NoResultException nfr){
+            return null;
+        }
+    }
+
+    @Override
+    public List<MatchRecord> findByCompetition(Competition competition) {
+        try {
+            return em.createQuery("select m from MatchRecord m where m.competition = :competition ", MatchRecord.class)
+                    .setParameter("competition", competition).getResultList();
         } catch (NoResultException nfr){
             return null;
         }
