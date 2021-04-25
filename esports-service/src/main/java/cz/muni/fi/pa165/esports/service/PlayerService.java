@@ -18,4 +18,6 @@ public interface PlayerService {
     void registerPlayer(Player player, String unencryptedPassword);
 
     void getStatistics();
+
+    Player findById(Long playerId);
 }

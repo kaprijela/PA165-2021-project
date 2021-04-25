@@ -1,2 +1,4 @@
-package cz.muni.fi.pa.esports.dto;public class PlayerDTO {
+package cz.muni.fi.pa.esports.dto;
+
+public class PlayerDTO {
 }

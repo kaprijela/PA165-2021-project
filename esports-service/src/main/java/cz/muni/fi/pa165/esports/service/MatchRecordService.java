@@ -14,12 +14,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface MatchRecordService {
-    public void create(MatchRecord matchRecord);
+    public MatchRecord create(MatchRecord matchRecord);
     public void delete(MatchRecord matchRecord);
     public MatchRecord findById(Long id);
     public List<MatchRecord> findAll();
     public List<MatchRecord> findByPlayer(Player player);
     public List<MatchRecord> findByCompetition(Competition competition);
+    public List<MatchRecord> findByTeam(Team team);
 
     public int getScore(MatchRecord matchRecord);
     public Competition getCompetition(MatchRecord matchRecord);

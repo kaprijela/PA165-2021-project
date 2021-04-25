@@ -29,8 +29,9 @@ public class MatchRecordServiceImpl implements MatchRecordService {
 
     //Persistence
     @Override
-    public void create(MatchRecord matchRecord) {
+    public MatchRecord create(MatchRecord matchRecord) {
         matchRecordDao.create(matchRecord);
+        return matchRecord;
     }
 
     @Override
@@ -58,6 +59,11 @@ public class MatchRecordServiceImpl implements MatchRecordService {
         return matchRecordDao.findByCompetition(competition);
     }
 
+    @Override
+    public List<MatchRecord> findByTeam(Team team) {
+        return matchRecordDao.findByTeam(team);
+    }
+
     //Getters
     @Override
     public int getScore(MatchRecord matchRecord) {
@@ -71,7 +77,7 @@ public class MatchRecordServiceImpl implements MatchRecordService {
 
     @Override
     public Team getTeam(MatchRecord matchRecord) {
-        return null;
+        return matchRecord.getTeam();
     }
 
     //Setters

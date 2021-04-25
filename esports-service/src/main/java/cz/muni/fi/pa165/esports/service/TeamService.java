@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.service;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
+import cz.muni.fi.pa165.esports.entity.Team;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface TeamService {
     List<Player> getPlayers();
 
     void getTeamStatistics();
+
+    Team findById(Long teamId);
 }
