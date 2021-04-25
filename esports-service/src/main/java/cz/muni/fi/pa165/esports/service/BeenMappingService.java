@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.List;
 
 import org.dozer.Mapper;
-
+/**
+ @author Elena Álvarez
+ */
 public interface BeenMappingService {
     public  <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass);
 

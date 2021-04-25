@@ -17,6 +17,9 @@ import cz.muni.fi.pa165.esports.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ @author Elena Álvarez
+ */
 public class MatchRecordFacadeImpl implements MatchRecordFacade {
     @Inject
     private MatchRecordService matchRecordService;

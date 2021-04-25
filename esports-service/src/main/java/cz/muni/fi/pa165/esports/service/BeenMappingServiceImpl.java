@@ -9,6 +9,9 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ @author Elena Álvarez
+ */
 @Service
 public class BeenMappingServiceImpl implements BeenMappingService {
     @Autowired
@@ -25,11 +28,11 @@ public class BeenMappingServiceImpl implements BeenMappingService {
 
     @Override
     public <T> T mapTo(Object u, Class<T> mapToClass) {
-        return dozer.map(u,mapToClass);;
+        return dozer.map(u,mapToClass);
     }
 
     @Override
     public Mapper getMapper() {
-        return dozer;;
+        return dozer;
     }
 }
