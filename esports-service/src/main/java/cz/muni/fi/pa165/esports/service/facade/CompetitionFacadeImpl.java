@@ -5,7 +5,7 @@ import cz.muni.fi.pa.esports.facade.CompetitionFacade;
 
 import java.util.List;
 
-public class CompetitionFacadeImp implements CompetitionFacade {
+public class CompetitionFacadeImpl implements CompetitionFacade {
     @Override
     public boolean addTeam(TeamDTO teamDTO) {
         return false;
