@@ -5,19 +5,29 @@ import cz.muni.fi.pa165.esports.entity.Team;
 
 import java.util.List;
 
+/**
+ * Player service layer interface
+ *
+ * @author Radovan Tomasik
+ */
 public interface PlayerService {
-
-    void applyForTeam(Team team);
-
-    boolean isAdmin(Player player);
-
-    boolean authenticate(Player player, String password);
-
+    /**
+     * Returns all players.
+     * @return a list of players
+     */
     List<Player> getAllPlayers();
 
-    void registerPlayer(Player player, String unencryptedPassword);
-
-    void getStatistics();
-
+    /**
+     * Find a player by theirs id
+     * @param playerId player id
+     * @return a player
+     */
     Player findById(Long playerId);
+
+    /**
+     * Find a player by their name
+     * @param name a name
+     * @return a list of players with a specific name
+     */
+    List<Player> findByName(String name);
 }

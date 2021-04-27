@@ -1,43 +1,35 @@
 package cz.muni.fi.pa165.esports.service;
 
 import cz.muni.fi.pa165.esports.entity.Player;
-import cz.muni.fi.pa165.esports.entity.Team;
+import cz.muni.fi.pa165.esports.dao.PlayerDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * An implementation of PlayerService
+ *
+ * @author Radovan Tomasik
+ *
+ */
+@Service
 public class PlayerServiceImpl implements PlayerService {
-    @Override
-    public void applyForTeam(Team team) {
-
-    }
-
-    @Override
-    public boolean isAdmin(Player player) {
-        return false;
-    }
-
-    @Override
-    public boolean authenticate(Player player, String password) {
-        return false;
-    }
+    @Autowired
+    private PlayerDao playerDao;
 
     @Override
     public List<Player> getAllPlayers() {
-        return null;
-    }
-
-    @Override
-    public void registerPlayer(Player player, String unencryptedPassword) {
-
-    }
-
-    @Override
-    public void getStatistics() {
-
+        return playerDao.findAll();
     }
 
     @Override
     public Player findById(Long playerId) {
-        return null;
+        return playerDao.findById(playerId);
+    }
+
+    @Override
+    public List<Player> findByName(String name) {
+        return playerDao.findByName(name);
     }
 }
