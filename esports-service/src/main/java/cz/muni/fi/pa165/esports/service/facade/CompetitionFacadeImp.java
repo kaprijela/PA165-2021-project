@@ -23,7 +23,6 @@ public class CompetitionFacadeImp implements CompetitionFacade {
 
     @Override
     public void getPlayerStatisticForCompetion(PlayerDTO playerDTO) {
-
     }
 
     @Override

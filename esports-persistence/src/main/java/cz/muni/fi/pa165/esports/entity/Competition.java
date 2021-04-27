@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.esports.entity;
 
 
 import cz.muni.fi.pa165.esports.enums.Game;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -14,7 +16,10 @@ import java.util.Set;
  */
 
 @Entity
+@Getter
+@Setter
 public class Competition {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,65 +47,8 @@ public class Competition {
     public Competition() {
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getPrizepool() {
-        return prizepool;
-    }
-
-    public void setPrizepool(int prizepool) {
-        this.prizepool = prizepool;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-
-    public Set<MatchRecord> getMatches() {
-        return matchRecords;
-    }
-
     public void addMatch(MatchRecord matchRecord) {
         matchRecords.add(matchRecord);
-    }
-
-    public void setMatches(Set<MatchRecord> matchRecords) {
-        this.matchRecords = matchRecords;
     }
 
     @Override
