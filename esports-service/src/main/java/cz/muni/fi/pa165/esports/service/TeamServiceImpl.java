@@ -3,9 +3,11 @@ package cz.muni.fi.pa165.esports.service;
 import cz.muni.fi.pa165.esports.dao.TeamDao;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
+
 import cz.muni.fi.pa165.esports.exceptions.EsportsServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -37,6 +39,10 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Team findByAbbreviation(String abbreviation) {
         return teamDao.findByAbbreviation(abbreviation);
+    }
+
+    @Override
+    public void getTeamStatistics() {
     }
 
     @Override

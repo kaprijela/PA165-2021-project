@@ -35,4 +35,9 @@ public class PlayerServiceImpl implements PlayerService {
     public void getStatistics() {
 
     }
+
+    @Override
+    public Player findById(Long playerId) {
+        return null;
+    }
 }

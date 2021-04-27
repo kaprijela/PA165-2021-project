@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 /**
@@ -43,6 +44,8 @@ public interface TeamService {
      * @return team with the given abbreviation, NULL if not found
      */
     Team findByAbbreviation(String abbreviation);
+
+    void getTeamStatistics();
 
     /**
      * Register a team in the system.

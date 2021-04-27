@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.esports.dao;
 
 
+import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
+import cz.muni.fi.pa165.esports.entity.Team;
 
 import java.util.List;
 
@@ -43,6 +45,20 @@ public interface MatchRecordDao {
      * @return return all MatchRecords for a given player 
      */
     public List<MatchRecord> findByPlayer(Player player);
+
+    /**
+     * Fetches all MatchRecords.
+     * @param competition
+     * @return return all MatchRecords for a given competition
+     */
+    public List<MatchRecord> findByCompetition(Competition competition);
+
+    /**
+     * Fetches all MatchRecords.
+     * @param team
+     * @return return all MatchRecords for a given competition
+     */
+    public List<MatchRecord> findByTeam(Team team);
 
 
 }
