@@ -42,6 +42,10 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    public void getTeamStatistics() {
+    }
+
+    @Override
     public void create(Team team) {
         teamDao.create(team);
     }
@@ -76,10 +80,5 @@ public class TeamServiceImpl implements TeamService {
         }
 
         team.removePlayer(player); // is this all that's necessary?
-    }
-
-    @Override
-    public Team findById(Long teamId) {
-        return null;
     }
 }
