@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.esports.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +18,8 @@ import java.util.Set;
  */
 
 @Entity
+@Getter
+@Setter
 public class Team {
     public Team(Long id) {
         this.id = id;
@@ -62,42 +66,6 @@ public class Team {
     private Set<MatchRecord> matchRecords = new HashSet<>();
 
     /* getters and setters */
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAbbreviation() {
-        return abbreviation;
-    }
-
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Player> getPlayers() {
-        return Collections.unmodifiableSet(players);
-    }
 
     public void addPlayer(Player player) {
         this.players.add(player);
