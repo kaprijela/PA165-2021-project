@@ -16,30 +16,31 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public void createCompetition(Competition competition) {
+        competitionDao.create(competition);
     }
 
     @Override
     public void removeCompetition(Competition competition) {
-
+        competitionDao.delete(competition);
     }
 
     @Override
     public Competition getByName(String name) {
-        return null;
+        return competitionDao.findByName(name);
     }
 
     @Override
     public Competition getById(Long id) {
-        return null;
+        return competitionDao.findById(id);
     }
 
     @Override
     public List<Competition> getAll() {
-        return null;
+        return competitionDao.findAll();
     }
 
     @Override
     public Competition findById(Long competitionId) {
-        return null;
+        return competitionDao.findById(competitionId);
     }
 }

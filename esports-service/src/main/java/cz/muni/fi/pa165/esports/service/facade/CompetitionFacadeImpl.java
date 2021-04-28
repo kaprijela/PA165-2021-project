@@ -17,8 +17,8 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public boolean removeTeam(TeamDTO teamDTO) {
-        return false;
+    public void removeTeam(TeamDTO teamDTO) {
+
     }
 
     @Override
@@ -31,13 +31,13 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public boolean createCompetition(CompetitionDTO competitionDTO) {
-        return false;
+    public  void createCompetition(CompetitionDTO competitionDTO) {
+
     }
 
     @Override
-    public boolean updateCompetition(CompetitionDTO competitionDTO) {
-        return false;
+    public  void updateCompetition(CompetitionDTO competitionDTO) {
+
     }
 
     @Override

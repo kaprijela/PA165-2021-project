@@ -27,7 +27,7 @@ public interface CompetitionFacade {
      * @param teamDTO team to be deleted
      * @return result
      */
-    boolean removeTeam(TeamDTO teamDTO);
+    void removeTeam(TeamDTO teamDTO);
 //    StatisticsDTO
 
     /**
@@ -47,14 +47,14 @@ public interface CompetitionFacade {
      * @param competitionDTO
      * @return result
      */
-    boolean createCompetition(CompetitionDTO competitionDTO);
+    void createCompetition(CompetitionDTO competitionDTO);
 
     /**
      * update a competition
      * @param competitionDTO competition
      * @return result
      */
-    boolean updateCompetition(CompetitionDTO competitionDTO);
+    void updateCompetition(CompetitionDTO competitionDTO);
 
     /**
      * get competition by name
