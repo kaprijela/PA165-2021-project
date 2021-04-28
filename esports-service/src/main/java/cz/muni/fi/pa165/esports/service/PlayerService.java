@@ -32,6 +32,19 @@ public interface PlayerService {
     List<Player> findByName(String name);
 
     /**
+     * Delete a player
+     * @param player player entity
+     */
+    void remove(Player player);
+
+    /**
+     * Get player average stats
+     * @param player player entity
+     * @return a double
+     */
+    Double getPlayerStatistics(Player player);
+
+    /**
      * Create a player
      * @param player a player entity
      */

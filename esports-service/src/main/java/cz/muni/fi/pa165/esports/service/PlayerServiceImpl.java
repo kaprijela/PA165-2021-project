@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.esports.service;
 
+import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.dao.PlayerDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import java.util.List;
 public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private PlayerDao playerDao;
+    @Autowired
+    private MatchRecordService matchRecordService;
 
     @Override
     public List<Player> getAllPlayers() {
@@ -34,7 +37,26 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+
+    public void remove(Player player) {
+        playerDao.delete(player);
+    }
+
+    @Override
+    public Double getPlayerStatistics(Player player) {
+        List<MatchRecord> matchRecords = matchRecordService.findByPlayer(player);
+        int numberOfMatches = 0;
+        int totalScore = 0;
+        for (MatchRecord matchRecord:
+             matchRecords) {
+            numberOfMatches++;
+            totalScore += matchRecord.getScore();
+        }
+        return (double) (numberOfMatches / totalScore);
+    }
+
     public void create(Player player) {
         playerDao.create(player);
     }
+
 }
