@@ -4,16 +4,42 @@ import cz.muni.fi.pa.esports.dto.*;
 
 import java.util.List;
 
+/**
+ * @author gavlijan
+ */
 public interface CompetitionFacade {
 
-    boolean addTeam(TeamDTO teamDTO);
-    List<TeamDTO> getTeams();
-    boolean removeTeam(TeamDTO teamDTO);
-//    StatisticsDTO
-    void getPlayerStatisticForCompetion(PlayerDTO playerDTO);
-    LadderDTO getLadder();
-    boolean createCompetition(CompetitionDTO competitionDTO);
-    boolean updateCompetition(CompetitionDTO competitionDTO);
-    void updatePrizepoole(PrizePoolDTO prizePoolDTO);
-    CompetitionDTO getCompetionByName();
+    /**
+     * Add a team
+     * @param idCompetition id of Competition
+     * @param idTeam id of Team
+     */
+    void addTeam(Long idCompetition, Long idTeam);
+
+    /**
+     * remove a team
+     * @param idCompetition id of Competition
+     * @param idTeam id of Team
+     */
+    void removeTeam(Long idCompetition, Long idTeam);
+
+    /**
+     * returns all of the Teams
+     * @return result
+     */
+    List<CompetitionDTO> getAllCompetitions();
+
+    /**
+     * create a competition
+     * @param competitionDTO
+     * @return result
+     */
+    void createCompetition(CompetitionDTO competitionDTO);
+
+    /**
+     * get competition by name
+     * @return competition
+     */
+    CompetitionDTO getCompetitionByName(String name);
+
 }

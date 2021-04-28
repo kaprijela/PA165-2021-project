@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class MatchRecordServiceImpl implements MatchRecordService {
+
     @Autowired
     private MatchRecordDao matchRecordDao;
 

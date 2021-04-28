@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.esports.enums.Gender;
 import cz.muni.fi.pa165.esports.dao.PlayerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,7 @@ import java.util.List;
 
 @Transactional
 @ContextConfiguration(classes = {PersistenceSampleApplicationContext.class})
+@DirtiesContext
 public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     @PersistenceUnit
     protected EntityManagerFactory emf;
@@ -187,21 +189,5 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
             }
         }
         Assert.fail("Couldn't find player " + expectedPlayerName + " in collection " + players);
-    }
-
-    @AfterClass
-    private void cleanUp() {
-        em.getTransaction().begin();
-        em.createQuery("delete from Player where id in (:p1, :p2, :p3, :p4)")
-                .setParameter("p1", mrWhite.getId())
-                .setParameter("p2", mrOrange.getId())
-                .setParameter("p3", mrBlonde.getId())
-                .setParameter("p4", mrsRed.getId())
-                .executeUpdate();
-        em.getTransaction().commit();
-
-        if (em != null) {
-            em.close();
-        }
     }
 }

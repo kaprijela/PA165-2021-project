@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.esports.enums.Game;
 
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -29,6 +30,7 @@ import java.util.List;
 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @Transactional
+@DirtiesContext
 public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceContext
@@ -97,5 +99,4 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
         byName = compeDao.findByName("Japan League 2020");
         Assert.assertNull(byName);
     }
-
 }
