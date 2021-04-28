@@ -4,10 +4,12 @@ import cz.muni.fi.pa165.esports.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @Transactional
+@DirtiesContext
 public class MatchRecordDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -67,7 +70,4 @@ public class MatchRecordDaoTest extends AbstractTestNGSpringContextTests {
         matchRecordDao.delete(matchRecord);
         playerDao.delete(bonkedPlayer);
     }
-
-
-
 }
