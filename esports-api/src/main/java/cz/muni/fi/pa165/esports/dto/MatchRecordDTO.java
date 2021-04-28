@@ -1,6 +1,5 @@
-package cz.muni.fi.pa.esports.dto;
+package cz.muni.fi.pa165.esports.dto;
 
-import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 public class MatchRecordDTO {

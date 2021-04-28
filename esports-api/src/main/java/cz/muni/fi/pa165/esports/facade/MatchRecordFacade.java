@@ -1,9 +1,9 @@
-package cz.muni.fi.pa.esports.facade;
+package cz.muni.fi.pa165.esports.facade;
 
-import cz.muni.fi.pa.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa.esports.dto.MatchRecordDTO;
-import cz.muni.fi.pa.esports.dto.PlayerDTO;
-import cz.muni.fi.pa.esports.dto.TeamDTO;
+import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
+import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
+import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+import cz.muni.fi.pa165.esports.dto.TeamDTO;
 
 import java.util.List;
 
