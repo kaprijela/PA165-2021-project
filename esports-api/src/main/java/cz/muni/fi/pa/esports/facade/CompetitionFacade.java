@@ -30,26 +30,11 @@ public interface CompetitionFacade {
     List<CompetitionDTO> getAllCompetitions();
 
     /**
-     * Remove a Team
-     * @param teamDTO team to be deleted
-     * @return result
-     */
-    void removeTeam(TeamDTO teamDTO);
-//    StatisticsDTO
-
-    /**
      * create a competition
      * @param competitionDTO
      * @return result
      */
     void createCompetition(CompetitionDTO competitionDTO);
-
-    /**
-     * update a competition
-     * @param competitionDTO competition
-     * @return result
-     */
-    void updateCompetition(CompetitionDTO competitionDTO);
 
     /**
      * get competition by name
