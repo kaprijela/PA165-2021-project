@@ -30,4 +30,13 @@ public interface PlayerService {
      * @return a list of players with a specific name
      */
     List<Player> findByName(String name);
+
+    /**
+     * Delete a player
+     * @param player player entity
+     */
+    void remove(Player player);
+
+    Double getPlayerStatistics(Player player);
+
 }
