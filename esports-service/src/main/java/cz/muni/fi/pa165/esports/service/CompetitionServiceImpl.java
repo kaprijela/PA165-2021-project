@@ -14,6 +14,9 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Inject
     CompetitionDao competitionDao;
 
+    @Inject
+    TeamService teamService;
+
     @Override
     public void createCompetition(Competition competition) {
         competitionDao.create(competition);
@@ -27,11 +30,6 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public Competition getByName(String name) {
         return competitionDao.findByName(name);
-    }
-
-    @Override
-    public Competition getById(Long id) {
-        return competitionDao.findById(id);
     }
 
     @Override

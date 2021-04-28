@@ -6,9 +6,15 @@ import cz.muni.fi.pa.esports.facade.CompetitionFacade;
 import java.util.List;
 
 public class CompetitionFacadeImpl implements CompetitionFacade {
+
     @Override
-    public boolean addTeam(TeamDTO teamDTO) {
-        return false;
+    public void addTeam(Long idCompetition, Long idTeam) {
+
+    }
+
+    @Override
+    public void removeTeam(Long idCompetition, Long idTeam) {
+
     }
 
     @Override
@@ -22,21 +28,12 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public void getPlayerStatisticForCompetion(PlayerDTO playerDTO) {
-    }
-
-    @Override
-    public LadderDTO getLadder() {
-        return null;
-    }
-
-    @Override
-    public  void createCompetition(CompetitionDTO competitionDTO) {
+    public void createCompetition(CompetitionDTO competitionDTO) {
 
     }
 
     @Override
-    public  void updateCompetition(CompetitionDTO competitionDTO) {
+    public void updateCompetition(CompetitionDTO competitionDTO) {
 
     }
 

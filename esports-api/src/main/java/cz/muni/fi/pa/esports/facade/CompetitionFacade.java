@@ -10,11 +10,18 @@ import java.util.List;
 public interface CompetitionFacade {
 
     /**
-     * Add a Team
-     * @param teamDTO teamObject
-     * @return result of the operation
+     * Add a team
+     * @param idCompetition id of Competition
+     * @param idTeam id of Team
      */
-    boolean addTeam(TeamDTO teamDTO);
+    void addTeam(Long idCompetition, Long idTeam);
+
+    /**
+     * remove a team
+     * @param idCompetition id of Competition
+     * @param idTeam id of Team
+     */
+    void removeTeam(Long idCompetition, Long idTeam);
 
     /**
      * returns all of the Teams
@@ -29,18 +36,6 @@ public interface CompetitionFacade {
      */
     void removeTeam(TeamDTO teamDTO);
 //    StatisticsDTO
-
-    /**
-     * get All the Statistics
-     * @param playerDTO player
-     */
-    void getPlayerStatisticForCompetion(PlayerDTO playerDTO);
-
-    /**
-     * Get a top 5 players
-     * @return object with top 5 Players
-     */
-    LadderDTO getLadder();
 
     /**
      * create a competition

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.entity;
 
 import cz.muni.fi.pa165.esports.enums.Game;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Competition {
 
     @Id
@@ -33,6 +35,8 @@ public class Competition {
     private String location;
     private int prizepool;
     private LocalDate date;
+    @ManyToMany
+    private Set<Team> teams;
 
     /**
      * multiple MachRecord for each competition
@@ -44,7 +48,12 @@ public class Competition {
         this.id = id;
     }
 
-    public Competition() {
+    public void removeTeam(Team team) {
+        teams.remove(team);
+    }
+
+    public void addTeam(Team team) {
+        teams.add(team);
     }
 
     public void addMatch(MatchRecord matchRecord) {
