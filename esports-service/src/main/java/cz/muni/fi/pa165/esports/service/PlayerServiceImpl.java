@@ -37,6 +37,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+
     public void remove(Player player) {
         playerDao.delete(player);
     }
@@ -54,5 +55,8 @@ public class PlayerServiceImpl implements PlayerService {
         return (double) (numberOfMatches / totalScore);
     }
 
+    public void create(Player player) {
+        playerDao.create(player);
+    }
 
 }

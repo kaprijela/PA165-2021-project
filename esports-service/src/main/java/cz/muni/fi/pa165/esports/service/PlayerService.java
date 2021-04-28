@@ -35,8 +35,12 @@ public interface PlayerService {
      * Delete a player
      * @param player player entity
      */
-    void remove(Player player);
-
+    void remove(Player player)
+      
     Double getPlayerStatistics(Player player);
 
+     * Create a player
+     * @param player a player entity
+     */
+    void create(Player player);
 }
