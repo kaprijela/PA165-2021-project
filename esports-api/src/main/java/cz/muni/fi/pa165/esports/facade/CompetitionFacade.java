@@ -1,6 +1,6 @@
-package cz.muni.fi.pa.esports.facade;
+package cz.muni.fi.pa165.esports.facade;
 
-import cz.muni.fi.pa.esports.dto.*;
+import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 
 import java.util.List;
 

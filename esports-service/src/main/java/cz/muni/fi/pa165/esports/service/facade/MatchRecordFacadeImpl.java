@@ -3,12 +3,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import cz.muni.fi.pa.esports.dto.MatchRecordDTO;
-import cz.muni.fi.pa.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa.esports.dto.TeamDTO;
+import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
+import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
+import cz.muni.fi.pa165.esports.dto.TeamDTO;
 
 
-import cz.muni.fi.pa.esports.facade.MatchRecordFacade;
+import cz.muni.fi.pa165.esports.facade.MatchRecordFacade;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;

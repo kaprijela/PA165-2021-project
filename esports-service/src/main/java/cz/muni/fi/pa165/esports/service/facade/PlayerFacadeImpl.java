@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.esports.service.facade;
 
-import cz.muni.fi.pa.esports.dto.PlayerDTO;
-import cz.muni.fi.pa.esports.facade.PlayerFacade;
+import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.service.BeenMappingService;
 import cz.muni.fi.pa165.esports.service.PlayerService;

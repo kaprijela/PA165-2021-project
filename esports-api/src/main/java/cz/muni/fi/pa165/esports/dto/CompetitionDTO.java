@@ -1,4 +1,4 @@
-package cz.muni.fi.pa.esports.dto;
+package cz.muni.fi.pa165.esports.dto;
 
 
 import lombok.EqualsAndHashCode;
