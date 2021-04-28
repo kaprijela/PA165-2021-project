@@ -32,4 +32,9 @@ public class PlayerServiceImpl implements PlayerService {
     public List<Player> findByName(String name) {
         return playerDao.findByName(name);
     }
+
+    @Override
+    public void create(Player player) {
+        playerDao.create(player);
+    }
 }
