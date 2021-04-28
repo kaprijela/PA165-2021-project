@@ -30,4 +30,10 @@ public interface PlayerService {
      * @return a list of players with a specific name
      */
     List<Player> findByName(String name);
+
+    /**
+     * Create a player
+     * @param player a player entity
+     */
+    void create(Player player);
 }
