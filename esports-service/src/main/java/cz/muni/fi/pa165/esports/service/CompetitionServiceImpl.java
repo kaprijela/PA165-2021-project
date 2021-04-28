@@ -6,6 +6,9 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * @author zgavjan
+ */
 public class CompetitionServiceImpl implements CompetitionService {
 
     @Inject

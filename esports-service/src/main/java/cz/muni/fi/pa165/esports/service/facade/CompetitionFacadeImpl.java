@@ -12,7 +12,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public List<TeamDTO> getTeams() {
+    public List<CompetitionDTO> getAllCompetitions() {
         return null;
     }
 
@@ -41,12 +41,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public void updatePrizepoole(PrizePoolDTO prizePoolDTO) {
-
-    }
-
-    @Override
-    public CompetitionDTO getCompetionByName() {
+    public CompetitionDTO getCompetitionByName(String name) {
         return null;
     }
 }
