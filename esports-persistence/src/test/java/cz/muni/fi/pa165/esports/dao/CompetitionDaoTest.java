@@ -75,10 +75,6 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotEquals(compe.getName(), c2.getName());
     }
 
-    @Test void findByNonExistantId(){
-        Assert.assertNotNull(compeDao.findByName("asdfasdfadfa"));
-    }
-
     @Test
     public void findAll(){
         List<Competition> compe = compeDao.findAll();

@@ -18,6 +18,20 @@ public interface CompetitionService {
     void removeCompetition(Competition competition);
 
     /**
+     * add a team to competition
+     * @param idCompetition competition
+     * @param idTeam team
+     */
+    void addTeam(Long idCompetition, Long idTeam);
+
+    /**
+     * remove a team to competition
+     * @param idCompetition competition
+     * @param idTeam team
+     */
+    void removeTeam(Long idCompetition, Long idTeam);
+
+    /**
      * get a Competition by Name
      * @param name name
      * @return Competition
