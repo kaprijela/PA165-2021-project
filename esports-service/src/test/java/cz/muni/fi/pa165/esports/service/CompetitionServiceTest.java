@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 
 import static org.mockito.Mockito.*;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.*;
  * @author gavlijan
  */
 @RunWith(MockitoJUnitRunner.class)
+@ContextConfiguration(classes = {ServiceConfiguration.class})
 public class CompetitionServiceTest {
 
     @Mock

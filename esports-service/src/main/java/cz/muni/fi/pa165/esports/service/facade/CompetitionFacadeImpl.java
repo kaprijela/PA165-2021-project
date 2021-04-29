@@ -6,12 +6,16 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.service.BeenMappingService;
 import cz.muni.fi.pa165.esports.service.CompetitionService;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
 
+@Service
 @Transactional
+@NoArgsConstructor
 public class CompetitionFacadeImpl implements CompetitionFacade {
 
     @Inject

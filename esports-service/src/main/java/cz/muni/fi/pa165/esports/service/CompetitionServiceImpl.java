@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.service;
 import cz.muni.fi.pa165.esports.dao.CompetitionDao;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Team;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
+@NoArgsConstructor
 public class CompetitionServiceImpl implements CompetitionService {
 
     @Autowired

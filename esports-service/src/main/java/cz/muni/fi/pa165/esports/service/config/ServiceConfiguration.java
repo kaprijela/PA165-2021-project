@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.esports.service.config;
 
 import cz.muni.fi.pa165.esports.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.esports.service.TeamServiceImpl;
+import cz.muni.fi.pa165.esports.service.facade.CompetitionFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackageClasses={TeamServiceImpl.class})
+@ComponentScan(basePackageClasses={TeamServiceImpl.class, CompetitionFacadeImpl.class})
 public class ServiceConfiguration {
     @Bean
     public Mapper dozer() {
