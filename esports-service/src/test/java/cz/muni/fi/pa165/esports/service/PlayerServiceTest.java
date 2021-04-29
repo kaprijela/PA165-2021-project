@@ -19,6 +19,10 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 
+/**
+ * Unit tests for {@link PlayerService}
+ * @author Gabriela Kandova
+ */
 @ContextConfiguration(classes = {ServiceConfiguration.class})
 public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
