@@ -1,34 +1,17 @@
 package cz.muni.fi.pa165.esports.dao;
 
 import cz.muni.fi.pa165.esports.entity.Competition;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
 /**
  * @author jan gavlik
+ * originally a regular dao, migrated to CrudRepository in milestone2
+ * *looks slightly cooler now*
  */
 
-public interface CompetitionDao {
-    /**
-     * Add a Competition to database.
-     * @param c Entity to be persisted
-     */
-    void create(Competition c);
-
-    /**
-     * Delete a competition from database.
-     * If the Entity is not managed,
-     * will be merged and then deleted.
-     * @param c Competition to be deleted
-     */
-    void delete(Competition c);
-
-    /**
-     * Find team by its unique id.
-     * @param id Long id
-     * @return Competition
-     */
-    Competition findById(Long id);
+public interface CompetitionDao extends CrudRepository<Competition, Long> {
 
     /**
      * @return Returns all Competitions
