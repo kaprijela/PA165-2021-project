@@ -20,24 +20,24 @@ public interface CompetitionService {
 
     /**
      * add a team to competition
-     * @param idCompetition competition
-     * @param idTeam team
+     * @param competition competition
+     * @param team team
      */
-    void addTeam(Long idCompetition, Long idTeam);
+    void addTeam(String competition, String team);
 
     /**
      * remove a team to competition
-     * @param idCompetition competition
-     * @param idTeam team
+     * @param competition competition
+     * @param team team
      */
-    void removeTeam(Long idCompetition, Long idTeam);
+    void removeTeam(String competition, String team);
 
     /**
      * get a Competition by Name
      * @param name name
      * @return Competition
      */
-    Competition getByName(String name);
+    Competition findByName(String name);
 
 
     /**

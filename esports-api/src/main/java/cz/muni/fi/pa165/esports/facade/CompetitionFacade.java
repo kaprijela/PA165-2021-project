@@ -14,14 +14,14 @@ public interface CompetitionFacade {
      * @param idCompetition id of Competition
      * @param idTeam id of Team
      */
-    void addTeam(Long idCompetition, Long idTeam);
+    void addTeam(String competition, String team);
 
     /**
      * remove a team
      * @param idCompetition id of Competition
      * @param idTeam id of Team
      */
-    void removeTeam(Long idCompetition, Long idTeam);
+    void removeTeam(String competition, String team);
 
     /**
      * returns all of the Teams
