@@ -57,12 +57,18 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
         bobList.add(bob);
 
         Mockito.when(playerDao.findAll()).thenReturn(allPlayers);
+
         Mockito.when(playerDao.findByName("Alice")).thenReturn(aliceList);
         Mockito.when(playerDao.findByName("Bob")).thenReturn(bobList);
+        Mockito.when(playerDao.findByName(Mockito.anyString())).thenReturn(new ArrayList<>());
+
         Mockito.when(playerDao.findByGender(Gender.FEMALE)).thenReturn(aliceList);
         Mockito.when(playerDao.findByGender(Gender.MALE)).thenReturn(bobList);
+        Mockito.when(playerDao.findByGender(Gender.OTHER)).thenReturn(new ArrayList<>());
+
         Mockito.when(playerDao.findById(alice.getId())).thenReturn(alice);
         Mockito.when(playerDao.findById(bob.getId())).thenReturn(bob);
+        Mockito.when(playerDao.findById(Mockito.anyLong())).thenReturn(null);
     }
 
     @Test
