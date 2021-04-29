@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.esports.service;
 
+import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
+import cz.muni.fi.pa165.esports.enums.Game;
 
 import java.util.List;
 
@@ -42,7 +44,23 @@ public interface PlayerService {
      * @param player player entity
      * @return a double
      */
-    Double getPlayerStatistics(Player player);
+    Double getPlayerAverage(Player player);
+
+    /**
+     * Get player's average stats in a game
+     * @param player entity
+     * @param game enum value
+     * @return an average score as a double
+     */
+    Double getPlayerAverageByGame(Player player, Game game);
+
+    /**
+     * Get player's average stats in a competition
+     * @param player entity
+     * @param competition entity
+     * @return an average score as a double
+     */
+    Double getPlayerAverageByCompetition(Player player, Competition competition);
 
     /**
      * Create a player
