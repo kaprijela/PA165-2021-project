@@ -20,6 +20,11 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     @Inject
     BeenMappingService beanMappingService;
 
+    public CompetitionFacadeImpl(CompetitionService competitionService, BeenMappingService beanMappingService) {
+        this.competitionService = competitionService;
+        this.beanMappingService = beanMappingService;
+    }
+
     @Override
     public void addTeam(String competition, String team) {
         competitionService.addTeam(competition, team);
@@ -37,12 +42,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
 
     @Override
     public void createCompetition(CompetitionDTO competitionDTO) {
-        Competition competition = new Competition();
-        competition.setName(competitionDTO.getName());
-        competition.setDate(competitionDTO.getDate());
-        competition.setPrizepool(competitionDTO.getPrizepool());
-        competition.setLocation(competitionDTO.getLocation());
-        competition.setGame(Game.valueOf(competitionDTO.getGame()));
+        Competition competition = beanMappingService.mapTo(competitionDTO, Competition.class);
         competitionService.createCompetition(competition);
     }
 

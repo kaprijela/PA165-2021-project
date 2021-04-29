@@ -11,15 +11,15 @@ public interface CompetitionFacade {
 
     /**
      * Add a team
-     * @param idCompetition id of Competition
-     * @param idTeam id of Team
+     * @param competition id of Competition
+     * @param team id of Team
      */
     void addTeam(String competition, String team);
 
     /**
      * remove a team
-     * @param idCompetition id of Competition
-     * @param idTeam id of Team
+     * @param competition id of Competition
+     * @param team id of Team
      */
     void removeTeam(String competition, String team);
 
