@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -58,17 +59,42 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
 
         Mockito.when(playerDao.findAll()).thenReturn(allPlayers);
 
-        Mockito.when(playerDao.findByName("Alice")).thenReturn(aliceList);
-        Mockito.when(playerDao.findByName("Bob")).thenReturn(bobList);
-        Mockito.when(playerDao.findByName(Mockito.anyString())).thenReturn(new ArrayList<>());
+        // Inspired by https://stackoverflow.com/a/22345982
+        Mockito.when(playerDao.findByName(Mockito.anyString())).thenAnswer(
+                (Answer<List<Player>>) invocationOnMock -> {
+                    if ("Alice".equals(invocationOnMock.getArgument(0))) {
+                        return aliceList;
+                    }
+                    if ("Bob".equals(invocationOnMock.getArgument(0))) {
+                        return bobList;
+                    }
+                    return new ArrayList<>();
+                }
+        );
 
-        Mockito.when(playerDao.findByGender(Gender.FEMALE)).thenReturn(aliceList);
-        Mockito.when(playerDao.findByGender(Gender.MALE)).thenReturn(bobList);
-        Mockito.when(playerDao.findByGender(Gender.OTHER)).thenReturn(new ArrayList<>());
+        Mockito.when(playerDao.findByGender(Mockito.any(Gender.class))).thenAnswer(
+                (Answer<List<Player>>) invocationOnMock -> {
+                    if (Gender.FEMALE.equals(invocationOnMock.getArgument(0))) {
+                        return aliceList;
+                    }
+                    if (Gender.FEMALE.equals(invocationOnMock.getArgument(0))) {
+                        return bobList;
+                    }
+                    return new ArrayList<>();
+                }
+        );
 
-        Mockito.when(playerDao.findById(alice.getId())).thenReturn(alice);
-        Mockito.when(playerDao.findById(bob.getId())).thenReturn(bob);
-        Mockito.when(playerDao.findById(Mockito.anyLong())).thenReturn(null);
+        Mockito.when(playerDao.findById(Mockito.anyLong())).thenAnswer(
+                (Answer<Player>)  invocationOnMock -> {
+                    if (Long.valueOf(1).equals(invocationOnMock.getArgument(0))) {
+                        return alice;
+                    }
+                    if (Long.valueOf(2).equals(invocationOnMock.getArgument(0))) {
+                        return bob;
+                    }
+                    return null;
+                }
+        );
     }
 
     @Test
