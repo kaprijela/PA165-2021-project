@@ -3,7 +3,9 @@ package cz.muni.fi.pa165.esports.service;
 import cz.muni.fi.pa165.esports.dao.CompetitionDao;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Team;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -15,19 +17,26 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
+@NoArgsConstructor
 public class CompetitionServiceImpl implements CompetitionService {
 
-    @Inject
+    @Autowired
     CompetitionDao competitionDao;
 
-    @Inject
+    @Autowired
     TeamService teamService;
+
+    public CompetitionServiceImpl(CompetitionDao competitionDao, TeamService teamService) {
+        this.competitionDao = competitionDao;
+        this.teamService = teamService;
+    }
 
     @Override
     public Long createCompetition(Competition competition) {
         log.info("Saving a Competition: {}", competition.getName());
         if (competition == null) {
             log.warn("Competition should not be null");
+            throw new IllegalArgumentException("Competition cannot be null");
         }
         return competitionDao.save(competition).getId();
     }

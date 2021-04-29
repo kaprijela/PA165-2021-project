@@ -6,12 +6,16 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.service.BeenMappingService;
 import cz.muni.fi.pa165.esports.service.CompetitionService;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
 
+@Service
 @Transactional
+@NoArgsConstructor
 public class CompetitionFacadeImpl implements CompetitionFacade {
 
     @Inject
@@ -19,6 +23,11 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
 
     @Inject
     BeenMappingService beanMappingService;
+
+    public CompetitionFacadeImpl(CompetitionService competitionService, BeenMappingService beanMappingService) {
+        this.competitionService = competitionService;
+        this.beanMappingService = beanMappingService;
+    }
 
     @Override
     public void addTeam(String competition, String team) {
@@ -37,12 +46,7 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
 
     @Override
     public void createCompetition(CompetitionDTO competitionDTO) {
-        Competition competition = new Competition();
-        competition.setName(competitionDTO.getName());
-        competition.setDate(competitionDTO.getDate());
-        competition.setPrizepool(competitionDTO.getPrizepool());
-        competition.setLocation(competitionDTO.getLocation());
-        competition.setGame(Game.valueOf(competitionDTO.getGame()));
+        Competition competition = beanMappingService.mapTo(competitionDTO, Competition.class);
         competitionService.createCompetition(competition);
     }
 

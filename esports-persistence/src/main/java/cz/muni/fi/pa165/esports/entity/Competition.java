@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class Competition {
     private int prizepool;
     private LocalDate date;
     @ManyToMany
-    private Set<Team> teams;
+    private Set<Team> teams = new HashSet<>();
 
     /**
      * multiple MachRecord for each competition
