@@ -62,15 +62,15 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
         c2.setLocation("Oslo");
         c3.setLocation("London");
 
-        compeDao.create(c1);
-        compeDao.create(c2);
-        compeDao.create(c3);
+        compeDao.save(c1);
+        compeDao.save(c2);
+        compeDao.save(c3);
 
     }
 
     @Test
     public void findById(){
-        Competition compe = compeDao.findById(c1.getId());
+        Competition compe = compeDao.findById(c1.getId()).get();
         Assert.assertEquals(compe.getName(), c1.getName());
         Assert.assertNotEquals(compe.getName(), c2.getName());
     }
@@ -92,7 +92,7 @@ public class CompetitionDaoTest extends AbstractTestNGSpringContextTests {
     public void deleteTest(){
         Competition competition = new Competition();
         competition.setName("Japan League 2020");
-        compeDao.create(competition);
+        compeDao.save(competition);
         Competition byName = compeDao.findByName("Japan League 2020");
         Assert.assertNotNull(byName);
         compeDao.delete(competition);

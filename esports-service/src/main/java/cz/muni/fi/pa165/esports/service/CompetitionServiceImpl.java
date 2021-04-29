@@ -3,11 +3,11 @@ package cz.muni.fi.pa165.esports.service;
 import cz.muni.fi.pa165.esports.dao.CompetitionDao;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Team;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author zgavjan
@@ -22,8 +22,9 @@ public class CompetitionServiceImpl implements CompetitionService {
     TeamService teamService;
 
     @Override
-    public void createCompetition(Competition competition) {
-        competitionDao.create(competition);
+    public Long createCompetition(Competition competition) {
+        return competitionDao.save(competition).getId();
+
     }
 
     @Override
@@ -33,16 +34,16 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public void addTeam(Long idCompetition, Long idTeam) {
-        Competition competition = competitionDao.findById(idCompetition);
+        Optional<Competition> competition = competitionDao.findById(idCompetition);
         Team team = teamService.findById(idTeam);
-        competition.addTeam(team);
+        competition.get().addTeam(team);
     }
 
     @Override
     public void removeTeam(Long idCompetition, Long idTeam) {
-        Competition competition = competitionDao.findById(idCompetition);
+        Optional<Competition> competition = competitionDao.findById(idCompetition);
         Team team = teamService.findById(idTeam);
-        competition.removeTeam(team);
+        competition.get().removeTeam(team);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public Competition findById(Long competitionId) {
+    public Optional<Competition> findById(Long competitionId) {
         return competitionDao.findById(competitionId);
     }
 }

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.service;
 import cz.muni.fi.pa165.esports.entity.Competition;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CompetitionService {
 
@@ -10,7 +11,7 @@ public interface CompetitionService {
      * Add Competition
      * @param competition competition
      */
-    void createCompetition(Competition competition);
+    Long createCompetition(Competition competition);
     /**
      * remove Competition
      * @param competition competition
@@ -50,5 +51,5 @@ public interface CompetitionService {
      * @param competitionId id
      * @return competition
      */
-    Competition findById(Long competitionId);
+    Optional<Competition> findById(Long competitionId);
 }
