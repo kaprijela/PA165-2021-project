@@ -76,7 +76,7 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
 
     @Override
     public List<MatchRecordDTO> getMatchRecordByCompetition(Long competitionId) {
-        Competition competition = competitionService.findById(competitionId);
+        Competition competition = competitionService.findById(competitionId).get();
         List<MatchRecord> matchRecord = matchRecordService.findByCompetition(competition);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
