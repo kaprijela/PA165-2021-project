@@ -118,4 +118,57 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
         assertTrue(p1.getName().equals("Alice") || p2.getName().equals("Alice"));
         assertTrue(p1.getName().equals("Bob") || p2.getName().equals("Bob"));
     }
+
+    @Test
+    public void findByIdFoundTest() {
+        Player foundPlayer = playerService.findById(1L);
+        assertNotNull(foundPlayer);
+        assertEquals(foundPlayer.getName(), "Alice");
+        assertEquals(foundPlayer.getGender(), Gender.FEMALE);
+        assertEquals(foundPlayer.getId(), Long.valueOf(1));
+
+        foundPlayer = playerService.findById(2L);
+        assertNotNull(foundPlayer);
+        assertEquals(foundPlayer.getName(), "Bob");
+        assertEquals(foundPlayer.getGender(), Gender.MALE);
+        assertEquals(foundPlayer.getId(), Long.valueOf(2));
+    }
+
+    @Test
+    public void findByIdNotFoundTest() {
+        Player foundPlayer = playerService.findById(3L);
+        assertNull(foundPlayer);
+    }
+
+    @Test
+    public void findByNameFoundSingleTest() {
+        String name = "Alice";
+        List<Player> foundPlayers = playerService.findByName(name);
+        assertEquals(foundPlayers.size(), 1);
+        assertNotNull(foundPlayers.get(0));
+        assertEquals(foundPlayers.get(0).getName(), name);
+        assertEquals(foundPlayers.get(0).getGender(), Gender.FEMALE);
+    }
+
+    @Test
+    public void findByNameNotFoundTest() {
+        List<Player> foundPlayers = playerService.findByName("Cecil");
+        assertEquals(foundPlayers.size(), 0);
+    }
+
+    @Test
+    public void findByNameFoundMultipleTest() {
+    }
+
+    @Test
+    public void createTest() {
+    }
+
+    @Test
+    public void removeTest() {
+    }
+
+    @Test
+    public void getPlayerStatisticsTest() {
+    }
 }
