@@ -21,13 +21,13 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     BeenMappingService beanMappingService;
 
     @Override
-    public void addTeam(Long idCompetition, Long idTeam) {
-        competitionService.addTeam(idCompetition, idTeam);
+    public void addTeam(String competition, String team) {
+        competitionService.addTeam(competition, team);
     }
 
     @Override
-    public void removeTeam(Long idCompetition, Long idTeam) {
-        competitionService.removeTeam(idCompetition, idTeam);
+    public void removeTeam(String competition, String team) {
+        competitionService.removeTeam(competition, team);
     }
 
     @Override
@@ -48,6 +48,6 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
 
     @Override
     public CompetitionDTO getCompetitionByName(String name) {
-        return beanMappingService.mapTo(competitionService.getByName(name), CompetitionDTO.class);
+        return beanMappingService.mapTo(competitionService.findByName(name), CompetitionDTO.class);
     }
 }
