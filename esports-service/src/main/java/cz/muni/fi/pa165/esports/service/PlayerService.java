@@ -13,6 +13,7 @@ import java.util.List;
  * @author Radovan Tomasik
  */
 public interface PlayerService {
+
     /**
      * Returns all players.
      * @return a list of players

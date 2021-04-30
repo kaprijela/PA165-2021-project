@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.esports.service.facade;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.entity.Competition;
-import cz.muni.fi.pa165.esports.service.BeenMappingService;
+import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.CompetitionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ public class CompetitionFacadeTest {
     CompetitionService competitionService;
 
     @Mock
-    BeenMappingService beanMappingService;
+    BeanMappingService beanMappingService;
 
     @InjectMocks
     CompetitionFacadeImpl competitionFacade;

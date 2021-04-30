@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- @author Elena Álvarez
+ * taken as is from sample project
  */
 @Service
-public class BeenMappingServiceImpl implements BeenMappingService {
+public class BeanMappingServiceImpl implements BeanMappingService {
+
     @Autowired
     private Mapper dozer;
 

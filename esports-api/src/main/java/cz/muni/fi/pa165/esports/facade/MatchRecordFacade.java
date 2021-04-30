@@ -1,29 +1,57 @@
 package cz.muni.fi.pa165.esports.facade;
 
-import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
-import cz.muni.fi.pa165.esports.dto.PlayerDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
 
 import java.util.List;
 
+/**
+ * @author elena
+ */
 public interface MatchRecordFacade {
+    /**
+     * will create a MatchRecord
+     * @param matchRecord matchRecord
+     * @return long
+     */
     public Long create(MatchRecordDTO matchRecord);
+
+    /**
+     * will delete matchRecord
+     * @param matchRecordId matchRecord
+     */
     public void delete(Long matchRecordId);
 
-    public MatchRecordDTO getMatchRecordBbyId(Long id);
-    public List<MatchRecordDTO> getAllMatchRecord();
-    public List<MatchRecordDTO> getMatchRecordByPlayer(Long playerId);
-    public List<MatchRecordDTO> getMatchRecordByCompetition(Long competitionId);
-    public List<MatchRecordDTO> getMatchRecordByTeam(Long teamId);
-
-    public int getScore(MatchRecordDTO matchRecord);
-    public CompetitionDTO getCompetition(MatchRecordDTO matchRecord);
-    public TeamDTO getTeam(MatchRecordDTO matchRecord);
-
-    /*
-    public void addCompetition(MatchRecordDTO matchRecord, CompetitionDTO competition);
-    public void addTeam(MatchRecordDTO matchRecord, TeamDTO team);
-
+    /**
+     * get MatchRecordById
+     * @param id id
+     * @return matchRecordDao
      */
+    public MatchRecordDTO getMatchRecordBbyId(Long id);
+
+    /**
+     * Return all records
+     * @return matchDTO
+     */
+    public List<MatchRecordDTO> getAllMatchRecord();
+
+    /**
+     * Return a MatchRecords For a Player
+     * @param playerId long
+     * @return MatchRecordDTO
+     */
+    public List<MatchRecordDTO> getMatchRecordByPlayer(Long playerId);
+
+    /**
+     * Return a MatchRecords for a competition
+     * @param competitionId unique identifier string
+     * @return MatchRecordDTO
+     */
+    public List<MatchRecordDTO> getMatchRecordByCompetition(String competitionId);
+
+    /**
+     * Return a MatchRecords for a team
+     * @param teamId unique identifier string
+     * @return MatchRecordDTO
+     */
+    public List<MatchRecordDTO> getMatchRecordByTeam(String teamId);
 }

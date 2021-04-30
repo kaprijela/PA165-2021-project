@@ -8,18 +8,23 @@ import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.facade.TeamFacade;
-import cz.muni.fi.pa165.esports.service.BeenMappingService;
+import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.TeamService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
 
+@Service
+@Transactional
 public class TeamFacadeImpl implements TeamFacade {
+
     @Inject
     TeamService teamService;
 
     @Inject
-    BeenMappingService bms;
+    BeanMappingService bms;
 
     @Override
     public List<TeamDTO> getAllTeams() {

@@ -4,8 +4,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
-import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
 
 
 import cz.muni.fi.pa165.esports.facade.MatchRecordFacade;
@@ -15,12 +13,16 @@ import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.service.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  @author Elena Álvarez
  */
+@Service
+@Transactional
 public class MatchRecordFacadeImpl implements MatchRecordFacade {
+
     @Inject
     private MatchRecordService matchRecordService;
 
@@ -33,8 +35,8 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
     @Inject
     private PlayerService playerService;
 
-    @Autowired
-    private BeenMappingService beanMappingService;
+    @Inject
+    private BeanMappingService beanMappingService;
 
 
     @Override
@@ -75,46 +77,16 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
     }
 
     @Override
-    public List<MatchRecordDTO> getMatchRecordByCompetition(Long competitionId) {
-        Competition competition = competitionService.findById(competitionId).get();
+    public List<MatchRecordDTO> getMatchRecordByCompetition(String competitionId) {
+        Competition competition = competitionService.findByName(competitionId);
         List<MatchRecord> matchRecord = matchRecordService.findByCompetition(competition);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
 
     @Override
-    public List<MatchRecordDTO> getMatchRecordByTeam(Long teamId) {
-        Team team = teamService.findById(teamId);
+    public List<MatchRecordDTO> getMatchRecordByTeam(String teamId) {
+        Team team = teamService.findByName(teamId);
         List<MatchRecord> matchRecord = matchRecordService.findByTeam(team);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
-
-    @Override
-    public int getScore(MatchRecordDTO matchRecord) {
-
-        return matchRecord.getScore();
-    }
-
-    @Override
-    public CompetitionDTO getCompetition(MatchRecordDTO matchRecord) {
-
-        return matchRecord.getCompetition();
-    }
-
-    @Override
-    public TeamDTO getTeam(MatchRecordDTO matchRecord) {
-
-        return matchRecord.getTeam();
-    }
-
-    /*
-    @Override
-    public void addCompetition(MatchRecordDTO matchRecord, CompetitionDTO competition) {
-    }
-
-    @Override
-    public void addTeam(MatchRecordDTO matchRecord, TeamDTO team) {
-
-    }
-
-     */
 }

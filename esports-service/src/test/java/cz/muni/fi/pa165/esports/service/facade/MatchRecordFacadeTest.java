@@ -1,32 +1,18 @@
 package cz.muni.fi.pa165.esports.service.facade;
 
-import static org.testng.Assert.*;
-import cz.muni.fi.pa165.esports.dao.TeamDao;
 import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
-import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
-import cz.muni.fi.pa165.esports.entity.Team;
 
-import cz.muni.fi.pa165.esports.service.BeenMappingService;
+import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.MatchRecordService;
-import cz.muni.fi.pa165.esports.service.TeamService;
-import cz.muni.fi.pa165.esports.service.config.ServiceConfiguration;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
 import org.mockito.InjectMocks;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
 
 /**
  * @author Elena Álvarez
@@ -38,7 +24,7 @@ public class MatchRecordFacadeTest {
     MatchRecordService matchRecordService;
 
     @Mock
-    BeenMappingService beanMappingService;
+    BeanMappingService beanMappingService;
 
     @InjectMocks
     MatchRecordFacadeImpl matchRecordFacade;
@@ -53,8 +39,6 @@ public class MatchRecordFacadeTest {
         matchRecordFacade.getAllMatchRecord();
         verify(matchRecordService, times(1)).findAll();
     }
-
-
 
     @Test
     public void  testCreateMatchRecord(){
