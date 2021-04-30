@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.esports.service.facade;
 
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
 import cz.muni.fi.pa165.esports.entity.Player;
-import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.PlayerService;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +23,7 @@ public class PlayerFacadeTest {
     BeanMappingService bms;
 
     @InjectMocks
-    PlayerFacade playerFacade;
+    PlayerFacadeImpl playerFacade;
 
     @BeforeEach
     void setup() {
