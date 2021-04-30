@@ -57,7 +57,10 @@ public class PlayerServiceImpl implements PlayerService {
             numberOfMatches++;
             totalScore += matchRecord.getScore();
         }
-        return (double) (totalScore / numberOfMatches);
+        if (numberOfMatches == 0) {
+            return 0.0;
+        }
+        return ((double) totalScore / numberOfMatches);
     }
 
     @Override
@@ -72,7 +75,10 @@ public class PlayerServiceImpl implements PlayerService {
                 totalScore += matchRecord.getScore();
             }
         }
-        return (double) (totalScore / numberOfMatches);
+        if (numberOfMatches == 0) {
+            return 0.0;
+        }
+        return ((double) totalScore / numberOfMatches);
     }
 
     @Override
@@ -82,12 +88,15 @@ public class PlayerServiceImpl implements PlayerService {
         int totalScore = 0;
         for (MatchRecord matchRecord:
                 matchRecords) {
-            if(matchRecord.getCompetition() == competition) {
+            if (matchRecord.getCompetition() == competition) {
                 numberOfMatches++;
                 totalScore += matchRecord.getScore();
             }
         }
-        return (double) (totalScore / numberOfMatches);
+        if (numberOfMatches == 0) {
+            return 0.0;
+        }
+        return ((double) totalScore / numberOfMatches);
     }
 
     public void create(Player player) {
