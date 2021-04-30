@@ -1,9 +1,8 @@
 package cz.muni.fi.pa165.esports.service.facade;
 
-import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.entity.Competition;
-import cz.muni.fi.pa165.esports.enums.Game;
+import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.service.BeenMappingService;
 import cz.muni.fi.pa165.esports.service.CompetitionService;
 import lombok.NoArgsConstructor;
@@ -13,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * @author gavlijan
+ */
 @Service
 @Transactional
 @NoArgsConstructor
