@@ -38,4 +38,13 @@ public interface TeamFacade {
      * @return team with matching abbreviation
      */
     TeamDTO getTeamByAbbreviation(String abbreviation);
+
+    /**
+     * Create a team
+     *
+     *
+     * @param teamDTO data transfer object
+     */
+    void createTeam(TeamDTO teamDTO);
+    void removeTeam(TeamDTO teamDTO);
 }
