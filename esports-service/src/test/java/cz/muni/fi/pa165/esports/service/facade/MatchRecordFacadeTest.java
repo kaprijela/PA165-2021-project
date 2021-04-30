@@ -85,11 +85,13 @@ public class MatchRecordFacadeTest {
         matchRecord.setScore(0);
 
         when(beanMappingService.mapTo(matchDTO, MatchRecord.class)).thenReturn(matchRecord);
+        when(matchRecordService.create(matchRecord)).thenReturn(matchRecord);
         matchRecordFacade.create(matchDTO);
 
         verify(beanMappingService, times(1)).mapTo(matchDTO, MatchRecord.class);
         verify(matchRecordService, times(1)).create(matchRecord);
 
+        when(matchRecordService.findById(matchDTO.getId())).thenReturn(matchRecord);
         matchRecordFacade.delete(matchDTO.getId());
         verify(matchRecordService, times(1)).delete(matchRecord);
     }

@@ -53,7 +53,7 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
 
     @Override
     public void delete(Long matchRecordId) {
-        matchRecordService.delete(new MatchRecord(matchRecordId));
+        matchRecordService.delete(matchRecordService.findById(matchRecordId));
     }
 
     @Override
