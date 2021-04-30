@@ -16,6 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * Implementation of TeamFacade.
+ * @author Gabriela Kandova
+ */
 @Service
 @Transactional
 public class TeamFacadeImpl implements TeamFacade {
