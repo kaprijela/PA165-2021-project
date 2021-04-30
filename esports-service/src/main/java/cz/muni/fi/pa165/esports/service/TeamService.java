@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.esports.service;
 
+import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
+import cz.muni.fi.pa165.esports.enums.Game;
 import org.springframework.stereotype.Service;
 
 
@@ -45,8 +47,6 @@ public interface TeamService {
      */
     Team findByAbbreviation(String abbreviation);
 
-    void getTeamStatistics();
-
     /**
      * Register a team in the system.
      *
@@ -76,4 +76,24 @@ public interface TeamService {
      * @param player player to remove from the team
      */
     void removePlayer(Team team, Player player);
+
+    /**
+     * Calculates the average of scores that the team achieved
+     * in the given competition.
+     *
+     * @param team team to calculate the average for
+     * @param competition competition for which to calculate the average
+     * @return average of the achieved scores
+     */
+    Double getAverageTeamScoreForCompetition(Team team, Competition competition);
+
+    /**
+     * Calculates the average of scores that the team achieved
+     * in competitions in the given game.
+     *
+     * @param team team to calculate the average for
+     * @param game game for which to calculate the average
+     * @return average of the achieved scores
+     */
+    Double getAverageTeamScoreForGame(Team team, Game game);
 }
