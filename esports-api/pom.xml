@@ -16,6 +16,11 @@
             <artifactId>sisu-inject-bean</artifactId>
             <version>1.4.2</version>
         </dependency>
+        <dependency>
+            <groupId>cz.muni.fi.pa165</groupId>
+            <artifactId>esports-persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 
