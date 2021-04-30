@@ -16,6 +16,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +28,19 @@ import static org.testng.Assert.*;
  */
 @ContextConfiguration(classes = {ServiceConfiguration.class})
 public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
+
     @Mock
     private MatchRecordDao matchRecordDao;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private MatchRecordService matchRecordService;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private PlayerService playerService;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private TeamService teamService;
 
@@ -149,7 +151,6 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
         List<MatchRecord> byCompetition2 = matchRecordDao.findByCompetition(c2);
         Assert.assertEquals(byCompetition2.get(0).getScore(), 1);
     }
-
 
 
 }

@@ -31,7 +31,7 @@ public class TeamFacadeTest {
     TeamFacadeImpl teamFacade;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -63,7 +63,7 @@ public class TeamFacadeTest {
     }
 
     @Test
-    public void  testCreateTeam(){
+    public void testCreateTeam() {
         TeamDTO teamDTO = new TeamDTO();
         teamDTO.setId(1L);
         teamDTO.setName("Men of Gondor");
@@ -78,7 +78,7 @@ public class TeamFacadeTest {
     }
 
     @Test
-    public void testDeleteTeam(){
+    public void testDeleteTeam() {
         TeamDTO teamDTO = new TeamDTO();
         teamDTO.setId(1L);
         teamDTO.setName("Men of Gondor");

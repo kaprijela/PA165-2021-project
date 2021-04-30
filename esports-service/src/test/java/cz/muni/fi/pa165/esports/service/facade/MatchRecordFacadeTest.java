@@ -2,15 +2,15 @@ package cz.muni.fi.pa165.esports.service.facade;
 
 import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
-
 import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.MatchRecordService;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
-import org.mockito.*;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
 
@@ -20,6 +20,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MatchRecordFacadeTest {
+
     @Mock
     MatchRecordService matchRecordService;
 
@@ -30,7 +31,7 @@ public class MatchRecordFacadeTest {
     MatchRecordFacadeImpl matchRecordFacade;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -41,7 +42,7 @@ public class MatchRecordFacadeTest {
     }
 
     @Test
-    public void  testCreateMatchRecord(){
+    public void testCreateMatchRecord() {
         MatchRecordDTO matchRecordDTO = new MatchRecordDTO();
         matchRecordDTO.setId(1L);
         matchRecordDTO.setScore(0);
@@ -59,7 +60,7 @@ public class MatchRecordFacadeTest {
     }
 
     @Test
-    public void testDeleteMatchRecord(){
+    public void testDeleteMatchRecord() {
         MatchRecordDTO matchDTO = new MatchRecordDTO();
         matchDTO.setId(1L);
         matchDTO.setScore(0);
@@ -79,5 +80,4 @@ public class MatchRecordFacadeTest {
         matchRecordFacade.delete(matchDTO.getId());
         verify(matchRecordService, times(1)).delete(matchRecord);
     }
-
 }

@@ -1,14 +1,14 @@
 package cz.muni.fi.pa165.esports.service;
 
 import cz.muni.fi.pa165.esports.dao.MatchRecordDao;
+import cz.muni.fi.pa165.esports.dao.PlayerDao;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
-import cz.muni.fi.pa165.esports.dao.PlayerDao;
 import cz.muni.fi.pa165.esports.enums.Game;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -20,10 +20,10 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
-    @Autowired
+    @Inject
     private PlayerDao playerDao;
 
-    @Autowired
+    @Inject
     private MatchRecordDao matchRecordDao;
 
     @Override

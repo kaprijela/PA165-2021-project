@@ -1,13 +1,12 @@
 package cz.muni.fi.pa165.esports.service;
 
+import org.dozer.Mapper;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.dozer.Mapper;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * taken as is from sample project
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BeanMappingServiceImpl implements BeanMappingService {
 
-    @Autowired
+    @Inject
     private Mapper dozer;
 
     @Override

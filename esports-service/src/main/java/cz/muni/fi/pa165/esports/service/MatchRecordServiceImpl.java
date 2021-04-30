@@ -5,12 +5,11 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.util.List;
 
 
 /**
@@ -25,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MatchRecordServiceImpl implements MatchRecordService {
 
-    @Autowired
+    @Inject
     private MatchRecordDao matchRecordDao;
 
     //Persistence

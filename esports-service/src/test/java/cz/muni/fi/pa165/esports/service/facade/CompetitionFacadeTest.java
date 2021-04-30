@@ -6,18 +6,16 @@ import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.CompetitionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
 
 /***
  * @author gavlijan
  */
-@RunWith(MockitoJUnitRunner.class)
+
 public class CompetitionFacadeTest {
 
     @Mock
@@ -30,7 +28,7 @@ public class CompetitionFacadeTest {
     CompetitionFacadeImpl competitionFacade;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 

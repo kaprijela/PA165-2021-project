@@ -14,12 +14,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,10 +29,12 @@ import static org.testng.Assert.*;
 
 /**
  * Unit tests for {@link PlayerService}
+ *
  * @author Gabriela Kandova
  */
 @ContextConfiguration(classes = {ServiceConfiguration.class})
 public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
+
     @Mock
     private PlayerDao playerDao;
 
@@ -42,7 +44,7 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private CompetitionDao competitionDao;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private PlayerService playerService;
 
@@ -105,7 +107,7 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
         );
 
         Mockito.when(playerDao.findById(Mockito.anyLong())).thenAnswer(
-                (Answer<Player>)  invocationOnMock -> {
+                (Answer<Player>) invocationOnMock -> {
                     if (Long.valueOf(1).equals(invocationOnMock.getArgument(0))) {
                         return alice;
                     }
