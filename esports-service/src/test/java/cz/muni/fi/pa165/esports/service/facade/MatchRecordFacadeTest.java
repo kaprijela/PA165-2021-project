@@ -67,6 +67,7 @@ public class MatchRecordFacadeTest {
         matchRecord.setScore(0);
 
         when(beanMappingService.mapTo(matchRecordDTO, MatchRecord.class)).thenReturn(matchRecord);
+        when(matchRecordService.create(matchRecord)).thenReturn(matchRecord);
         matchRecordFacade.create(matchRecordDTO);
         verify(beanMappingService, times(1)).mapTo(matchRecordDTO, MatchRecord.class);
         verify(matchRecordService, times(1)).create(matchRecord);
