@@ -40,16 +40,19 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
 
 
     @Override
-    public Long create(MatchRecordDTO matchRecord) {
-        MatchRecord mappedMatchRecord = beanMappingService.mapTo(matchRecord, MatchRecord.class);
-        Competition mappedCompetition = beanMappingService.mapTo(matchRecord.getCompetition(), Competition.class);
-        Team mappedTeam = beanMappingService.mapTo(matchRecord.getTeam(), Team.class);
+    public Long create(MatchRecordDTO matchRecordDTO) {
+        MatchRecord matchRecord = beanMappingService.mapTo(matchRecordDTO, MatchRecord.class);
 
-        mappedMatchRecord.setMatchNumber(matchRecord.getMatchNumber());
-        mappedMatchRecord.setCompetition(mappedCompetition);
-        mappedMatchRecord.setTeam(mappedTeam);
+        Competition competition = competitionService.findByName(matchRecordDTO.getCompetition());
+        Team team = teamService.findByName(matchRecordDTO.getTeam());
+        Player player = playerService.findById(matchRecordDTO.getPlayer());
 
-        MatchRecord newMatchRecord = matchRecordService.create(mappedMatchRecord);
+        matchRecord.setMatchNumber(matchRecordDTO.getMatchNumber());
+        matchRecord.setCompetition(competition);
+        matchRecord.setTeam(team);
+        matchRecord.setPlayer(player);
+
+        MatchRecord newMatchRecord = matchRecordService.create(matchRecord);
         return newMatchRecord.getId();
     }
 
