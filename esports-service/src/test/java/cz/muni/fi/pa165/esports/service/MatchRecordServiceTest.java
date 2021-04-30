@@ -26,6 +26,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.when;
 import static org.testng.Assert.*;
 
 /**
@@ -78,13 +79,16 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
 
         t1 = new Team();
         t1.setName("t1");
+        t1.setAbbreviation("t1");
 
         t2 = new Team();
         t2.setName("t2");
+        t2.setAbbreviation("t2");
 
         c1 = new Competition();
+        c1.setName("c1");
         c2 = new Competition();
-
+        c2.setName("c2");
         matchRecord1.setPlayer(p1);
         matchRecord1.setTeam(t1);
         matchRecord1.setCompetition(c1);
@@ -109,7 +113,7 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
         allMatchRecords.add(matchRecord1);
 
 
-        Mockito.when(matchRecordDao.findAll()).thenReturn(allMatchRecords);
+        when(matchRecordDao.findAll()).thenReturn(allMatchRecords);
 
     }
 
@@ -125,6 +129,9 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getByPlayer() {
+        when(matchRecordDao.findByPlayer(p1)).thenReturn(List.of(matchRecord1));
+        when(matchRecordDao.findByPlayer(p2)).thenReturn(List.of(matchRecord2));
+
         List<MatchRecord> byPlayer = matchRecordDao.findByPlayer(p1);
         Assert.assertEquals(byPlayer.get(0).getScore(), 0);
 
@@ -134,6 +141,9 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getByTeam() {
+        when(matchRecordDao.findByTeam(t1)).thenReturn(List.of(matchRecord1));
+        when(matchRecordDao.findByTeam(t2)).thenReturn(List.of(matchRecord2));
+
         List<MatchRecord> byTeam = matchRecordDao.findByTeam(t1);
         Assert.assertEquals(byTeam.get(0).getScore(), 0);
 
@@ -143,13 +153,13 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void getByCompetition() {
+        when(matchRecordDao.findByCompetition(c1)).thenReturn(List.of(matchRecord1));
+        when(matchRecordDao.findByCompetition(c2)).thenReturn(List.of(matchRecord2));
+
         List<MatchRecord> byCompetition = matchRecordDao.findByCompetition(c1);
         Assert.assertEquals(byCompetition.get(0).getScore(), 0);
 
         List<MatchRecord> byCompetition2 = matchRecordDao.findByCompetition(c2);
         Assert.assertEquals(byCompetition2.get(0).getScore(), 1);
     }
-
-
-
 }
