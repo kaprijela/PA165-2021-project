@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.esports.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
@@ -19,10 +20,10 @@ import java.util.List;
 @Transactional
 public class PlayerFacadeImpl implements PlayerFacade {
 
-    @Autowired
+    @Inject
     private PlayerService playerService;
 
-    @Autowired
+    @Inject
     private BeanMappingService beanMappingService;
 
     @Override
