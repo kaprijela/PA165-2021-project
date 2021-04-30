@@ -5,6 +5,9 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author gavlijan
+ */
 public interface CompetitionService {
 
     /**
