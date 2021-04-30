@@ -2,35 +2,32 @@ package cz.muni.fi.pa165.esports.service.facade;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.entity.Competition;
-import cz.muni.fi.pa165.esports.service.BeenMappingService;
+import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.CompetitionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
 
 /***
  * @author gavlijan
  */
-@RunWith(MockitoJUnitRunner.class)
 public class CompetitionFacadeTest {
 
     @Mock
     CompetitionService competitionService;
 
     @Mock
-    BeenMappingService beanMappingService;
+    BeanMappingService beanMappingService;
 
     @InjectMocks
     CompetitionFacadeImpl competitionFacade;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 

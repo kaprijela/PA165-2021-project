@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface MatchRecordService {
+
     /**
      * Register a matchRecord in the system.
      *

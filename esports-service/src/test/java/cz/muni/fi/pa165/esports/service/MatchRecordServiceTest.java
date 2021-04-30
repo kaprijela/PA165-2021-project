@@ -5,28 +5,22 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
-import cz.muni.fi.pa165.esports.service.CompetitionService;
-import cz.muni.fi.pa165.esports.service.MatchRecordService;
-import cz.muni.fi.pa165.esports.service.PlayerService;
-import cz.muni.fi.pa165.esports.service.TeamService;
 import cz.muni.fi.pa165.esports.service.config.ServiceConfiguration;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import static org.mockito.Mockito.when;
-import static org.testng.Assert.*;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.when;
 import static org.testng.Assert.*;
 
 /**
@@ -34,18 +28,19 @@ import static org.testng.Assert.*;
  */
 @ContextConfiguration(classes = {ServiceConfiguration.class})
 public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
+
     @Mock
     private MatchRecordDao matchRecordDao;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private MatchRecordService matchRecordService;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private PlayerService playerService;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private TeamService teamService;
 
@@ -156,7 +151,6 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
         List<MatchRecord> byCompetition2 = matchRecordDao.findByCompetition(c2);
         Assert.assertEquals(byCompetition2.get(0).getScore(), 1);
     }
-
 
 
 }

@@ -11,9 +11,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
+
+import javax.inject.Inject;
 
 import static org.mockito.Mockito.*;
 
@@ -30,7 +31,7 @@ public class CompetitionServiceTest {
     @Mock
     private TeamService teamService;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private CompetitionServiceImpl competitionService;
     private Competition competition;

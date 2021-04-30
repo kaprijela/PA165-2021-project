@@ -6,12 +6,11 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
-
 import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.exceptions.EsportsServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,10 +24,11 @@ import java.util.stream.Collectors;
  */
 @Service
 public class TeamServiceImpl implements TeamService {
-    @Autowired
+
+    @Inject
     TeamDao teamDao;
 
-    @Autowired
+    @Inject
     MatchRecordDao matchRecordDao;
 
     @Override

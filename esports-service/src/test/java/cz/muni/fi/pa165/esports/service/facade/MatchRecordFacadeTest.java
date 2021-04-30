@@ -1,50 +1,47 @@
 package cz.muni.fi.pa165.esports.service.facade;
 
-import static org.testng.Assert.*;
-import cz.muni.fi.pa165.esports.dao.TeamDao;
 import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
+import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
-
-import cz.muni.fi.pa165.esports.service.BeenMappingService;
-import cz.muni.fi.pa165.esports.service.MatchRecordService;
-import cz.muni.fi.pa165.esports.service.TeamService;
-import cz.muni.fi.pa165.esports.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.esports.service.*;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
-import org.mockito.*;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeClass;
 import org.mockito.InjectMocks;
-import java.util.ArrayList;
-import java.util.List;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
 
 /**
  * @author Elena Álvarez
  */
-
 @RunWith(MockitoJUnitRunner.class)
 public class MatchRecordFacadeTest {
+
     @Mock
     MatchRecordService matchRecordService;
 
     @Mock
-    BeenMappingService beanMappingService;
+    PlayerService playerService;
+
+    @Mock
+    CompetitionService competitionService;
+
+    @Mock
+    TeamService teamService;
+
+    @Mock
+    BeanMappingService beanMappingService;
 
     @InjectMocks
     MatchRecordFacadeImpl matchRecordFacade;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -54,10 +51,8 @@ public class MatchRecordFacadeTest {
         verify(matchRecordService, times(1)).findAll();
     }
 
-
-
     @Test
-    public void  testCreateMatchRecord(){
+    public void testCreateMatchRecord() {
         MatchRecordDTO matchRecordDTO = new MatchRecordDTO();
         matchRecordDTO.setId(1L);
         matchRecordDTO.setScore(0);
@@ -71,11 +66,10 @@ public class MatchRecordFacadeTest {
         matchRecordFacade.create(matchRecordDTO);
         verify(beanMappingService, times(1)).mapTo(matchRecordDTO, MatchRecord.class);
         verify(matchRecordService, times(1)).create(matchRecord);
-
     }
 
     @Test
-    public void testDeleteMatchRecord(){
+    public void testDeleteMatchRecord() {
         MatchRecordDTO matchDTO = new MatchRecordDTO();
         matchDTO.setId(1L);
         matchDTO.setScore(0);
@@ -85,13 +79,52 @@ public class MatchRecordFacadeTest {
         matchRecord.setScore(0);
 
         when(beanMappingService.mapTo(matchDTO, MatchRecord.class)).thenReturn(matchRecord);
+        when(matchRecordService.create(matchRecord)).thenReturn(matchRecord);
         matchRecordFacade.create(matchDTO);
 
         verify(beanMappingService, times(1)).mapTo(matchDTO, MatchRecord.class);
         verify(matchRecordService, times(1)).create(matchRecord);
 
+        when(matchRecordService.findById(matchDTO.getId())).thenReturn(matchRecord);
         matchRecordFacade.delete(matchDTO.getId());
         verify(matchRecordService, times(1)).delete(matchRecord);
     }
 
+    @Test
+    public void testGetMatchRecordBbyId() {
+        matchRecordFacade.getMatchRecordBbyId(1L);
+        verify(matchRecordService, times(1)).findById(1L);
+    }
+
+    @Test
+    public void testGetMatchRecordByPlayer() {
+        Player player = new Player();
+        player.setName("tired");
+
+        when(playerService.findById(1L)).thenReturn(player);
+        matchRecordFacade.getMatchRecordByPlayer(1L);
+        verify(matchRecordService, times(1)).findByPlayer(player);
+    }
+
+    @Test
+    public void testGetMatchRecordByCompetition() {
+        Competition competition = new Competition();
+        String tiredCompetition = "tiredCompetition";
+        competition.setName(tiredCompetition);
+
+        when(competitionService.findByName(tiredCompetition)).thenReturn(competition);
+        matchRecordFacade.getMatchRecordByCompetition(tiredCompetition);
+        verify(matchRecordService, times(1)).findByCompetition(competition);
+    }
+
+    @Test
+    public void testGetMatchRecordByTeam() {
+        Team team = new Team();
+        team.setName("tired");
+        team.setAbbreviation("TIRED");
+
+        when(teamService.findByName("tired")).thenReturn(team);
+        matchRecordFacade.getMatchRecordByTeam("tired");
+        verify(matchRecordService, times(1)).findByTeam(team);
+    }
 }

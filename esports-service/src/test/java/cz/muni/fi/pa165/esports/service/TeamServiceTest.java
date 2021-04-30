@@ -15,12 +15,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +28,12 @@ import static org.testng.Assert.*;
 
 /**
  * Test for {@link TeamService}
+ *
  * @author Radovan Tomasik, Gabriela Kandova
  */
 @ContextConfiguration(classes = {ServiceConfiguration.class})
 public class TeamServiceTest extends AbstractTestNGSpringContextTests {
+
     @Mock
     private TeamDao teamDao;
 
@@ -41,7 +43,7 @@ public class TeamServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private CompetitionDao competitionDao;
 
-    @Autowired
+    @Inject
     @InjectMocks
     private TeamService teamService;
 

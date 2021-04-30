@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.esports.service.facade;
 
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.entity.Team;
-import cz.muni.fi.pa165.esports.service.BeenMappingService;
+import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.TeamService;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,13 +25,13 @@ public class TeamFacadeTest {
     TeamService teamService;
 
     @Mock
-    BeenMappingService beanMappingService;
+    BeanMappingService beanMappingService;
 
     @InjectMocks
     TeamFacadeImpl teamFacade;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -63,7 +63,7 @@ public class TeamFacadeTest {
     }
 
     @Test
-    public void  testCreateTeam(){
+    public void testCreateTeam() {
         TeamDTO teamDTO = new TeamDTO();
         teamDTO.setId(1L);
         teamDTO.setName("Men of Gondor");
@@ -78,7 +78,7 @@ public class TeamFacadeTest {
     }
 
     @Test
-    public void testDeleteTeam(){
+    public void testDeleteTeam() {
         TeamDTO teamDTO = new TeamDTO();
         teamDTO.setId(1L);
         teamDTO.setName("Men of Gondor");

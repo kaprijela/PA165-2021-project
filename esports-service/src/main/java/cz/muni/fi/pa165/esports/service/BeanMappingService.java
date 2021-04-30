@@ -5,11 +5,10 @@ import java.util.List;
 
 import org.dozer.Mapper;
 /**
- @author Elena Álvarez
+ * taken as is from sample project
  */
-public interface BeenMappingService {
+public interface BeanMappingService {
     public  <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass);
-
     public  <T> T mapTo(Object u, Class<T> mapToClass);
     public Mapper getMapper();
 }

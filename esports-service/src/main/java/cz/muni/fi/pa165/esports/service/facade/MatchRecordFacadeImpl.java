@@ -4,8 +4,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
-import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
 
 
 import cz.muni.fi.pa165.esports.facade.MatchRecordFacade;
@@ -15,12 +13,16 @@ import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.service.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  @author Elena Álvarez
  */
+@Service
+@Transactional
 public class MatchRecordFacadeImpl implements MatchRecordFacade {
+
     @Inject
     private MatchRecordService matchRecordService;
 
@@ -33,27 +35,30 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
     @Inject
     private PlayerService playerService;
 
-    @Autowired
-    private BeenMappingService beanMappingService;
+    @Inject
+    private BeanMappingService beanMappingService;
 
 
     @Override
-    public Long create(MatchRecordDTO matchRecord) {
-        MatchRecord mappedMatchRecord = beanMappingService.mapTo(matchRecord, MatchRecord.class);
-        Competition mappedCompetition = beanMappingService.mapTo(matchRecord.getCompetition(), Competition.class);
-        Team mappedTeam = beanMappingService.mapTo(matchRecord.getTeam(), Team.class);
+    public Long create(MatchRecordDTO matchRecordDTO) {
+        MatchRecord matchRecord = beanMappingService.mapTo(matchRecordDTO, MatchRecord.class);
 
-        mappedMatchRecord.setMatchNumber(matchRecord.getMatchNumber());
-        mappedMatchRecord.setCompetition(mappedCompetition);
-        mappedMatchRecord.setTeam(mappedTeam);
+        Competition competition = competitionService.findByName(matchRecordDTO.getCompetition());
+        Team team = teamService.findByName(matchRecordDTO.getTeam());
+        Player player = playerService.findById(matchRecordDTO.getPlayer());
 
-        MatchRecord newMatchRecord = matchRecordService.create(mappedMatchRecord);
+        matchRecord.setMatchNumber(matchRecordDTO.getMatchNumber());
+        matchRecord.setCompetition(competition);
+        matchRecord.setTeam(team);
+        matchRecord.setPlayer(player);
+
+        MatchRecord newMatchRecord = matchRecordService.create(matchRecord);
         return newMatchRecord.getId();
     }
 
     @Override
     public void delete(Long matchRecordId) {
-        matchRecordService.delete(new MatchRecord(matchRecordId));
+        matchRecordService.delete(matchRecordService.findById(matchRecordId));
     }
 
     @Override
@@ -75,46 +80,16 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
     }
 
     @Override
-    public List<MatchRecordDTO> getMatchRecordByCompetition(Long competitionId) {
-        Competition competition = competitionService.findById(competitionId).get();
+    public List<MatchRecordDTO> getMatchRecordByCompetition(String competitionId) {
+        Competition competition = competitionService.findByName(competitionId);
         List<MatchRecord> matchRecord = matchRecordService.findByCompetition(competition);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
 
     @Override
-    public List<MatchRecordDTO> getMatchRecordByTeam(Long teamId) {
-        Team team = teamService.findById(teamId);
+    public List<MatchRecordDTO> getMatchRecordByTeam(String teamId) {
+        Team team = teamService.findByName(teamId);
         List<MatchRecord> matchRecord = matchRecordService.findByTeam(team);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
-
-    @Override
-    public int getScore(MatchRecordDTO matchRecord) {
-
-        return matchRecord.getScore();
-    }
-
-    @Override
-    public CompetitionDTO getCompetition(MatchRecordDTO matchRecord) {
-
-        return matchRecord.getCompetition();
-    }
-
-    @Override
-    public TeamDTO getTeam(MatchRecordDTO matchRecord) {
-
-        return matchRecord.getTeam();
-    }
-
-    /*
-    @Override
-    public void addCompetition(MatchRecordDTO matchRecord, CompetitionDTO competition) {
-    }
-
-    @Override
-    public void addTeam(MatchRecordDTO matchRecord, TeamDTO team) {
-
-    }
-
-     */
 }

@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Team;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -20,10 +19,10 @@ import java.util.Optional;
 @NoArgsConstructor
 public class CompetitionServiceImpl implements CompetitionService {
 
-    @Autowired
+    @Inject
     CompetitionDao competitionDao;
 
-    @Autowired
+    @Inject
     TeamService teamService;
 
     public CompetitionServiceImpl(CompetitionDao competitionDao, TeamService teamService) {

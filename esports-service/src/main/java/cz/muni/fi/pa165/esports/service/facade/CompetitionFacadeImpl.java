@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.esports.service.facade;
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
-import cz.muni.fi.pa165.esports.service.BeenMappingService;
+import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.CompetitionService;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,9 +24,9 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     CompetitionService competitionService;
 
     @Inject
-    BeenMappingService beanMappingService;
+    BeanMappingService beanMappingService;
 
-    public CompetitionFacadeImpl(CompetitionService competitionService, BeenMappingService beanMappingService) {
+    public CompetitionFacadeImpl(CompetitionService competitionService, BeanMappingService beanMappingService) {
         this.competitionService = competitionService;
         this.beanMappingService = beanMappingService;
     }

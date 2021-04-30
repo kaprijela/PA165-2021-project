@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Service
 public interface TeamService {
+
     /**
      * Fetch all teams registered in the system.
      *
