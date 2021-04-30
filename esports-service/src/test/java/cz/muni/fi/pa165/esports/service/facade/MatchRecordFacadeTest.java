@@ -58,24 +58,23 @@ public class MatchRecordFacadeTest {
 
     @Test
     public void  testCreateMatchRecord(){
-        MatchRecordDTO matchDTO = new MatchRecordDTO();
-        matchDTO.setId(1L);
-        matchDTO.setScore(0);
+        MatchRecordDTO matchRecordDTO = new MatchRecordDTO();
+        matchRecordDTO.setId(1L);
+        matchRecordDTO.setScore(0);
 
         MatchRecord matchRecord = new MatchRecord();
         matchRecord.setId(1L);
         matchRecord.setScore(0);
 
-        when(beanMappingService.mapTo(matchDTO, MatchRecord.class)).thenReturn(matchRecord);
-        matchRecordFacade.create(matchDTO);
-
-        verify(beanMappingService, times(1)).mapTo(matchDTO, Competition.class);
+        when(beanMappingService.mapTo(matchRecordDTO, MatchRecord.class)).thenReturn(matchRecord);
+        matchRecordFacade.create(matchRecordDTO);
+        verify(beanMappingService, times(1)).mapTo(matchRecordDTO, MatchRecord.class);
         verify(matchRecordService, times(1)).create(matchRecord);
 
     }
 
     @Test
-    public void testDeleteTeam(){
+    public void testDeleteMatchRecord(){
         MatchRecordDTO matchDTO = new MatchRecordDTO();
         matchDTO.setId(1L);
         matchDTO.setScore(0);
