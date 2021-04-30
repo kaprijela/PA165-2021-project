@@ -69,5 +69,10 @@ public class MatchRecordDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(byPlayer.get(0).getScore(), 0);
         matchRecordDao.delete(matchRecord);
         playerDao.delete(bonkedPlayer);
+
+        /*
+        the return value of "cz.muni.fi.pa165.esports.entity.MatchRecord.getTeam()" is null
+
+         */
     }
 }
