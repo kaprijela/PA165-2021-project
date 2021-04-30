@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.esports.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -20,12 +21,10 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Team {
     public Team(Long id) {
         this.id = id;
-    }
-
-    public Team() {
     }
 
     /* attributes */

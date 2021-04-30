@@ -1,6 +1,9 @@
 package cz.muni.fi.pa165.esports.entity;
 
 import cz.muni.fi.pa165.esports.enums.Gender;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -11,6 +14,9 @@ import java.util.Objects;
  * @author Radovan Tomasik
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Player {
 
     /* attributes */
@@ -28,45 +34,8 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    public Player() {
-    }
-
     public Player(Long id) {
         this.id = id;
-    }
-
-    /* getters and setters */
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     /**
