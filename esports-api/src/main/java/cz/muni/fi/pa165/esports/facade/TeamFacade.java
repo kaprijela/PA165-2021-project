@@ -73,7 +73,24 @@ public interface TeamFacade {
      */
     void kickPlayerFromTeam(TeamDTO team, PlayerDTO player);
 
+    /**
+     * Calculate average match score for a team in a given competition.
+     *
+     * @param team team for which to calculate average score
+     * @param competition competition for which to limit average score calculation
+     * @return average match score
+     */
     Double getAverageTeamScoreForCompetition(TeamDTO team, CompetitionDTO competition);
 
+    /**
+     * Calculate average match score for a team for a given game.
+     *
+     * It is not ideal to use the entity enum {@link Game} here,
+     * but we found no better solution for now.
+     *
+     * @param team team for which to calculate average score
+     * @param game game for which to limit average score calculation
+     * @return average match score
+     */
     Double getAverageTeamScoreForGame(TeamDTO team, Game game);
 }
