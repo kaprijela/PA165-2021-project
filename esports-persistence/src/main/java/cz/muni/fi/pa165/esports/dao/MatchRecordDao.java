@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.esports.dao;
 
-
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
