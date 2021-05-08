@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
+/**
+ * @author Elena
+ */
 
 @Getter
 @Setter

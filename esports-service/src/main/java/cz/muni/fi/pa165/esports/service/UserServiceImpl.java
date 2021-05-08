@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 /**
  * @author Elena Álvarez
  *
- *  Implementation of the {@link MatchRecordService}. This class is part of the
+ *  Implementation of the {@link UserServiceImpl}. This class is part of the
  *  service module of the application that provides the implementation of the
  *  business logic (main logic of the application).
  *
@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User create(User user, String password) {
         if (userDao.findByEmail(user.getEmail() ) == null) {
+            //Put password as a hash
             String passwordHash = passwordEncoder.encode(password);
             user.setPasswordHash(passwordHash);
             userDao.create(user);
@@ -70,16 +71,18 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findByEmail(String email) { return userDao.findByEmail(email); }
 
+
+    //Check
     @Override
     public boolean isAuthenticated(User user, String password) {
         return passwordEncoder.matches(password, user.getPasswordHash());
     }
 
     @Override
-    public boolean isAdmin(User user) {
-        User userBd = userDao.findById(user.getId());
+    public boolean isAdmin(Long id) {
+        User userBd = userDao.findById(id);
         if (userBd != null)
-            return user.isAdmin();
+            return userBd.isAdmin();
         return false;
     }
 }

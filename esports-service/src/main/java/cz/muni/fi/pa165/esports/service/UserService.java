@@ -70,8 +70,8 @@ public interface UserService {
     /**
      * Prove if a user is admin
      *
-     * @param user entity of a user
+     * @param id ID of a user
      * @return true, if user exists and is admin, false if not
      */
-    boolean isAdmin(User user);
+    boolean isAdmin(Long id);
 }
