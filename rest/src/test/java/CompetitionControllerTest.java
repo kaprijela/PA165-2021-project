@@ -1,10 +1,15 @@
+import com.beust.jcommander.internal.Lists;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.CompetitionController;
+import controllers.ControllerConstants;
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.util.collections.Sets;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -14,10 +19,24 @@ import org.testng.annotations.Test;
 
 import javax.inject.Inject;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
@@ -40,12 +59,53 @@ public class CompetitionControllerTest {
 
     @Test
     public void getAllCompetitions() throws Exception {
-//        doReturn(Collection)
+        doReturn(createCompetitions()).when(competitionFacade).getAllCompetitions();
+
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.[?(@.id==1)].name").value("competition1"))
+                .andDo(print());
     }
 
-//    private Collection<CompetitionDTO> createCompetitions() {
-//
-//    }
+    @Test
+    public void createCompetition() throws Exception {
+        CompetitionDTO competition = getCompetition();
+        when(competitionFacade.createCompetition(any())).thenReturn(3L);
+        when(competitionFacade.getCompetitionById(3L)).thenReturn(competition);
+
+        mockMvc.perform(post(ControllerConstants.COMPETITIONS + "/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(convertObjectToString(competition)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.[?(@.id==3)].name").value("competition3"))
+                .andDo(print());
+    }
 
 
+
+    private List<CompetitionDTO> createCompetitions() {
+        CompetitionDTO competitionDTO = new CompetitionDTO();
+        competitionDTO.setId(1L);
+        competitionDTO.setName("competition1");
+
+        CompetitionDTO competitionDTO2 = new CompetitionDTO();
+        competitionDTO2.setId(2L);
+        competitionDTO2.setName("competition2");
+
+        return Lists.newArrayList(competitionDTO, competitionDTO2);
+    }
+
+    private CompetitionDTO getCompetition() {
+        CompetitionDTO competitionDTO = new CompetitionDTO();
+        competitionDTO.setId(3L);
+        competitionDTO.setName("competition3");
+        return competitionDTO;
+    }
+
+    private static String convertObjectToString(Object object) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(object);
+    }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("esports/rest/competitions")
+@RequestMapping(ControllerConstants.COMPETITIONS)
 @Slf4j
 public class CompetitionController {
 
@@ -38,8 +38,9 @@ public class CompetitionController {
         return competitionFacade.getAllCompetitions();
     }
 
-    @RequestMapping(value= "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final CompetitionDTO createComepetion(@RequestBody CompetitionDTO competitionDTO) throws Exception{
+    @RequestMapping(value= "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public final CompetitionDTO createCompetition(@RequestBody CompetitionDTO competitionDTO) throws Exception{
         log.debug("rest createCompetition()");
         try {
             Long competition = competitionFacade.createCompetition(competitionDTO);
