@@ -34,12 +34,14 @@ public interface CompetitionFacade {
      * @param competitionDTO
      * @return result
      */
-    void createCompetition(CompetitionDTO competitionDTO);
+    Long createCompetition(CompetitionDTO competitionDTO);
 
     /**
      * get competition by name
      * @return competition
      */
     CompetitionDTO getCompetitionByName(String name);
+
+    CompetitionDTO getCompetitionById(Long id);
 
 }

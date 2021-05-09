@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
