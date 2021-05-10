@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -36,12 +37,14 @@ public class Team {
     /**
      * A team must have a unique name.
      */
+    @NonNull
     @Column(unique = true, nullable = false)
     private String name;
 
     /**
      * A team must also have a unique abbreviation.
      */
+    @NonNull
     @Column(unique = true, nullable = false)
     private String abbreviation;
 
