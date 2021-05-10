@@ -10,12 +10,13 @@ import java.util.List;
  * @author Gabriela Kandova
  */
 
-public interface TeamDao {
+public interface TeamDao extends Dao<Team> {
     /**
      * Adds a team to the database.
      *
      * @param team entity to be persisted
      */
+    @Override
     void create(Team team);
 
     /**
@@ -23,6 +24,7 @@ public interface TeamDao {
      *
      * @param team entity to be deleted
      */
+    @Override
     void delete(Team team);
 
     /**
@@ -31,6 +33,7 @@ public interface TeamDao {
      * @param id ID of the sought team entity
      * @return team entity if found, else null
      */
+    @Override
     Team findById(Long id);
 
     /**
@@ -38,6 +41,7 @@ public interface TeamDao {
      *
      * @return list of all team entities in the database
      */
+    @Override
     List<Team> findAll();
 
     /**

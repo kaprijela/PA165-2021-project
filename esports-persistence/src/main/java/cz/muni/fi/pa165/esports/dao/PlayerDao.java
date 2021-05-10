@@ -8,20 +8,22 @@ import java.util.List;
 /**
  * @author Radovan Tomasik
  */
-public interface PlayerDao {
+public interface PlayerDao extends Dao<Player> {
     /**
      * Find a player with a specific id
      *
      * @param id Player_id
      * @return a Player
      */
+    @Override
     Player findById(Long id);
 
     /**
-     * Add a player to the databse
+     * Add a player to the database
      *
      * @param player player
      */
+    @Override
     void create(Player player);
 
     /**
@@ -29,6 +31,7 @@ public interface PlayerDao {
      *
      * @param player a specific player
      */
+    @Override
     void delete(Player player);
 
     /**
@@ -36,6 +39,7 @@ public interface PlayerDao {
      *
      * @return a list of players
      */
+    @Override
     List<Player> findAll();
 
     /**

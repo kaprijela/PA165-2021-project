@@ -13,17 +13,19 @@ import java.util.List;
  *
  * @author Elena Álvarez
  */
-public interface MatchRecordDao {
+public interface MatchRecordDao extends Dao<MatchRecord> {
     /**
      * Adds a MatchRecord to the database.
      * @param c entity to be persisted
      */
+    @Override
     public void create(MatchRecord c);
 
     /**
      * Deletes a MatchRecord from the database.
      * @param c entity to be deleted
      */
+    @Override
     public void delete(MatchRecord c);
 
     /**
@@ -31,12 +33,14 @@ public interface MatchRecordDao {
      * @param id of the sought MatchRecord entity
      * @return MatchRecord entity if found, else null
      */
+    @Override
     public MatchRecord findById(Long id);
 
     /**
      * Fetches all MatchRecords.
      * @return list of all MatchRecord entities in the database
      */
+    @Override
     public List<MatchRecord> findAll();
 
     /**
