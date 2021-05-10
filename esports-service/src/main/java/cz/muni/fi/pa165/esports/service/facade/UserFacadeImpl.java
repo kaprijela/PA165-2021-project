@@ -32,12 +32,15 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public Long registerNewUser(UserDTO user, String password) throws ValidationException {
-        return null;
+        User u = userService.create(beanMappingService.mapTo(user, User.class), password);
+        return u.getId();
+
     }
 
     @Override
     public void removeUser(Long id) {
-
+        User user = userService.findById(id);
+        userService.delete(beanMappingService.mapTo(user, User.class));
     }
 
     @Override
