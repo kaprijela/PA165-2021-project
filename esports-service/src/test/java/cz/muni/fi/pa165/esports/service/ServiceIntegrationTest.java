@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.esports.enums.Gender;
 import cz.muni.fi.pa165.esports.service.config.ServiceConfiguration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * @author Gabriela Kandova
  */
 @ContextConfiguration(classes = {ServiceConfiguration.class})
+@Transactional
 public class ServiceIntegrationTest extends AbstractTestNGSpringContextTests {
 
     @Inject
