@@ -64,14 +64,16 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private Set<MatchRecord> matchRecords = new HashSet<>();
 
-    /* getters and setters */
+    /* additional getters and setters */
 
     public void addPlayer(Player player) {
         this.players.add(player);
+        player.setTeam(this);
     }
 
     public void removePlayer(Player player) {
         this.players.remove(player);
+        player.setTeam(null);
     }
 
     @Override
