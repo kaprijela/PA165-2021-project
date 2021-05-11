@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Elena Álvarez
@@ -15,6 +14,7 @@ import java.util.Optional;
 @Repository
 @Transactional
 public class UserDaoImpl implements UserDao{
+
     @PersistenceContext
     private EntityManager em;
 

@@ -10,6 +10,7 @@ import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import cz.muni.fi.pa165.esports.enums.*;
 
 /**
  * An entity describing users.
@@ -38,6 +39,9 @@ public class User {
     private String email;
 
     private boolean isAdmin;
+
+    //User role
+    private Role role;
 
     public User(@NotBlank String username, @NotNull String passwordHash, @NotBlank String email) {
         this.username = username;
@@ -85,6 +89,10 @@ public class User {
     public void setAdmin(boolean admin) {
         isAdmin = admin;
     }
+
+    public Role getRole() { return role; }
+
+    public void setRole(Role role) { this.role = role; }
 
     @Override
     public boolean equals(Object o) {
