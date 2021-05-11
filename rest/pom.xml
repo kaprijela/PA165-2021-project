@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>esports- rest</artifactId>
+    <artifactId>rest</artifactId>
 
     <dependencies>
         <dependency>
@@ -22,11 +22,6 @@
             <artifactId>tomcat-api</artifactId>
             <version>${tomcat.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>cz.muni.fi.pa165</groupId>
-            <artifactId>esports</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>cz.muni.fi.pa165</groupId>
@@ -91,6 +86,5 @@
             <artifactId>esports-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
     </dependencies>
 </project>
