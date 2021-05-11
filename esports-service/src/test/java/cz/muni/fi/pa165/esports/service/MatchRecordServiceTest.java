@@ -9,7 +9,6 @@ import cz.muni.fi.pa165.esports.service.config.ServiceConfiguration;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -17,7 +16,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -36,18 +35,6 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
     @InjectMocks
     private MatchRecordService matchRecordService;
 
-    @Inject
-    @InjectMocks
-    private PlayerService playerService;
-
-    @Inject
-    @InjectMocks
-    private TeamService teamService;
-
-    @Autowired
-    @InjectMocks
-    private CompetitionService competitionService;
-
     Player p1;
     Player p2;
     Team t1;
@@ -61,21 +48,14 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        matchRecord1 = new MatchRecord();
-        matchRecord1.setScore(0);
-        matchRecord2 = new MatchRecord();
-        matchRecord2.setScore(1);
-
         p1 = new Player();
         p1.setName("p1");
-
         p2 = new Player();
         p2.setName("p2");
 
         t1 = new Team();
         t1.setName("t1");
         t1.setAbbreviation("t1");
-
         t2 = new Team();
         t2.setName("t2");
         t2.setAbbreviation("t2");
@@ -85,35 +65,24 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
         c2 = new Competition();
         c2.setName("c2");
 
+        matchRecord1 = new MatchRecord();
+        matchRecord1.setId(1L);
+        matchRecord1.setScore(0);
         matchRecord1.setPlayer(p1);
         matchRecord1.setTeam(t1);
         matchRecord1.setCompetition(c1);
 
+        matchRecord2 = new MatchRecord();
+        matchRecord2.setId(2L);
+        matchRecord2.setScore(1);
         matchRecord2.setPlayer(p2);
         matchRecord2.setTeam(t2);
         matchRecord2.setCompetition(c2);
-
-
-        playerService.create(p1);
-        playerService.create(p2);
-        teamService.create(t1);
-        teamService.create(t2);
-        competitionService.createCompetition(c1);
-        competitionService.createCompetition(c2);
-        matchRecordService.create(matchRecord1);
-        matchRecordService.create(matchRecord2);
-
-
-        List<MatchRecord> allMatchRecords = new ArrayList<>();
-        allMatchRecords.add(matchRecord1);
-        allMatchRecords.add(matchRecord1);
-
-
-        when(matchRecordDao.findAll()).thenReturn(allMatchRecords);
     }
 
     @Test
     public void getAll() {
+        when(matchRecordDao.findAll()).thenReturn(Arrays.asList(matchRecord1, matchRecord2));
         List<MatchRecord> allMatchRecords = matchRecordService.findAll();
 
         assertEquals(allMatchRecords.size(), 2);
@@ -151,6 +120,4 @@ public class MatchRecordServiceTest extends AbstractTestNGSpringContextTests {
         List<MatchRecord> byCompetition2 = matchRecordDao.findByCompetition(c2);
         Assert.assertEquals(byCompetition2.get(0).getScore(), 1);
     }
-
-
 }
