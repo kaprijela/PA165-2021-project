@@ -32,12 +32,12 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public void addTeam(String competition, String team) {
+    public void addTeam(Long competition, String team) {
         competitionService.addTeam(competition, team);
     }
 
     @Override
-    public void removeTeam(String competition, String team) {
+    public void removeTeam(Long competition, String team) {
         competitionService.removeTeam(competition, team);
     }
 
@@ -60,5 +60,10 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     @Override
     public CompetitionDTO getCompetitionById(Long id) {
         return beanMappingService.mapTo(competitionService.findById(id), CompetitionDTO.class);
+    }
+
+    @Override
+    public void deleteCompetition(Long id) {
+        competitionService.removeCompetition(competitionService.findById(id));
     }
 }

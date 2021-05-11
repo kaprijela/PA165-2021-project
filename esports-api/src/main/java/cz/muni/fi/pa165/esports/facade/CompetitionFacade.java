@@ -10,20 +10,6 @@ import java.util.List;
 public interface CompetitionFacade {
 
     /**
-     * Add a team
-     * @param competition id of Competition
-     * @param team id of Team
-     */
-    void addTeam(String competition, String team);
-
-    /**
-     * remove a team
-     * @param competition id of Competition
-     * @param team id of Team
-     */
-    void removeTeam(String competition, String team);
-
-    /**
      * returns all of the Teams
      * @return result
      */
@@ -42,6 +28,30 @@ public interface CompetitionFacade {
      */
     CompetitionDTO getCompetitionByName(String name);
 
+    /**
+     * get competition by specified id
+     * @param id of competition you search for
+     * @return CompetitionDTO
+     */
     CompetitionDTO getCompetitionById(Long id);
 
+    /**
+     * will delete a competition
+     * @param id of deleted competition
+     */
+    void deleteCompetition(Long id);
+
+    /**
+     * Add a team
+     * @param competition id of Competition
+     * @param team id of Team
+     */
+    void addTeam(Long competition, String team);
+
+    /**
+     * remove a team
+     * @param competition id of Competition
+     * @param team id of Team
+     */
+    void removeTeam(Long competition, String team);
 }

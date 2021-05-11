@@ -22,11 +22,11 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -83,7 +83,76 @@ public class CompetitionControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    void findCompetitionByName() throws Exception {
+        CompetitionDTO competition = getCompetition();
+        when(competitionFacade.getCompetitionByName("competition3")).thenReturn(competition);
 
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/name/competition3"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[?(@.id==3)].name").value("competition3"))
+                .andDo(print());
+    }
+
+    @Test
+    void findCompetitionByInvalidName() throws Exception {
+        CompetitionDTO competition = getCompetition();
+        when(competitionFacade.getCompetitionByName("competition3")).thenReturn(null);
+
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/name/competition3"))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    void findCompetitionById() throws Exception {
+        CompetitionDTO competition = getCompetition();
+        when(competitionFacade.getCompetitionById(3L)).thenReturn(competition);
+
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/id/3"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[?(@.id==3)].name").value("competition3"))
+                .andDo(print());
+    }
+
+    @Test
+    void deleteById() throws Exception {
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/delete/3"))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    void deleteByInvalidId() throws Exception {
+        doThrow(NoSuchElementException.class).when(competitionFacade).deleteCompetition(3L);
+
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/delete/3"))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    void addTeamToCompetition() throws Exception {
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/3/addTeam/team"))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    void addInvalidTeamToCompetition() throws Exception {
+        doThrow(NoSuchElementException.class).when(competitionFacade).addTeam(3L,"invalidTeam");
+
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/3/addTeam/invalidTeam"))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    void removeTeamFromCompetition() throws Exception {
+        mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/3/removeTeam/team"))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
 
     private List<CompetitionDTO> createCompetitions() {
         CompetitionDTO competitionDTO = new CompetitionDTO();
