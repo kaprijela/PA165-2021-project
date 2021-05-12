@@ -11,6 +11,7 @@
         <module>esports-service</module>
         <module>esports-spring-mvc</module>
         <module>rest</module>
+        <module>esports-angular</module>
     </modules>
 
     <parent>

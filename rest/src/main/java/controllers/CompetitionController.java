@@ -71,14 +71,15 @@ public class CompetitionController {
         return competitionByName;
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void deleteById(@PathVariable("id") Long id) throws Exception {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Long deleteById(@PathVariable("id") Long id) throws Exception {
         log.debug("rest delete by id {}", id);
         try {
             competitionFacade.deleteCompetition(id);
         } catch (Exception e) {
             throw new ResourceNotFoundException();
         }
+        return id;
     }
 
     @RequestMapping(value = "/{id}/addTeam/{team}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
