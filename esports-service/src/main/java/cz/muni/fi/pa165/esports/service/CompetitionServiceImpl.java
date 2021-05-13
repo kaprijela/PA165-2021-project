@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -47,17 +48,17 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public void addTeam(String competition, String team) {
-        log.info("Adding a team with id: {}, to competition with id: {}", team, competition);
-        Competition foundCompetition = findByName(competition);
+    public void addTeam(Long id, String team) {
+        log.info("Adding a team with id: {}, to competition with id: {}", team, id);
+        Competition foundCompetition = findById(id);
         Team foundTeam = teamService.findByName(team);
         foundCompetition.addTeam(foundTeam);
     }
 
     @Override
-    public void removeTeam(String competition, String team) {
+    public void removeTeam(Long competition, String team) {
         log.info("Removing a team with id: {}, from competition with id: {}", team, competition);
-        Competition foundCompetition = findByName(competition);
+        Competition foundCompetition = findById(competition);
         Team foundTeam = teamService.findByName(team);
         foundCompetition.removeTeam(foundTeam);
     }
@@ -80,8 +81,12 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public Optional<Competition> findById(Long competitionId) {
+    public Competition findById(Long competitionId) {
         log.info("Looking for competition with id: {}", competitionId);
-        return competitionDao.findById(competitionId);
+        Optional<Competition> byId = competitionDao.findById(competitionId);
+        if (byId.isEmpty()){
+            throw new NoSuchElementException();
+        }
+        return byId.get();
     }
 }

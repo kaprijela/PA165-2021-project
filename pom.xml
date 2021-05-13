@@ -9,6 +9,8 @@
         <module>esports-api</module>
         <module>esports-persistence</module>
         <module>esports-service</module>
+        <module>rest</module>
+        <module>esports-angular</module>
     </modules>
 
     <parent>
