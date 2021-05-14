@@ -39,7 +39,7 @@ public class CompetitionController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public final HttpEntity<CollectionModel<EntityModel<CompetitionDTO>>> getPlayers() {
-        log.debug("restv1 getPlayers()");
+        log.debug("restv1 getCompetitions()");
         List<CompetitionDTO> allCompetitions = competitionFacade.getAllCompetitions();
         CollectionModel<EntityModel<CompetitionDTO>> entityModels = competitionRepresentationModelAssembler.toCollectionModel(allCompetitions);
         entityModels.add(linkTo(CompetitionController.class).withSelfRel());
