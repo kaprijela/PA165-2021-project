@@ -6,7 +6,6 @@ import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.List;
  *
  */
 @Service
-@Transactional
 public class MatchRecordServiceImpl implements MatchRecordService {
 
     @Inject
