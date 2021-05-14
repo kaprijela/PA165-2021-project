@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>esports-angular</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -21,5 +22,25 @@
             <artifactId>esports-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-api</artifactId>
+            <version>9.0.44</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <!-- what to do when only "mvn" is run -->
+        <defaultGoal>cargo:run</defaultGoal>
+        <!-- name of the produced war and the context path in URL -->
+        <finalName>esports</finalName>
+        <plugins>
+            <!--  embedded tomcat -->
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven3-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
