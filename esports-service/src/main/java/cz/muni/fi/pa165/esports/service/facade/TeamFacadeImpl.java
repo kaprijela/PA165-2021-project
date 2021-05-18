@@ -51,8 +51,9 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public void registerNewTeam(TeamDTO team) {
+    public Long registerNewTeam(TeamDTO team) {
         teamService.create(bms.mapTo(team, Team.class));
+        return null;
     }
 
     @Override

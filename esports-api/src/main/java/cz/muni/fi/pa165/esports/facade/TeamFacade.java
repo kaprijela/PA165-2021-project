@@ -47,8 +47,9 @@ public interface TeamFacade {
      * The team's name and abbreviation must be unique, otherwise an exception is thrown.
      *
      * @param team team to be registered
+     * @return
      */
-    void registerNewTeam(TeamDTO team);
+    Long registerNewTeam(TeamDTO team);
 
     /**
      * Removes a registered team from the system.

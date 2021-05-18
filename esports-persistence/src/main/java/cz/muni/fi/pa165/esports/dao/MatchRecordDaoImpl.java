@@ -76,6 +76,4 @@ public class MatchRecordDaoImpl implements MatchRecordDao {
             return null;
         }
     }
-
-
 }
