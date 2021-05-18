@@ -4,6 +4,7 @@ package cz.muni.fi.pa165.esports.facade;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Radovan Tomasik
@@ -22,17 +23,17 @@ public interface PlayerFacade {
      * @param Name type string
      * @return a collection of players
      */
-    Collection<PlayerDTO> findPlayerByName(String Name);
+    List<PlayerDTO> findPlayerByName(String Name);
 
     /**
      * Register a player, authentication will be added later
      * @param playerDTO a player entity
      */
-    void createPlayer(PlayerDTO playerDTO);
+    Long createPlayer(PlayerDTO playerDTO);
 
     /**
      * Find all player
      * @return a collection of all player
      */
-    Collection<PlayerDTO> getAllPlayers();
+    List<PlayerDTO> getAllPlayers();
 }

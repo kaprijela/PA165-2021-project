@@ -34,20 +34,21 @@ public class PlayerFacadeImpl implements PlayerFacade {
     }
 
     @Override
-    public Collection<PlayerDTO> findPlayerByName(String name) {
+    public List<PlayerDTO> findPlayerByName(String name) {
         List<Player> players = playerService.findByName(name);
         return (players.isEmpty()) ? null : beanMappingService.mapTo(players, PlayerDTO.class);
     }
 
     @Override
-    public void createPlayer(PlayerDTO playerDTO) {
+    public Long createPlayer(PlayerDTO playerDTO) {
         Player player = beanMappingService.mapTo(playerDTO, Player.class);
         playerService.create(player);
         playerDTO.setId(player.getId());
+        return player.getId();
     }
 
     @Override
-    public Collection<PlayerDTO> getAllPlayers() {
+    public List<PlayerDTO> getAllPlayers() {
         return beanMappingService.mapTo(playerService.getAllPlayers(), PlayerDTO.class);
     }
 }

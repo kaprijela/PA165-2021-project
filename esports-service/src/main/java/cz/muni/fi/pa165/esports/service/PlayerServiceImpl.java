@@ -99,8 +99,9 @@ public class PlayerServiceImpl implements PlayerService {
         return ((double) totalScore / numberOfMatches);
     }
 
-    public void create(Player player) {
+    public Long create(Player player) {
         playerDao.create(player);
+        return player.getId();
     }
 
 }
