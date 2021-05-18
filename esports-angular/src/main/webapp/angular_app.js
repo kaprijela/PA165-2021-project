@@ -29,7 +29,22 @@ pa165eshopApp.run(function ($rootScope,$http) {
 });
 
 /* Controllers */
-
+eshopControllers.controller('PlayerDetailCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        // get product id from URL fragment #/product/:productId
+        var playerId = $routeParams.playerId;
+        $http.get('/esports/api/v1/players/' + productId).then(
+            function (response) {
+                $scope.player = response.data;
+                console.log('AJAX loaded detail of product ' + $scope.player.name);
+            },
+            function error(response) {
+                console.log("failed to load product "+playerId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
+            }
+        );
+    });
 
 
 /*

@@ -2,14 +2,10 @@ package controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
-import cz.muni.fi.pa165.esports.entity.Player;
-import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import exception.InvalidRequestException;
 import exception.ResourceAlreadyExistingException;
 import exception.ResourceNotFoundException;
-import exception.ServerProblemException;
-import hateoas.CompetitionRepresentationModelAssembler;
 import hateoas.PlayerRepresentationModelAssembler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.CollectionModel;
