@@ -33,14 +33,14 @@ public class CompetitionFacadeTest {
 
     @Test
     public void testAddTeam() {
-        competitionFacade.addTeam("competition", "team");
-        verify(competitionService, times(1)).addTeam("competition", "team");
+        competitionFacade.addTeam(1L, "team");
+        verify(competitionService, times(1)).addTeam(1L, "team");
     }
 
     @Test
     public void testRemoveTeam() {
-        competitionFacade.removeTeam("competition", "team");
-        verify(competitionService, times(1)).removeTeam("competition", "team");
+        competitionFacade.removeTeam(1L, "team");
+        verify(competitionService, times(1)).removeTeam(1L, "team");
     }
 
     @Test

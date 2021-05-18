@@ -12,17 +12,22 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 /**
  * @author Radovan Tomasik
- * Class for testing TeamDao
+ * Class for testing {@link TeamDao}
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @Transactional
 @DirtiesContext
 public class TeamDaoTest extends AbstractTestNGSpringContextTests {
+
+    @PersistenceUnit
+    protected EntityManagerFactory emf;
 
     @PersistenceContext
     public EntityManager em;
@@ -30,47 +35,41 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     public TeamDao teamDao;
 
-    @Autowired
-    public PlayerDao playerDao;
-
     private Team t1;
     private Team t2;
     private Team t3;
     private Team t4;
 
-    private Player p1;
-    private Player p2;
-
     @BeforeClass
-    public void createTeams(){
+    public void setup() {
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+
         t1 = new Team();
-        t2 = new Team();
-        t3 = new Team();
-        t4 = new Team();
-
-        p1 = new Player();
-        p2 = new Player();
-
-        p1.setName("Leia");
-        p2.setName("Luke");
-
         t1.setName("Orcs");
-        t2.setName("Elves");
-        t3.setName("Men of Gondor");
-        t4.setName("Dwarves");
-
         t1.setAbbreviation("O");
+        em.persist(t1);
+        t1 = em.find(Team.class, t1.getId()); // replace with managed instance
+
+        t2 = new Team();
+        t2.setName("Elves");
         t2.setAbbreviation("E");
+        em.persist(t2);
+        t2 = em.find(Team.class, t2.getId()); // replace with managed instance
+
+        t3 = new Team();
+        t3.setName("Men of Gondor");
         t3.setAbbreviation("MOG");
+        em.persist(t3);
+        t3 = em.find(Team.class, t3.getId()); // replace with managed instance
+
+        t4 = new Team();
+        t4.setName("Dwarves");
         t4.setAbbreviation("D");
+        em.persist(t4);
+        t4 = em.find(Team.class, t4.getId()); // replace with managed instance
 
-        playerDao.create(p1);
-        playerDao.create(p2);
-
-        teamDao.create(t1);
-        teamDao.create(t2);
-        teamDao.create(t3);
-        teamDao.create(t4);
+        em.getTransaction().commit();
     }
 
     @Test
@@ -101,22 +100,10 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(teamDao.findByAbbreviation("MOG").getId(), t3.getId());
         Assert.assertEquals(teamDao.findByAbbreviation("D").getId(), t4.getId());
     }
+
     @Test
     public void removeTeam(){
         teamDao.delete(t4);
         Assert.assertNull(teamDao.findById(t4.getId()));
-    }
-    @Test
-    public void addPlayers(){
-        t2.addPlayer(p1);
-        t2.addPlayer(p2);
-        Assert.assertEquals(t2.getPlayers().size(), 2);
-    }
-
-    @Test
-    public void removePlayers(){
-        t2.removePlayer(p1);
-        t2.removePlayer(p2);
-        Assert.assertEquals(t2.getPlayers().size(), 0);
     }
 }

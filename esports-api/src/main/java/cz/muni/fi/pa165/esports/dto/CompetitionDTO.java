@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CompetitionDTO {
+    private Long id;
     @EqualsAndHashCode.Include
     private String name;
     private String game;

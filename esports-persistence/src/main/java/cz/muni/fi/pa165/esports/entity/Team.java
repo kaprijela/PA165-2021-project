@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -36,12 +37,14 @@ public class Team {
     /**
      * A team must have a unique name.
      */
+    @NonNull
     @Column(unique = true, nullable = false)
     private String name;
 
     /**
      * A team must also have a unique abbreviation.
      */
+    @NonNull
     @Column(unique = true, nullable = false)
     private String abbreviation;
 
@@ -64,14 +67,16 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private Set<MatchRecord> matchRecords = new HashSet<>();
 
-    /* getters and setters */
+    /* additional getters and setters */
 
     public void addPlayer(Player player) {
         this.players.add(player);
+        player.setTeam(this);
     }
 
     public void removePlayer(Player player) {
         this.players.remove(player);
+        player.setTeam(null);
     }
 
     @Override

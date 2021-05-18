@@ -16,6 +16,8 @@ import org.testng.Assert;
 
 import javax.inject.Inject;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 
 /**
@@ -64,18 +66,20 @@ public class CompetitionServiceTest {
     @Test
     public void testAddTeam() {
         when(teamService.findByName("team")).thenReturn(team);
-        when(competitionDao.findByName("competition")).thenReturn(competition);
-        competitionService.addTeam("competition", "team");
+        when(competitionDao.findById(1L)).thenReturn(Optional.of(competition));
+
+        competitionService.addTeam(1L, "team");
         Assert.assertEquals(competition.getTeams().size(), 1);
     }
 
     @Test
     public void testRemoveTeam() {
         when(teamService.findByName("team")).thenReturn(team).thenReturn(team);
-        when(competitionDao.findByName("competition")).thenReturn(competition).thenReturn(competition);
-        competitionService.addTeam("competition", "team");
+        when(competitionDao.findById(1L)).thenReturn(Optional.of(competition)).thenReturn(Optional.of(competition));
+
+        competitionService.addTeam(1L, "team");
         Assert.assertEquals(competition.getTeams().size(), 1);
-        competitionService.removeTeam("competition", "team");
+        competitionService.removeTeam(1L, "team");
         Assert.assertEquals(competition.getTeams().size(), 0);
     }
 
@@ -93,6 +97,8 @@ public class CompetitionServiceTest {
 
     @Test
     public void testFindById() {
+        when(competitionDao.findById(1L)).thenReturn(Optional.of(new Competition()));
+
         competitionService.findById(1L);
         verify(competitionDao, times(1)).findById(1L);
     }

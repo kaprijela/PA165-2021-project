@@ -26,4 +26,6 @@ public interface CompetitionDao extends CrudRepository<Competition, Long> {
      * @return Return the Competition with name
      */
     Competition findByName(String name);
+
+   
 }

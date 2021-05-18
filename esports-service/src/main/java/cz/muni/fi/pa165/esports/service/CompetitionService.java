@@ -26,14 +26,14 @@ public interface CompetitionService {
      * @param competition competition
      * @param team team
      */
-    void addTeam(String competition, String team);
+    void addTeam(Long competition, String team);
 
     /**
      * remove a team to competition
      * @param competition competition
      * @param team team
      */
-    void removeTeam(String competition, String team);
+    void removeTeam(Long competition, String team);
 
     /**
      * get a Competition by Name
@@ -54,5 +54,5 @@ public interface CompetitionService {
      * @param competitionId id
      * @return competition
      */
-    Optional<Competition> findById(Long competitionId);
+    Competition findById(Long competitionId);
 }
