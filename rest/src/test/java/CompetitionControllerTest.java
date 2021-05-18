@@ -4,11 +4,9 @@ import controllers.CompetitionController;
 import controllers.ControllerConstants;
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
-import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.util.collections.Sets;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,10 +18,8 @@ import org.testng.annotations.Test;
 import javax.inject.Inject;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -35,7 +31,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebAppConfiguration
@@ -72,7 +67,7 @@ public class CompetitionControllerTest {
     public void createCompetition() throws Exception {
         CompetitionDTO competition = getCompetition();
         when(competitionFacade.createCompetition(any())).thenReturn(3L);
-        when(competitionFacade.getCompetitionById(3L)).thenReturn(competition);
+        when(competitionFacade.findCompetitionById(3L)).thenReturn(competition);
 
         mockMvc.perform(post(ControllerConstants.COMPETITIONS + "/create")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -86,7 +81,7 @@ public class CompetitionControllerTest {
     @Test
     void findCompetitionByName() throws Exception {
         CompetitionDTO competition = getCompetition();
-        when(competitionFacade.getCompetitionByName("competition3")).thenReturn(competition);
+        when(competitionFacade.findCompetitionByName("competition3")).thenReturn(competition);
 
         mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/name/competition3"))
                 .andExpect(status().isOk())
@@ -97,7 +92,7 @@ public class CompetitionControllerTest {
     @Test
     void findCompetitionByInvalidName() throws Exception {
         CompetitionDTO competition = getCompetition();
-        when(competitionFacade.getCompetitionByName("competition3")).thenReturn(null);
+        when(competitionFacade.findCompetitionByName("competition3")).thenReturn(null);
 
         mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/name/competition3"))
                 .andExpect(status().isNotFound())
@@ -107,7 +102,7 @@ public class CompetitionControllerTest {
     @Test
     void findCompetitionById() throws Exception {
         CompetitionDTO competition = getCompetition();
-        when(competitionFacade.getCompetitionById(3L)).thenReturn(competition);
+        when(competitionFacade.findCompetitionById(3L)).thenReturn(competition);
 
         mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/id/3"))
                 .andExpect(status().isOk())

@@ -1,26 +1,15 @@
 package controllers;
 
-import cz.muni.fi.pa165.esports.dao.CompetitionDao;
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa165.esports.dto.PlayerDTO;
-import cz.muni.fi.pa165.esports.entity.Competition;
-import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
-import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import exceptions.ResourceAlreadyExistingException;
 import exceptions.ResourceNotFoundException;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.List;
 
 
 @RestController
@@ -43,7 +32,7 @@ public class CompetitionController {
         log.debug("rest createCompetition()");
         try {
             Long competition = competitionFacade.createCompetition(competitionDTO);
-            return competitionFacade.getCompetitionById(competition);
+            return competitionFacade.findCompetitionById(competition);
         } catch (Exception ex) {
             throw new ResourceAlreadyExistingException();
         }
@@ -53,7 +42,7 @@ public class CompetitionController {
     public final CompetitionDTO getByName(@PathVariable("name") String name) throws Exception {
         log.debug("rest get by name {}", name);
 
-        CompetitionDTO competitionByName = competitionFacade.getCompetitionByName(name);
+        CompetitionDTO competitionByName = competitionFacade.findCompetitionByName(name);
         if (competitionByName == null) {
             throw new ResourceNotFoundException();
         }
@@ -64,7 +53,7 @@ public class CompetitionController {
     public final CompetitionDTO getById(@PathVariable("id") Long id) throws Exception {
         log.debug("rest get by id {}", id);
 
-        CompetitionDTO competitionByName = competitionFacade.getCompetitionById(id);
+        CompetitionDTO competitionByName = competitionFacade.findCompetitionById(id);
         if (competitionByName == null) {
             throw new ResourceNotFoundException();
         }

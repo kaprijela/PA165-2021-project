@@ -24,7 +24,7 @@ public interface TeamFacade {
      * @param id ID of a team
      * @return team with matching ID or null if no such team exists
      */
-    TeamDTO getTeamById(Long id);
+    TeamDTO findTeamById(Long id);
 
     /**
      * Get a registered team according to its name.
@@ -32,7 +32,7 @@ public interface TeamFacade {
      * @param name name of a team
      * @return team with matching name or null if no such team exists
      */
-    TeamDTO getTeamByName(String name);
+    TeamDTO findTeamByName(String name);
 
     /**
      * Get a registered team according to its abbreviation.
@@ -40,15 +40,16 @@ public interface TeamFacade {
      * @param abbreviation abbreviation of a team
      * @return team with matching abbreviation or null if no such team exists
      */
-    TeamDTO getTeamByAbbreviation(String abbreviation);
+    TeamDTO findTeamByAbbreviation(String abbreviation);
 
     /**
      * Register a team in the system.
      * The team's name and abbreviation must be unique, otherwise an exception is thrown.
      *
      * @param team team to be registered
+     * @return
      */
-    void registerNewTeam(TeamDTO team);
+    Long registerNewTeam(TeamDTO team);
 
     /**
      * Removes a registered team from the system.

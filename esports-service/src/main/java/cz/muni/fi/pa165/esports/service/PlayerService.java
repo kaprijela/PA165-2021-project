@@ -67,5 +67,5 @@ public interface PlayerService {
      * Create a player
      * @param player a player entity
      */
-    void create(Player player);
+    Long create(Player player);
 }
