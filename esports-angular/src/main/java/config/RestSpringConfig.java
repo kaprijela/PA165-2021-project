@@ -1,6 +1,8 @@
 package config;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.muni.pa165.sampledata.EshopWithSampleDataConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +24,9 @@ import java.util.Locale;
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"controllers"})
-public class RestSpringMvcConfig implements WebMvcConfigurer {
+@Import({EshopWithSampleDataConfiguration.class})
+@ComponentScan(basePackages = {"controllers", "hateoas"})
+public class RestSpringConfig implements WebMvcConfigurer {
 
     @Bean
     public MappingJackson2HttpMessageConverter customJackson2HttpMessageConverter() {
@@ -62,3 +65,4 @@ public class RestSpringMvcConfig implements WebMvcConfigurer {
         return new LocalValidatorFactoryBean();
     }
 }
+

@@ -26,7 +26,6 @@ public interface UserService {
      */
     public void delete(SystemUser systemUser);
 
-
     /**
      * Fetches all Users.
      *
