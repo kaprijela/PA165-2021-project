@@ -164,6 +164,9 @@
                         <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
                     </configuration>
                 </plugin>
+
+                     </plugin>
+
             <!-- maven surefire test -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
