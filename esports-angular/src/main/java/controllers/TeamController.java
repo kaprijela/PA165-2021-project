@@ -1,12 +1,17 @@
 package controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
+import cz.muni.fi.pa165.esports.dto.PlayerDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
+import cz.muni.fi.pa165.esports.entity.Competition;
+import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
+import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import cz.muni.fi.pa165.esports.facade.TeamFacade;
 import exception.InvalidRequestException;
 import exception.ResourceAlreadyExistingException;
 import exception.ResourceNotFoundException;
 import exception.ServerProblemException;
+import hateoas.StatisticsRepresentatitionModelAssembler;
 import hateoas.TeamRepresentationModelAssembler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.CollectionModel;
@@ -35,7 +40,16 @@ public class TeamController {
     TeamFacade teamFacade;
 
     @Inject
+    PlayerFacade playerFacade;
+
+    @Inject
+    CompetitionFacade competitionFacade;
+
+    @Inject
     TeamRepresentationModelAssembler teamRepresentationModelAssembler;
+
+    @Inject
+    StatisticsRepresentatitionModelAssembler statisticsRepresentatitionModelAssembler;
 
     @Inject
     private EntityLinks entityLink;
@@ -51,7 +65,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<EntityModel<TeamDTO>> createCompetition(@RequestBody TeamDTO teamDTO, BindingResult bindingResult) throws Exception {
+    public final HttpEntity<EntityModel<TeamDTO>> createTeam(@RequestBody TeamDTO teamDTO, BindingResult bindingResult) throws Exception {
         log.debug("restv1 createTeam()");
         if (bindingResult.hasErrors()) {
             log.error("failed validation {}", bindingResult.toString());
@@ -65,17 +79,6 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public final HttpEntity<EntityModel<TeamDTO>> getByName(@PathVariable("name") String name) throws Exception {
-        log.debug("restv1 get by name {}", name);
-
-        TeamDTO teamByName = teamFacade.getTeamByName(name);
-        if (teamByName == null) {
-            throw new ResourceNotFoundException("Competition not found");
-        }
-        return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamByName));
-    }
-
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public final HttpEntity<EntityModel<TeamDTO>> getById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 get by id {}", id);
@@ -85,6 +88,17 @@ public class TeamController {
             throw new ResourceNotFoundException("Competition not found");
         }
         return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamDTO));
+    }
+
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    public final HttpEntity<EntityModel<TeamDTO>> getByName(@PathVariable("name") String name) throws Exception {
+        log.debug("restv1 get by name {}", name);
+
+        TeamDTO teamByName = teamFacade.getTeamByName(name);
+        if (teamByName == null) {
+            throw new ResourceNotFoundException("Competition not found");
+        }
+        return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamByName));
     }
 
     @RequestMapping(value = "/id/{abbreviation}", method = RequestMethod.GET)
@@ -116,5 +130,57 @@ public class TeamController {
             throw new ServerProblemException(rootCause.getMessage());
         }
     }
+    //garbage error handling
+    @RequestMapping(value = "/{idTeam}/addPlayer/{idPlayer}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("name") Long idPlayer){
+        log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
 
+        TeamDTO teamById = teamFacade.getTeamById(idTeam);
+        PlayerDTO playerById = playerFacade.findPlayerById(idPlayer);
+
+        if (teamById == null || playerById == null) {
+            throw new ResourceNotFoundException("Competition not found");
+        }
+        try {
+            teamFacade.addPlayerToTeam(teamById, playerById);
+        } catch (Exception e) {
+            log.error("Exception: {}", e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/{idTeam}/removePlayer/{idPlayer}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void removePlayerFromTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("name") Long idPlayer){
+        log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
+
+        TeamDTO teamById = teamFacade.getTeamById(idTeam);
+        PlayerDTO playerById = playerFacade.findPlayerById(idPlayer);
+
+        if (teamById == null || playerById == null) {
+            throw new ResourceNotFoundException("Competition not found");
+        }
+        try {
+            teamFacade.kickPlayerFromTeam(teamById, playerById);
+        } catch (Exception e) {
+            log.error("Exception: {}", e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "{id}/getCompetitionStatistics/{competitionId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final HttpEntity<EntityModel<Double>> getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition){
+        log.debug("restv1 get statitistics for team: {} team in competition: {}", idTeam, idTeam);
+
+        TeamDTO teamById = teamFacade.getTeamById(idTeam);
+        CompetitionDTO competitionById = competitionFacade.getCompetitionById(idTeam);
+
+        if (teamById == null || competitionById == null) {
+            throw new ResourceNotFoundException("Competition not found");
+        }
+        Double result = null;
+        try {
+            result = teamFacade.getAverageTeamScoreForCompetition(teamById, competitionById);
+        } catch (Exception e) {
+            log.error("Exception: {}", e.getMessage());
+        }
+        return new HttpEntity<>(statisticsRepresentatitionModelAssembler.toModel(result));
+    }
 }
