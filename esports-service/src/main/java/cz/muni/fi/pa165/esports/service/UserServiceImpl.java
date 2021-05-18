@@ -1,8 +1,7 @@
 package cz.muni.fi.pa165.esports.service;
 
-import cz.muni.fi.pa165.esports.dao.MatchRecordDao;
 import cz.muni.fi.pa165.esports.dao.UserDao;
-import cz.muni.fi.pa165.esports.entity.User;
+import cz.muni.fi.pa165.esports.entity.SystemUser;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,19 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataRetrievalFailureException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-
-import javax.validation.ValidationException;
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Elena Álvarez
@@ -42,47 +28,47 @@ public class UserServiceImpl implements UserService{
 
     //Persistence
     @Override
-    public User create(User user, String password) {
-        if (userDao.findByEmail(user.getEmail() ) == null) {
+    public SystemUser create(SystemUser systemUser, String password) {
+        if (userDao.findByEmail(systemUser.getEmail() ) == null) {
             //Put password as a hash
             String passwordHash = passwordEncoder.encode(password);
-            user.setPasswordHash(passwordHash);
-            userDao.create(user);
+            systemUser.setPasswordHash(passwordHash);
+            userDao.create(systemUser);
         }
 
-       return user;
+       return systemUser;
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(SystemUser systemUser) {
 
     }
 
     //Getters
     @Override
-    public List<User> findAll() {return userDao.findAll();}
+    public List<SystemUser> findAll() {return userDao.findAll();}
 
     @Override
-    public User findById(Long id) {return userDao.findById(id);}
+    public SystemUser findById(Long id) {return userDao.findById(id);}
 
     @Override
-    public User findByUsername(String username) { return userDao.findByUsername(username); }
+    public SystemUser findByUsername(String username) { return userDao.findByUsername(username); }
 
     @Override
-    public User findByEmail(String email) { return userDao.findByEmail(email); }
+    public SystemUser findByEmail(String email) { return userDao.findByEmail(email); }
 
 
     //Check
     @Override
-    public boolean isAuthenticated(User user, String password) {
-        return passwordEncoder.matches(password, user.getPasswordHash());
+    public boolean isAuthenticated(SystemUser systemUser, String password) {
+        return passwordEncoder.matches(password, systemUser.getPasswordHash());
     }
 
     @Override
     public boolean isAdmin(Long id) {
-        User userBd = userDao.findById(id);
-        if (userBd != null)
-            return userBd.isAdmin();
+        SystemUser systemUserBd = userDao.findById(id);
+        if (systemUserBd != null)
+            return systemUserBd.isAdmin();
         return false;
     }
 }

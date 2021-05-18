@@ -14,17 +14,17 @@ public interface UserService {
     /**
      * Register a user in the system.
      *
-     * @param user User to be registered
+     * @param systemUser User to be registered
      * @param password password without hash
      */
-    public User create(User user, String password);
+    public SystemUser create(SystemUser systemUser, String password);
 
     /**
      * Remove a user from the system.
      *
-     * @param user User to be removed
+     * @param systemUser User to be removed
      */
-    public void delete(User user);
+    public void delete(SystemUser systemUser);
 
 
     /**
@@ -32,7 +32,7 @@ public interface UserService {
      *
      * @return return all Users
      */
-    public List<User> findAll();
+    public List<SystemUser> findAll();
 
     /**
      * Fetch a registered User according to its ID.
@@ -40,7 +40,7 @@ public interface UserService {
      * @param id unique ID of a team
      * @return User with the given ID, NULL if not found
      */
-    public User findById(Long id);
+    public SystemUser findById(Long id);
 
     /**
      * Fetch a registered User according to its username.
@@ -48,7 +48,7 @@ public interface UserService {
      * @param username username of a user
      * @return User with the given username, NULL if not found
      */
-    public User findByUsername(String username);
+    public SystemUser findByUsername(String username);
 
     /**
      * Fetch a registered User according to its email.
@@ -56,16 +56,16 @@ public interface UserService {
      * @param email email of a User
      * @return User with the given email, NULL if not found
      */
-    public User findByEmail(String email);
+    public SystemUser findByEmail(String email);
 
     /**
      * Prove if a user is authenticate in the system
      *
-     * @param user entity of a user
+     * @param systemUser entity of a user
      * @param password  password provided
      * @return true, if the password matches the hash stored previously, false if not
      */
-    boolean isAuthenticated(User user, String password);
+    boolean isAuthenticated(SystemUser systemUser, String password);
 
     /**
      * Prove if a user is admin

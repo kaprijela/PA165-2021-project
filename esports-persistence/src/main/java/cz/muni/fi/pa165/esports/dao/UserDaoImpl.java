@@ -1,13 +1,12 @@
 package cz.muni.fi.pa165.esports.dao;
 
-import cz.muni.fi.pa165.esports.entity.User;
+import cz.muni.fi.pa165.esports.entity.SystemUser;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Elena Álvarez
@@ -15,32 +14,33 @@ import java.util.Optional;
 @Repository
 @Transactional
 public class UserDaoImpl implements UserDao{
+
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public void create(User user) { em.persist(user); }
+    public void create(SystemUser systemUser) { em.persist(systemUser); }
 
     @Override
-    public void delete(User user) {
-        if (em.contains(user)) {
-            em.remove(user);
+    public void delete(SystemUser systemUser) {
+        if (em.contains(systemUser)) {
+            em.remove(systemUser);
         } else {
-            em.remove(em.merge(user));
+            em.remove(em.merge(systemUser));
         }
     }
 
     @Override
-    public User findById(Long id) { return em.find(User.class, id); }
+    public SystemUser findById(Long id) { return em.find(SystemUser.class, id); }
 
     @Override
-    public List<User> findAll() {
-        return em.createQuery("select u from User u", User.class).getResultList();
+    public List<SystemUser> findAll() {
+        return em.createQuery("select u from SystemUser u", SystemUser.class).getResultList();
     }
 
     @Override
-    public User findByUsername(String username) { return em.find(User.class, username); }
+    public SystemUser findByUsername(String username) { return em.find(SystemUser.class, username); }
 
     @Override
-    public User findByEmail(String email) { return em.find(User.class, email); }
+    public SystemUser findByEmail(String email) { return em.find(SystemUser.class, email); }
 }
