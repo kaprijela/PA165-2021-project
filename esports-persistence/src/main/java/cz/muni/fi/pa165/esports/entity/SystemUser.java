@@ -6,10 +6,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
+import cz.muni.fi.pa165.esports.enums.*;
 
 /**
  * An entity describing users.
@@ -20,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class SystemUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,7 +38,10 @@ public class User {
 
     private boolean isAdmin;
 
-    public User(@NotBlank String username, @NotNull String passwordHash, @NotBlank String email) {
+    //User role
+    private Role role;
+
+    public SystemUser(@NotBlank String username, @NotNull String passwordHash, @NotBlank String email) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.email = email;
@@ -86,12 +88,16 @@ public class User {
         isAdmin = admin;
     }
 
+    public Role getRole() { return role; }
+
+    public void setRole(Role role) { this.role = role; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getEmail(), user.getEmail());
+        if (!(o instanceof SystemUser)) return false;
+        SystemUser systemUser = (SystemUser) o;
+        return Objects.equals(getUsername(), systemUser.getUsername()) && Objects.equals(getEmail(), systemUser.getEmail());
     }
 
     @Override

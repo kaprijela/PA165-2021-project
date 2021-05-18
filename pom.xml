@@ -11,6 +11,7 @@
         <module>esports-service</module>
         <module>rest</module>
         <module>esports-angular</module>
+        <module>esports-sample-data</module>
     </modules>
 
     <parent>
@@ -28,7 +29,6 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-
 
 
     <!-- Spring -->
@@ -162,18 +162,19 @@
                     <configuration>
                         <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
                     </configuration>
-                     </plugin>
-            <!-- maven surefire test -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-                <configuration>
-                    <reuseForks>false</reuseForks>
-                    <forkCount>1</forkCount>
-                </configuration>
-            </plugin>
-              </plugins>
+                </plugin>
+
+                <!-- maven surefire test -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.2</version>
+                    <configuration>
+                        <reuseForks>false</reuseForks>
+                        <forkCount>1</forkCount>
+                    </configuration>
+                </plugin>
+            </plugins>
         </pluginManagement>
     </build>
 </project>

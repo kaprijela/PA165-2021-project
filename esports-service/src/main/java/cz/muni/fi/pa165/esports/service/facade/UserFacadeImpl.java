@@ -1,10 +1,8 @@
 package cz.muni.fi.pa165.esports.service.facade;
 
 import cz.muni.fi.pa165.esports.dto.AuthenticatedUserDTO;
-import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
 import cz.muni.fi.pa165.esports.dto.UserDTO;
-import cz.muni.fi.pa165.esports.entity.MatchRecord;
-import cz.muni.fi.pa165.esports.entity.User;
+import cz.muni.fi.pa165.esports.entity.SystemUser;
 import cz.muni.fi.pa165.esports.facade.UserFacade;
 import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.UserService;
@@ -13,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ValidationException;
 import java.util.List;
-import java.util.Optional;
 
 
 import javax.inject.Inject;
@@ -32,29 +29,29 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public Long registerNewUser(UserDTO user, String password) throws ValidationException {
-        User u = userService.create(beanMappingService.mapTo(user, User.class), password);
+        SystemUser u = userService.create(beanMappingService.mapTo(user, SystemUser.class), password);
         return u.getId();
 
     }
 
     @Override
     public void removeUser(Long id) {
-        User user = userService.findById(id);
-        userService.delete(beanMappingService.mapTo(user, User.class));
+        SystemUser systemUser = userService.findById(id);
+        userService.delete(beanMappingService.mapTo(systemUser, SystemUser.class));
     }
 
     @Override
     public boolean isAuthenticated(AuthenticatedUserDTO authenticatedUser) {
-        User user = userService.findByUsername(authenticatedUser.getUsername());
-        if(user == null) return false;
-        return userService.isAuthenticated(user, authenticatedUser.getPassword());
+        SystemUser systemUser = userService.findByUsername(authenticatedUser.getUsername());
+        if(systemUser == null) return false;
+        return userService.isAuthenticated(systemUser, authenticatedUser.getPassword());
     }
 
     @Override
     public boolean isAdmin(UserDTO userDTO) {
-        User user = userService.findById(userDTO.getId());
-        if(user == null) return false;
-        return userService.isAdmin(user.getId());
+        SystemUser systemUser = userService.findById(userDTO.getId());
+        if(systemUser == null) return false;
+        return userService.isAdmin(systemUser.getId());
     }
 
     @Override
@@ -64,19 +61,19 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserDTO findById(Long id) {
-        User user = userService.findById(id);
-        return (user == null) ? null : beanMappingService.mapTo(user, UserDTO.class);
+        SystemUser systemUser = userService.findById(id);
+        return (systemUser == null) ? null : beanMappingService.mapTo(systemUser, UserDTO.class);
     }
 
     @Override
     public UserDTO findByUsername(String username) {
-        User user = userService.findByUsername(username);
-        return (user == null) ? null : beanMappingService.mapTo(user, UserDTO.class);
+        SystemUser systemUser = userService.findByUsername(username);
+        return (systemUser == null) ? null : beanMappingService.mapTo(systemUser, UserDTO.class);
     }
 
     @Override
     public UserDTO findByEmail(String email) {
-        User user = userService.findByEmail(email);
-        return (user == null) ? null : beanMappingService.mapTo(user, UserDTO.class);
+        SystemUser systemUser = userService.findByEmail(email);
+        return (systemUser == null) ? null : beanMappingService.mapTo(systemUser, UserDTO.class);
     }
 }

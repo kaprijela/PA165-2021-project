@@ -14,41 +14,41 @@ public interface UserDao {
 
     /**
      * Adds a User to the database.
-     * @param user entity to be persisted
+     * @param systemUser entity to be persisted
      */
-    public void create(User user);
+    public void create(SystemUser systemUser);
 
     /**
      * Deletes a User from the database.
-     * @param user entity to be deleted
+     * @param systemUser entity to be deleted
      */
-    public void delete(User user);
+    public void delete(SystemUser systemUser);
 
     /**
      * Fetches a User according to its ID from the database.
      * @param id of the sought MatchRecord entity
      * @return user entity if found, else null
      */
-    public User findById(Long id);
+    public SystemUser findById(Long id);
 
     /**
      * Fetches all Users.
      * @return list of all User entities in the database
      */
-    public List<User> findAll();
+    public List<SystemUser> findAll();
 
     /**
      * Fetches a User.
      * @param name
      * @return return User for a given name
      */
-    User findByUsername(String name);
+    SystemUser findByUsername(String name);
 
     /**
      * Fetches a User.
      * @param email
      * @return return User for a given email
      */
-    User findByEmail(String email);
+    SystemUser findByEmail(String email);
 
 }
