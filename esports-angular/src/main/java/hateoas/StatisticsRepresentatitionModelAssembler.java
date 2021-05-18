@@ -6,11 +6,13 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.Date;
 
 @Slf4j
+@Component
 public class StatisticsRepresentatitionModelAssembler implements RepresentationModelAssembler<Double, EntityModel<Double>> {
 
     @Inject

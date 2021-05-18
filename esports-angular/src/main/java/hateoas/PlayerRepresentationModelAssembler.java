@@ -8,10 +8,12 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
 @Slf4j
+@Component
 public class PlayerRepresentationModelAssembler implements RepresentationModelAssembler<PlayerDTO, EntityModel<PlayerDTO>> {
     @Inject
     private EntityLinks entityLinks;
