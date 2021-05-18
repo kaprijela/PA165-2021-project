@@ -62,7 +62,7 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
     }
 
     @Override
-    public MatchRecordDTO getMatchRecordBbyId(Long id) {
+    public MatchRecordDTO findMatchRecordBbyId(Long id) {
         MatchRecord matchRecord = matchRecordService.findById(id);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
@@ -73,21 +73,21 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
     }
 
     @Override
-    public List<MatchRecordDTO> getMatchRecordByPlayer(Long playerId) {
+    public List<MatchRecordDTO> findMatchRecordByPlayer(Long playerId) {
         Player player = playerService.findById(playerId);
         List<MatchRecord> matchRecord = matchRecordService.findByPlayer(player);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
 
     @Override
-    public List<MatchRecordDTO> getMatchRecordByCompetition(String competitionId) {
+    public List<MatchRecordDTO> findMatchRecordByCompetition(String competitionId) {
         Competition competition = competitionService.findByName(competitionId);
         List<MatchRecord> matchRecord = matchRecordService.findByCompetition(competition);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
 
     @Override
-    public List<MatchRecordDTO> getMatchRecordByTeam(String teamId) {
+    public List<MatchRecordDTO> findMatchRecordByTeam(String teamId) {
         Team team = teamService.findByName(teamId);
         List<MatchRecord> matchRecord = matchRecordService.findByTeam(team);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);

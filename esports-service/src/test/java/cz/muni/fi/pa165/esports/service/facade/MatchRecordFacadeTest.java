@@ -92,7 +92,7 @@ public class MatchRecordFacadeTest {
 
     @Test
     public void testGetMatchRecordBbyId() {
-        matchRecordFacade.getMatchRecordBbyId(1L);
+        matchRecordFacade.findMatchRecordBbyId(1L);
         verify(matchRecordService, times(1)).findById(1L);
     }
 
@@ -102,7 +102,7 @@ public class MatchRecordFacadeTest {
         player.setName("tired");
 
         when(playerService.findById(1L)).thenReturn(player);
-        matchRecordFacade.getMatchRecordByPlayer(1L);
+        matchRecordFacade.findMatchRecordByPlayer(1L);
         verify(matchRecordService, times(1)).findByPlayer(player);
     }
 
@@ -113,7 +113,7 @@ public class MatchRecordFacadeTest {
         competition.setName(tiredCompetition);
 
         when(competitionService.findByName(tiredCompetition)).thenReturn(competition);
-        matchRecordFacade.getMatchRecordByCompetition(tiredCompetition);
+        matchRecordFacade.findMatchRecordByCompetition(tiredCompetition);
         verify(matchRecordService, times(1)).findByCompetition(competition);
     }
 
@@ -124,7 +124,7 @@ public class MatchRecordFacadeTest {
         team.setAbbreviation("TIRED");
 
         when(teamService.findByName("tired")).thenReturn(team);
-        matchRecordFacade.getMatchRecordByTeam("tired");
+        matchRecordFacade.findMatchRecordByTeam("tired");
         verify(matchRecordService, times(1)).findByTeam(team);
     }
 }

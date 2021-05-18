@@ -36,17 +36,17 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public TeamDTO getTeamById(Long id) {
+    public TeamDTO findTeamById(Long id) {
         return bms.mapTo(teamService.findById(id), TeamDTO.class);
     }
 
     @Override
-    public TeamDTO getTeamByName(String name) {
+    public TeamDTO findTeamByName(String name) {
         return bms.mapTo(teamService.findByName(name), TeamDTO.class);
     }
 
     @Override
-    public TeamDTO getTeamByAbbreviation(String abbreviation) {
+    public TeamDTO findTeamByAbbreviation(String abbreviation) {
         return bms.mapTo(teamService.findByAbbreviation(abbreviation), TeamDTO.class);
     }
 

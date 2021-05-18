@@ -44,21 +44,21 @@ public class TeamFacadeTest {
 
     @Test
     public void testGetTeamById() {
-        teamFacade.getTeamById(1L);
+        teamFacade.findTeamById(1L);
         verify(teamService, times(1)).findById(1L);
     }
 
 
     @Test
     public void testGetTeamByName() {
-        teamFacade.getTeamByName("name");
+        teamFacade.findTeamByName("name");
         verify(teamService, times(1)).findByName("name");
     }
 
 
     @Test
     public void testGetTeamByAbbreviation() {
-        teamFacade.getTeamByAbbreviation("abb");
+        teamFacade.findTeamByAbbreviation("abb");
         verify(teamService, times(1)).findByAbbreviation("abb");
     }
 

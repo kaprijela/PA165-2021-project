@@ -17,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.Collection;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -56,7 +55,7 @@ public class CompetitionController {
         }
         try {
             Long competition = competitionFacade.createCompetition(competitionDTO);
-            return new HttpEntity<>(competitionRepresentationModelAssembler.toModel(competitionFacade.getCompetitionById(competition)));
+            return new HttpEntity<>(competitionRepresentationModelAssembler.toModel(competitionFacade.findCompetitionById(competition)));
         } catch (Exception ex) {
             throw new ResourceAlreadyExistingException(ex.getMessage());
         }
@@ -66,7 +65,7 @@ public class CompetitionController {
     public final HttpEntity<EntityModel<CompetitionDTO>> getByName(@PathVariable("name") String name) throws Exception {
         log.debug("restv1 get by name {}", name);
 
-        CompetitionDTO competitionByName = competitionFacade.getCompetitionByName(name);
+        CompetitionDTO competitionByName = competitionFacade.findCompetitionByName(name);
         if (competitionByName == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
@@ -77,7 +76,7 @@ public class CompetitionController {
     public final HttpEntity<EntityModel<CompetitionDTO>> getById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 get by id {}", id);
 
-        CompetitionDTO competitionById = competitionFacade.getCompetitionById(id);
+        CompetitionDTO competitionById = competitionFacade.findCompetitionById(id);
         if (competitionById == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
@@ -111,7 +110,7 @@ public class CompetitionController {
         } catch (Exception e) {
             throw new ResourceNotFoundException("Competition not found");
         }
-        return new HttpEntity<>(competitionRepresentationModelAssembler.toModel(competitionFacade.getCompetitionById(id)));
+        return new HttpEntity<>(competitionRepresentationModelAssembler.toModel(competitionFacade.findCompetitionById(id)));
     }
 
     @RequestMapping(value = "/{id}/removeTeam/{team}", method = RequestMethod.GET)
@@ -122,7 +121,7 @@ public class CompetitionController {
         } catch (Exception e) {
             throw new ResourceNotFoundException("Competition not found");
         }
-        return new HttpEntity<>(competitionRepresentationModelAssembler.toModel(competitionFacade.getCompetitionById(id)));
+        return new HttpEntity<>(competitionRepresentationModelAssembler.toModel(competitionFacade.findCompetitionById(id)));
 
     }
 }

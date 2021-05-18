@@ -3,7 +3,6 @@ package controllers;
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
-import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import cz.muni.fi.pa165.esports.facade.TeamFacade;
@@ -73,7 +72,7 @@ public class TeamController {
         }
         try {
             Long team = teamFacade.registerNewTeam(teamDTO);
-            return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamFacade.getTeamById(team)));
+            return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamFacade.findTeamById(team)));
         } catch (Exception ex) {
             throw new ResourceAlreadyExistingException(ex.getMessage());
         }
@@ -83,7 +82,7 @@ public class TeamController {
     public final HttpEntity<EntityModel<TeamDTO>> getById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 get by id {}", id);
 
-        TeamDTO teamDTO = teamFacade.getTeamById(id);
+        TeamDTO teamDTO = teamFacade.findTeamById(id);
         if (teamDTO == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
@@ -94,7 +93,7 @@ public class TeamController {
     public final HttpEntity<EntityModel<TeamDTO>> getByName(@PathVariable("name") String name) throws Exception {
         log.debug("restv1 get by name {}", name);
 
-        TeamDTO teamByName = teamFacade.getTeamByName(name);
+        TeamDTO teamByName = teamFacade.findTeamByName(name);
         if (teamByName == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
@@ -105,7 +104,7 @@ public class TeamController {
     public final HttpEntity<EntityModel<TeamDTO>> getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws Exception {
         log.debug("restv1 get by abbreviation {}",abbreviation);
 
-        TeamDTO teamDTO = teamFacade.getTeamByAbbreviation(abbreviation);
+        TeamDTO teamDTO = teamFacade.findTeamByAbbreviation(abbreviation);
         if (teamDTO == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
@@ -116,7 +115,7 @@ public class TeamController {
     public final void deleteById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 delete by id {}", id);
         try {
-            teamFacade.removeTeam(teamFacade.getTeamById(id));
+            teamFacade.removeTeam(teamFacade.findTeamById(id));
         } catch (IllegalArgumentException ex) {
             log.error("competition " + id + " not found");
             throw new ResourceNotFoundException("competition " + id + " not found");
@@ -135,7 +134,7 @@ public class TeamController {
     public final void addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("name") Long idPlayer){
         log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
 
-        TeamDTO teamById = teamFacade.getTeamById(idTeam);
+        TeamDTO teamById = teamFacade.findTeamById(idTeam);
         PlayerDTO playerById = playerFacade.findPlayerById(idPlayer);
 
         if (teamById == null || playerById == null) {
@@ -152,7 +151,7 @@ public class TeamController {
     public final void removePlayerFromTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("name") Long idPlayer){
         log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
 
-        TeamDTO teamById = teamFacade.getTeamById(idTeam);
+        TeamDTO teamById = teamFacade.findTeamById(idTeam);
         PlayerDTO playerById = playerFacade.findPlayerById(idPlayer);
 
         if (teamById == null || playerById == null) {
@@ -169,8 +168,8 @@ public class TeamController {
     public final HttpEntity<EntityModel<Double>> getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition){
         log.debug("restv1 get statitistics for team: {} team in competition: {}", idTeam, idTeam);
 
-        TeamDTO teamById = teamFacade.getTeamById(idTeam);
-        CompetitionDTO competitionById = competitionFacade.getCompetitionById(idTeam);
+        TeamDTO teamById = teamFacade.findTeamById(idTeam);
+        CompetitionDTO competitionById = competitionFacade.findCompetitionById(idTeam);
 
         if (teamById == null || competitionById == null) {
             throw new ResourceNotFoundException("Competition not found");

@@ -26,7 +26,7 @@ public interface MatchRecordFacade {
      * @param id id
      * @return matchRecordDao
      */
-    MatchRecordDTO getMatchRecordBbyId(Long id);
+    MatchRecordDTO findMatchRecordBbyId(Long id);
 
     /**
      * Return all records
@@ -39,19 +39,19 @@ public interface MatchRecordFacade {
      * @param playerId long
      * @return MatchRecordDTO
      */
-    List<MatchRecordDTO> getMatchRecordByPlayer(Long playerId);
+    List<MatchRecordDTO> findMatchRecordByPlayer(Long playerId);
 
     /**
      * Return a MatchRecords for a competition
      * @param competitionId unique identifier string
      * @return MatchRecordDTO
      */
-    List<MatchRecordDTO> getMatchRecordByCompetition(String competitionId);
+    List<MatchRecordDTO> findMatchRecordByCompetition(String competitionId);
 
     /**
      * Return a MatchRecords for a team
      * @param teamId unique identifier string
      * @return MatchRecordDTO
      */
-    List<MatchRecordDTO> getMatchRecordByTeam(String teamId);
+    List<MatchRecordDTO> findMatchRecordByTeam(String teamId);
 }
