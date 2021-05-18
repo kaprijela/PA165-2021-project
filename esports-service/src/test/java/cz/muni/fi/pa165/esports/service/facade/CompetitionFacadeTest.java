@@ -63,7 +63,7 @@ public class CompetitionFacadeTest {
 
     @Test
     public void testGetCompetitionByName() {
-        competitionFacade.getCompetitionByName("name");
+        competitionFacade.findCompetitionByName("name");
         verify(competitionService, times(1)).findByName("name");
     }
 }

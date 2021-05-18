@@ -53,12 +53,12 @@ public class CompetitionFacadeImpl implements CompetitionFacade {
     }
 
     @Override
-    public CompetitionDTO getCompetitionByName(String name) {
+    public CompetitionDTO findCompetitionByName(String name) {
         return beanMappingService.mapTo(competitionService.findByName(name), CompetitionDTO.class);
     }
 
     @Override
-    public CompetitionDTO getCompetitionById(Long id) {
+    public CompetitionDTO findCompetitionById(Long id) {
         return beanMappingService.mapTo(competitionService.findById(id), CompetitionDTO.class);
     }
 

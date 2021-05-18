@@ -26,14 +26,14 @@ public interface CompetitionFacade {
      * get competition by name
      * @return competition
      */
-    CompetitionDTO getCompetitionByName(String name);
+    CompetitionDTO findCompetitionByName(String name);
 
     /**
      * get competition by specified id
      * @param id of competition you search for
      * @return CompetitionDTO
      */
-    CompetitionDTO getCompetitionById(Long id);
+    CompetitionDTO findCompetitionById(Long id);
 
     /**
      * will delete a competition
