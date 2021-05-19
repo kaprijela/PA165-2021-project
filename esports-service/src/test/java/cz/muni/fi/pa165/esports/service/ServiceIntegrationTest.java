@@ -9,7 +9,6 @@ import cz.muni.fi.pa165.esports.service.config.ServiceConfiguration;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -23,7 +22,6 @@ import java.util.List;
  * @author Gabriela Kandova
  */
 @ContextConfiguration(classes = {ServiceConfiguration.class})
-@Transactional
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ServiceIntegrationTest extends AbstractTestNGSpringContextTests {
 
@@ -112,48 +110,41 @@ public class ServiceIntegrationTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void addRemovePlayersFromTeam() {
+        // prepare entities
         Team team1 = new Team();
         team1.setName("Team 1");
         team1.setAbbreviation("T1");
         teamService.create(team1);
-        team1 = teamService.findById(team1.getId());
-        Assert.assertNotNull(team1);
-        Assert.assertEquals(team1.getPlayers().size(), 0);
 
         Player player1 = new Player();
         player1.setName("Player 1");
         player1.setGender(Gender.OTHER);
         playerService.create(player1);
-        player1 = playerService.findById(player1.getId());
-        Assert.assertNotNull(player1);
-        Assert.assertEquals(player1.getName(), "Player 1");
 
         Player player2 = new Player();
         player2.setName("Player 2");
         player2.setGender(Gender.OTHER);
         playerService.create(player2);
-        player2 = playerService.findById(player2.getId());
-        Assert.assertNotNull(player2);
-        Assert.assertEquals(player1.getName(), "Player 2");
 
-        player1.setTeam(team1);
+        // add players to team
+        teamService.addPlayer(team1, player1);
         Assert.assertEquals(team1.getPlayers().size(), 1);
         Assert.assertNotNull(player1.getTeam());
         Assert.assertEquals(player1.getTeam(), team1);
 
-        team1.addPlayer(player2);
+        teamService.addPlayer(team1, player2);
         Assert.assertEquals(team1.getPlayers().size(), 2);
         Assert.assertNotNull(player2.getTeam());
         Assert.assertEquals(player2.getTeam(), team1);
 
-        // start removing
-        team1.removePlayer(player1);
+        // remove players from team
+        teamService.removePlayer(team1, player1);
         Assert.assertEquals(team1.getPlayers().size(), 1);
         Assert.assertTrue(team1.getPlayers().contains(player2));
         Assert.assertNull(player1.getTeam());
         Assert.assertNotNull(player2.getTeam());
 
-        team1.removePlayer(player2);
+        teamService.removePlayer(team1, player2);
         Assert.assertEquals(team1.getPlayers().size(), 0);
         Assert.assertNull(player1.getTeam());
         Assert.assertNull(player2.getTeam());
