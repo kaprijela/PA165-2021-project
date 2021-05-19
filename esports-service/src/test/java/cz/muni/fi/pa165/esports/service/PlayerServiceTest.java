@@ -67,17 +67,9 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
         bobbert.setName("Bob");
         bobbert.setGender(Gender.MALE);
 
-        List<Player> allPlayers = new ArrayList<>();
-        allPlayers.add(alice);
-        allPlayers.add(bob);
-        allPlayers.add(bobbert);
-
-        List<Player> aliceList = new ArrayList<>();
-        aliceList.add(alice);
-
-        List<Player> bobList = new ArrayList<>();
-        bobList.add(bob);
-        bobList.add(bobbert);
+        List<Player> allPlayers = Arrays.asList(alice, bob, bobbert);
+        List<Player> aliceList = Collections.singletonList(alice);
+        List<Player> bobList = Arrays.asList(bob, bobbert);
 
         Mockito.when(playerDao.findAll()).thenReturn(allPlayers);
 
