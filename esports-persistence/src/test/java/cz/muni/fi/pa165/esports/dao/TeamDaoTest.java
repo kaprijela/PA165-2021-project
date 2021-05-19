@@ -85,20 +85,20 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findById(){
+    public void findById() {
         Team found = teamDao.findById(t1.getId());
         Assert.assertEquals(found.getName(), t1.getName());
         Assert.assertNotEquals(found.getName(), t2.getName());
     }
 
     @Test
-    public void findAll(){
+    public void findAll() {
         List<Team> found = teamDao.findAll();
         Assert.assertEquals(found.size(), 5);
     }
 
     @Test
-    public void findByName(){
+    public void findByName() {
         Assert.assertEquals(teamDao.findByName("Orcs").getId(), t1.getId());
         Assert.assertEquals(teamDao.findByName("Elves").getId(), t2.getId());
         Assert.assertEquals(teamDao.findByName("Men of Gondor").getId(), t3.getId());
@@ -106,7 +106,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void findByAbbreviation(){
+    public void findByAbbreviation() {
         Assert.assertEquals(teamDao.findByAbbreviation("O").getId(), t1.getId());
         Assert.assertEquals(teamDao.findByAbbreviation("E").getId(), t2.getId());
         Assert.assertEquals(teamDao.findByAbbreviation("MOG").getId(), t3.getId());
@@ -114,7 +114,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void removeTeam(){
+    public void removeTeam() {
         teamDao.delete(t4);
         Assert.assertNull(teamDao.findById(t4.getId()));
     }
