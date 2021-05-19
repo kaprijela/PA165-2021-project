@@ -38,18 +38,23 @@ public class TeamDaoImpl implements TeamDao {
 
     @Override
     public Team findById(Long id) {
-        return em.find(Team.class, id);
+        try {
+            return em.createQuery("select t from Team t left join fetch t.players where t.id = :id", Team.class)
+                    .setParameter("id", id).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 
     @Override
     public List<Team> findAll() {
-        return em.createQuery("select t from Team t", Team.class).getResultList();
+        return em.createQuery("select t from Team t left join fetch t.players", Team.class).getResultList();
     }
 
     @Override
     public Team findByName(String name) {
         try {
-            return em.createQuery("select t from Team t where t.name = :name", Team.class)
+            return em.createQuery("select t from Team t left join fetch t.players where t.name = :name", Team.class)
                     .setParameter("name", name).getSingleResult();
         } catch (NoResultException nre) {
             return null;
@@ -59,7 +64,7 @@ public class TeamDaoImpl implements TeamDao {
     @Override
     public Team findByAbbreviation(String abbreviation) {
         try {
-            return em.createQuery("select t from Team t where t.abbreviation = :abbr", Team.class)
+            return em.createQuery("select t from Team t left join fetch t.players where t.abbreviation = :abbr", Team.class)
                     .setParameter("abbr", abbreviation).getSingleResult();
         } catch (NoResultException nre) {
             return null;
