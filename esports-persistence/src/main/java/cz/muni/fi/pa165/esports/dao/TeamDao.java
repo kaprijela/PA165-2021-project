@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.esports.dao;
 
+import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 
 import java.util.List;
@@ -9,7 +10,6 @@ import java.util.List;
  *
  * @author Gabriela Kandova
  */
-
 public interface TeamDao extends Dao<Team> {
     /**
      * Adds a team to the database.
@@ -26,6 +26,22 @@ public interface TeamDao extends Dao<Team> {
      */
     @Override
     void delete(Team team);
+
+    /**
+     * Adds a player as a member of a team.
+     *
+     * @param team team to accept the player
+     * @param player player to be added to the team
+     */
+    void addPlayer(Team team, Player player);
+
+    /**
+     * Removes a player from a team.
+     *
+     * @param team team to kick the player
+     * @param player player to be kicked
+     */
+    void removePlayer(Team team, Player player);
 
     /**
      * Fetches a team according to its ID from the database.

@@ -8,7 +8,9 @@ import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.exceptions.EsportsServiceException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
  * @author Gabriela Kandova
  */
 @Service
+@Transactional(readOnly = true)
 public class TeamServiceImpl implements TeamService {
 
     @Inject
@@ -52,40 +55,58 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Modifying
     public void create(Team team) {
         teamDao.create(team);
     }
 
     @Override
+    @Modifying
     public void remove(Team team) {
         teamDao.delete(team);
     }
 
     @Override
+    @Modifying
     public void addPlayer(Team team, Player player) {
+        if (team == null) {
+            throw new EsportsServiceException("Team cannot be null");
+        }
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
+
         if (team.getPlayers().contains(player)) {
             throw new EsportsServiceException(String.format(
-                    "Player %s is already member of team %s", player.getName(), team.getName()
+                    "Player '%s' is already member of team '%s'", player.getName(), team.getName()
             ));
         }
         if (player.getTeam() != null) {
             throw new EsportsServiceException(String.format(
-                    "Player %s is already member of team %s", player.getName(), player.getTeam().getName()
+                    "Player '%s' is already member of team '%s'", player.getName(), player.getTeam().getName()
             ));
         }
 
-        team.addPlayer(player); // is this all that's necessary?
+        teamDao.addPlayer(team, player);
     }
 
     @Override
+    @Modifying
     public void removePlayer(Team team, Player player) {
+        if (team == null) {
+            throw new EsportsServiceException("Team cannot be null");
+        }
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
+
         if (!team.getPlayers().contains(player)) {
             throw new EsportsServiceException(String.format(
-                    "Player %s is not member of team %s", player.getName(), team.getName()
+                    "Player '%s' is not a member of team '%s'", player.getName(), team.getName()
             ));
         }
 
-        team.removePlayer(player); // is this all that's necessary?
+        teamDao.removePlayer(team, player);
     }
 
     @Override
