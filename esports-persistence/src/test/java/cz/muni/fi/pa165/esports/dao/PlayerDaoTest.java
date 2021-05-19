@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.esports.dao;
 import cz.muni.fi.pa165.esports.PersistenceSampleApplicationContext;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.enums.Gender;
-import cz.muni.fi.pa165.esports.dao.PlayerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.annotation.DirtiesContext;
@@ -11,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -30,7 +28,7 @@ import java.util.List;
 
 @Transactional
 @ContextConfiguration(classes = {PersistenceSampleApplicationContext.class})
-@DirtiesContext
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     @PersistenceUnit
     protected EntityManagerFactory emf;
@@ -52,8 +50,6 @@ public class PlayerDaoTest extends AbstractTestNGSpringContextTests {
     private void setUp() {
         em = emf.createEntityManager();
         em.getTransaction().begin();
-
-        //em.createQuery("delete from Player").executeUpdate();
 
         mrWhite = new Player();
         mrWhite.setName("Larry");
