@@ -126,27 +126,79 @@ public class ServiceIntegrationTest extends AbstractTestNGSpringContextTests {
         player2.setGender(Gender.OTHER);
         playerService.create(player2);
 
-        // add players to team
+        // add first player to team
         teamService.addPlayer(team1, player1);
+        // check entities
         Assert.assertEquals(team1.getPlayers().size(), 1);
         Assert.assertNotNull(player1.getTeam());
         Assert.assertEquals(player1.getTeam(), team1);
+        Assert.assertNull(player2.getTeam());
+        // check database
+        Team freshTeam1 = teamService.findById(team1.getId());
+        Assert.assertNotNull(freshTeam1);
+        Assert.assertEquals(freshTeam1.getPlayers().size(), 1);
+        Player freshPlayer1 = playerService.findById(player1.getId());
+        Assert.assertNotNull(freshPlayer1);
+        Assert.assertNotNull(freshPlayer1.getTeam());
+        Assert.assertEquals(freshPlayer1.getTeam(), team1);
+        Player freshPlayer2 = playerService.findById(player2.getId());
+        Assert.assertNotNull(freshPlayer2);
+        Assert.assertNull(freshPlayer2.getTeam());
 
+        // add second player to team
         teamService.addPlayer(team1, player2);
+        // check entities
         Assert.assertEquals(team1.getPlayers().size(), 2);
+        Assert.assertNotNull(player1.getTeam());
         Assert.assertNotNull(player2.getTeam());
         Assert.assertEquals(player2.getTeam(), team1);
+        // check database
+        freshTeam1 = teamService.findById(team1.getId());
+        Assert.assertNotNull(freshTeam1);
+        Assert.assertEquals(freshTeam1.getPlayers().size(), 2);
+        freshPlayer1 = playerService.findById(player1.getId());
+        Assert.assertNotNull(freshPlayer1);
+        Assert.assertNotNull(freshPlayer1.getTeam());
+        Assert.assertEquals(freshPlayer1.getTeam(), team1);
+        freshPlayer2 = playerService.findById(player2.getId());
+        Assert.assertNotNull(freshPlayer2);
+        Assert.assertNotNull(freshPlayer2.getTeam());
+        Assert.assertEquals(freshPlayer2.getTeam(), team1);
 
-        // remove players from team
+        // remove first player from team
         teamService.removePlayer(team1, player1);
+        // check entities
         Assert.assertEquals(team1.getPlayers().size(), 1);
         Assert.assertTrue(team1.getPlayers().contains(player2));
         Assert.assertNull(player1.getTeam());
         Assert.assertNotNull(player2.getTeam());
+        // check database
+        freshTeam1 = teamService.findById(team1.getId());
+        Assert.assertNotNull(freshTeam1);
+        Assert.assertEquals(freshTeam1.getPlayers().size(), 1);
+        freshPlayer1 = playerService.findById(player1.getId());
+        Assert.assertNotNull(freshPlayer1);
+        Assert.assertNull(freshPlayer1.getTeam());
+        freshPlayer2 = playerService.findById(player2.getId());
+        Assert.assertNotNull(freshPlayer2);
+        Assert.assertNotNull(freshPlayer2.getTeam());
+        Assert.assertEquals(freshPlayer2.getTeam(), team1);
 
+        // remove second player from team
         teamService.removePlayer(team1, player2);
+        // check entities
         Assert.assertEquals(team1.getPlayers().size(), 0);
         Assert.assertNull(player1.getTeam());
         Assert.assertNull(player2.getTeam());
+        // check database
+        freshTeam1 = teamService.findById(team1.getId());
+        Assert.assertNotNull(freshTeam1);
+        Assert.assertEquals(freshTeam1.getPlayers().size(), 0);
+        freshPlayer1 = playerService.findById(player1.getId());
+        Assert.assertNotNull(freshPlayer1);
+        Assert.assertNull(freshPlayer1.getTeam());
+        freshPlayer2 = playerService.findById(player2.getId());
+        Assert.assertNotNull(freshPlayer2);
+        Assert.assertNull(freshPlayer2.getTeam());
     }
 }
