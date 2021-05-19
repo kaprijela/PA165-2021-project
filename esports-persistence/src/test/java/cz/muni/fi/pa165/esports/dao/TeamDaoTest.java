@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.esports.dao;
 
 import cz.muni.fi.pa165.esports.PersistenceSampleApplicationContext;
-import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
@@ -23,17 +22,17 @@ import java.util.List;
  */
 @ContextConfiguration(classes = PersistenceSampleApplicationContext.class)
 @Transactional
-@DirtiesContext
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class TeamDaoTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceUnit
     protected EntityManagerFactory emf;
 
     @PersistenceContext
-    public EntityManager em;
+    private EntityManager em;
 
     @Autowired
-    public TeamDao teamDao;
+    private TeamDao teamDao;
 
     private Team t1;
     private Team t2;
@@ -73,6 +72,19 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void createTeam() {
+        Team t5 = new Team();
+        t5.setName("Team 5");
+        t5.setAbbreviation("T5");
+        t5.setDescription("Team 5");
+        teamDao.create(t5);
+
+        Team foundTeam = em.find(Team.class, t5.getId());
+        Assert.assertNotNull(foundTeam);
+        Assert.assertEquals(foundTeam, t5);
+    }
+
+    @Test
     public void findById(){
         Team found = teamDao.findById(t1.getId());
         Assert.assertEquals(found.getName(), t1.getName());
@@ -82,7 +94,7 @@ public class TeamDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findAll(){
         List<Team> found = teamDao.findAll();
-        Assert.assertEquals(found.size(), 4);
+        Assert.assertEquals(found.size(), 5);
     }
 
     @Test
