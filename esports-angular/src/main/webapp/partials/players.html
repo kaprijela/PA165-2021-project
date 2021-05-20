@@ -1,0 +1,23 @@
+<h1>PLAYERS</h1>
+
+<!-- button for adding a new product -->
+<a href="#!/newplayer" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    New Player
+</a>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>List</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="player in players track by $index">
+        <td>{{player.id}}</td>
+        <td>{{player.name}}</td>
+        <td>{{player.team.name}}</td>
+    </tr>
+    </tbody>
+</table>

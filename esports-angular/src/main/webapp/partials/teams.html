@@ -1,0 +1,22 @@
+<h1>TEAMS</h1>
+
+<!-- button for adding a new product -->
+<a href="#!/newteam" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    New Team
+</a>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>List</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="team in teams track by $index">
+        <td>{{team.id}}</td>
+        <td>{{team.name}}</td>
+    </tr>
+    </tbody>
+</table>

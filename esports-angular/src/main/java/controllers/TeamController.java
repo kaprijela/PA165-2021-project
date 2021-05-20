@@ -32,7 +32,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Slf4j
 @RestController
 @ExposesResourceFor(CompetitionDTO.class)
-@RequestMapping("/esports/restv1/teams")
+@RequestMapping("/esports/teams")
 public class TeamController {
 
     @Inject

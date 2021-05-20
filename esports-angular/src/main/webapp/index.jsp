@@ -31,13 +31,13 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Players</a>
+                    <a class="nav-link" href="#!/players">Players</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Teams</a>
+                    <a class="nav-link" href="#!/teams">Teams</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Competitions</a>
+                    <a class="nav-link" href="#!/competitions">Competitions</a>
                 </li>
             </ul>
 

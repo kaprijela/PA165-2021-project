@@ -11,6 +11,9 @@ pa165eshopApp.config(['$routeProvider',
         console.log("log")
         $routeProvider.
         when('/player/:playerId', {templateUrl: 'partials/player_detail.html', controller: 'PlayerDetailCtrl'}).
+        when('/players', {templateUrl: 'partials/players.html', controller: 'PlayersCtrl'}).
+        when('/competitions', {templateUrl: 'partials/competitions.html', controller: 'CompetitionsCtrl'}).
+        when('/teams', {templateUrl: 'partials/teams.html', controller: 'TeamsCtrl'}).
         when('/competition/:competitionId', {templateUrl: 'partials/competition_detail.html', controller: 'CompetitionDetailCtrl'})
     }]);
 
@@ -127,6 +130,8 @@ eshopControllers.controller('PlayersCtrl',
             }
         );
     });
+
+
 /*
  * Public eshop interface
  */
