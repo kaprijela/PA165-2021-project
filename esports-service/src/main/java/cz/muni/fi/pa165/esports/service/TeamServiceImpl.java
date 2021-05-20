@@ -8,16 +8,13 @@ import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.exceptions.EsportsServiceException;
-import org.springframework.data.jpa.repository.Modifying;
 import lombok.NonNull;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -67,6 +64,10 @@ public class TeamServiceImpl implements TeamService {
     @Override
     @Modifying
     public void remove(@NonNull Team team) {
+        Set<Player> teamPlayers = team.getPlayers();
+        for (Player player: teamPlayers) { // remove association first
+            teamDao.removePlayer(team, player);
+        }
         teamDao.delete(team);
     }
 

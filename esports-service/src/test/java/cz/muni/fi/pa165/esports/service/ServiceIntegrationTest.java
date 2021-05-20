@@ -201,4 +201,32 @@ public class ServiceIntegrationTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(freshPlayer2);
         Assert.assertNull(freshPlayer2.getTeam());
     }
+
+    @Test
+    public void testDeleteTeamWithPlayers() {
+        Team team42 = new Team();
+        team42.setName("Team 42");
+        team42.setAbbreviation("T42");
+        teamService.create(team42);
+
+        Player player24 = new Player();
+        player24.setName("Player 24");
+        player24.setGender(Gender.OTHER);
+        playerService.create(player24);
+
+        teamService.addPlayer(team42, player24);
+        Assert.assertEquals(team42.getPlayers().size(), 1);
+        Assert.assertTrue(team42.getPlayers().contains(player24));
+
+        Long team42Id = team42.getId();
+
+        // delete team
+        teamService.remove(team42);
+        // assert that team is no longer there
+        Assert.assertNull(teamService.findById(team42Id));
+        // assert that player still exists
+        Assert.assertNotNull(player24.getId());
+        Assert.assertNotNull(playerService.findById(player24.getId()));
+        Assert.assertNull(player24.getTeam());
+    }
 }
