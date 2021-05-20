@@ -36,7 +36,7 @@ eshopControllers.controller('PlayerDetailCtrl',
         $http.get('/esports/api/v2/esports/players/id/' + playerId).then(
             function (response) {
                 $scope.player = response.data;
-                console.log('AJAX loaded detail of product ' + $scope.player.name);
+                console.log('AJAX loaded detail of player ' + $scope.player.name);
             },
             function error(response) {
                 console.log("failed to load product "+playerId);
@@ -46,7 +46,84 @@ eshopControllers.controller('PlayerDetailCtrl',
         );
     });
 
+eshopControllers.controller('TeamDetailCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        // get product id from URL fragment #/product/:productId
+        var teamId = $routeParams.teamId;
+        $http.get('/esports/api/v2/esports/teams/id/' + teamId).then(
+            function (response) {
+                $scope.player = response.data;
+                console.log('AJAX loaded detail of team ' + $scope.team.name);
+            },
+            function error(response) {
+                console.log("failed to load team "+teamId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load team: '+response.data.message;
+            }
+        );
+    });
 
+eshopControllers.controller('CompetitionDetailCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        // get product id from URL fragment #/product/:productId
+        var competitionId = $routeParams.competitionId;
+        $http.get('/esports/api/v2/esports/competitions/id/' + competitionId).then(
+            function (response) {
+                $scope.competition = response.data;
+                console.log('AJAX loaded detail of competition ' + $scope.competition.name);
+            },
+            function error(response) {
+                console.log("failed to load competition "+competitionId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load competition: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('CompetitionsCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        $http.get('/esports/api/v2/esports/competitions/').then(
+            function (response) {
+                $scope.competitions = response.data['_embedded']['competitionDTOList'];
+                console.log('AJAX loaded competitions ');
+            },
+            function error(response) {
+                console.log("failed to load competitions ");
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load competitions: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('TeamsCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        $http.get('/esports/api/v2/esports/teams/').then(
+            function (response) {
+                $scope.teams = response.data['_embedded']['teamDTOList'];
+                console.log('AJAX loaded teams ');
+            },
+            function error(response) {
+                console.log("failed to load teams ");
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load teams: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('PlayersCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        $http.get('/esports/api/v2/esports/players/').then(
+            function (response) {
+                $scope.players = response.data['_embedded']['playerDTOList'];
+                console.log('AJAX loaded players ');
+            },
+            function error(response) {
+                console.log("failed to load players ");
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load players: '+response.data.message;
+            }
+        );
+    });
 /*
  * Public eshop interface
  */
