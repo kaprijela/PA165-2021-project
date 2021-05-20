@@ -34,9 +34,15 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     @Override
     public void loadData() throws IOException {
+        Team t1 = new Team();
+        t1.setName("Orcs");
+        t1.setAbbreviation("O");
+        teamService.create(t1);
+
         Player player = new Player();
         player.setName("Radko");
         player.setGender(Gender.MALE);
+        player.setTeam(t1);
         playerService.create(player);
 
         Player mrWhite = new Player();
@@ -69,10 +75,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         mrsRed.setGender(Gender.FEMALE);
         playerService.create(mrsRed);
 
-        Team t1 = new Team();
-        t1.setName("Orcs");
-        t1.setAbbreviation("O");
-        teamService.create(t1);
+
 
         Team t2 = new Team();
         t2.setName("Elves");
@@ -92,6 +95,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         c3.setName("Masters Clash Championship");
 
         c1.addTeam(t1);
+
 
         c1.setLocation("Japan");
         c2.setLocation("Oslo");

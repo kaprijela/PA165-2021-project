@@ -16,8 +16,22 @@
     <tbody>
     <tr ng-repeat="player in players track by $index">
         <td>{{player.id}}</td>
-        <td>{{player.name}}</td>
-        <td>{{player.team.name}}</td>
+        <td>
+                <div style="height:100%;width:100%">
+                    <a href="#!/player/{{player.id}}">
+                    {{player.name}}
+                    </a>
+                </div>
+        </td>
+        <td>
+            <div style="height:100%;width:100%">
+                <a href="#!/team/{{player.team}}">
+                    {{player.team}}
+                </a>
+            </div>
+        </td>
+
+
     </tr>
     </tbody>
 </table>

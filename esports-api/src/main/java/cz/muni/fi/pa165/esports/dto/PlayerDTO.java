@@ -20,6 +20,8 @@ public class PlayerDTO {
 
     private Date joinedDate;
 
+    private String team;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
