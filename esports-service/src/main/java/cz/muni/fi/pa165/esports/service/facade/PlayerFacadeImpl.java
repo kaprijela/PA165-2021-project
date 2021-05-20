@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -44,11 +45,21 @@ public class PlayerFacadeImpl implements PlayerFacade {
         Player player = beanMappingService.mapTo(playerDTO, Player.class);
         playerService.create(player);
         playerDTO.setId(player.getId());
+
         return player.getId();
     }
 
     @Override
     public List<PlayerDTO> getAllPlayers() {
-        return beanMappingService.mapTo(playerService.getAllPlayers(), PlayerDTO.class);
+        List<PlayerDTO> list = new ArrayList<>();
+        for (Player player: playerService.getAllPlayers()
+             ) {
+            PlayerDTO playerDTO = beanMappingService.mapTo(player, PlayerDTO.class);
+            if (player.getTeam() != null) {
+                playerDTO.setTeam(player.getTeam().getName());
+            }
+            list.add(playerDTO);
+        }
+        return list;
     }
 }
