@@ -9,6 +9,7 @@ import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.exceptions.EsportsServiceException;
 import org.springframework.data.jpa.repository.Modifying;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,7 @@ public class TeamServiceImpl implements TeamService {
     private final MatchRecordDao matchRecordDao;
 
     @Inject
-    public TeamServiceImpl(TeamDao teamDao, MatchRecordDao matchRecordDao) {
+    public TeamServiceImpl(@NonNull TeamDao teamDao, @NonNull MatchRecordDao matchRecordDao) {
         this.teamDao = teamDao;
         this.matchRecordDao = matchRecordDao;
     }
@@ -43,42 +44,35 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team findById(Long id) {
+    public Team findById(@NonNull Long id) {
         return teamDao.findById(id);
     }
 
     @Override
-    public Team findByName(String name) {
+    public Team findByName(@NonNull String name) {
         return teamDao.findByName(name);
     }
 
     @Override
-    public Team findByAbbreviation(String abbreviation) {
+    public Team findByAbbreviation(@NonNull String abbreviation) {
         return teamDao.findByAbbreviation(abbreviation);
     }
 
     @Override
     @Modifying
-    public void create(Team team) {
+    public void create(@NonNull Team team) {
         teamDao.create(team);
     }
 
     @Override
     @Modifying
-    public void remove(Team team) {
+    public void remove(@NonNull Team team) {
         teamDao.delete(team);
     }
 
     @Override
     @Modifying
-    public void addPlayer(Team team, Player player) {
-        if (team == null) {
-            throw new EsportsServiceException("Team cannot be null");
-        }
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
-
+    public void addPlayer(@NonNull Team team, @NonNull Player player) {
         if (team.getPlayers().contains(player)) {
             throw new EsportsServiceException(String.format(
                     "Player '%s' is already member of team '%s'", player.getName(), team.getName()
@@ -95,14 +89,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     @Modifying
-    public void removePlayer(Team team, Player player) {
-        if (team == null) {
-            throw new EsportsServiceException("Team cannot be null");
-        }
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
-
+    public void removePlayer(@NonNull Team team, @NonNull Player player) {
         if (!team.getPlayers().contains(player)) {
             throw new EsportsServiceException(String.format(
                     "Player '%s' is not a member of team '%s'", player.getName(), team.getName()
@@ -113,7 +100,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Double getAverageTeamScoreForCompetition(Team team, Competition competition) {
+    public Double getAverageTeamScoreForCompetition(@NonNull Team team, @NonNull Competition competition) {
         // all match records for the given competition
         List<MatchRecord> matchRecords = matchRecordDao.findByCompetition(competition);
 
@@ -136,7 +123,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Double getAverageTeamScoreForGame(Team team, Game game) {
+    public Double getAverageTeamScoreForGame(@NonNull Team team, @NonNull Game game) {
         // all match records for the given team
         List<MatchRecord> matchRecords = matchRecordDao.findByTeam(team);
 
