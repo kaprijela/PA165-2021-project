@@ -28,11 +28,14 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class TeamServiceImpl implements TeamService {
 
-    @Inject
-    TeamDao teamDao;
+    private final TeamDao teamDao;
+    private final MatchRecordDao matchRecordDao;
 
     @Inject
-    MatchRecordDao matchRecordDao;
+    public TeamServiceImpl(TeamDao teamDao, MatchRecordDao matchRecordDao) {
+        this.teamDao = teamDao;
+        this.matchRecordDao = matchRecordDao;
+    }
 
     @Override
     public List<Team> findAll() {
