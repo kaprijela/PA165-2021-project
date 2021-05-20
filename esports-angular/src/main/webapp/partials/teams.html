@@ -6,17 +6,24 @@
     New Team
 </a>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th>List</th>
+        <th>#</th>
+        <th>Name</th>
 
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="team in teams track by $index">
         <td>{{team.id}}</td>
-        <td>{{team.name}}</td>
+        <td>
+            <div style="height:100%; width:100%">
+                <a href="#!/team/{{team.id}}">
+                    {{team.name}}
+                </a>
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>

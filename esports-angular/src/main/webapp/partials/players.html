@@ -6,10 +6,13 @@
     New Player
 </a>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th>List</th>
+        <th>#</th>
+        <th>Player</th>
+        <th>Gender</th>
+        <th>Team</th>
 
     </tr>
     </thead>
@@ -17,12 +20,13 @@
     <tr ng-repeat="player in players track by $index">
         <td>{{player.id}}</td>
         <td>
-                <div style="height:100%;width:100%">
+                <div style="height:100%; width:100%">
                     <a href="#!/player/{{player.id}}">
-                    {{player.name}}
+                        {{player.name}}
                     </a>
                 </div>
         </td>
+        <td> {{player.gender}}</td>
         <td>
             <div style="height:100%;width:100%">
                 <a href="#!/team/{{player.team}}">

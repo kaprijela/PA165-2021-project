@@ -14,6 +14,7 @@ pa165eshopApp.config(['$routeProvider',
         when('/players', {templateUrl: 'partials/players.html', controller: 'PlayersCtrl'}).
         when('/competitions', {templateUrl: 'partials/competitions.html', controller: 'CompetitionsCtrl'}).
         when('/teams', {templateUrl: 'partials/teams.html', controller: 'TeamsCtrl'}).
+        when('/teams/:teamId', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailCtrl'}).
         when('/competition/:competitionId', {templateUrl: 'partials/competition_detail.html', controller: 'CompetitionDetailCtrl'})
     }]);
 

@@ -6,17 +6,24 @@
     New Player
 </a>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
-        <th>List</th>
-
+        <th>#</th>
+        <th>Name</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="competition in competitions track by $index">
         <td>{{competition.id}}</td>
-        <td>{{competition.name}}</td>
+        <td>
+            <div style="height:100%; width:100%">
+                <a href="#!/competition/{{competition.id}}">
+                    {{competition.name}}
+                </a>
+            </div>
+        </td>
+
     </tr>
     </tbody>
 </table>
