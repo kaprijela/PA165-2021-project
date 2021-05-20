@@ -4,8 +4,6 @@ import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.enums.Game;
-import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
@@ -14,7 +12,6 @@ import java.util.List;
  *
  * @author Gabriela Kandova
  */
-@Service
 public interface TeamService {
 
     /**

@@ -8,13 +8,13 @@ import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.exceptions.EsportsServiceException;
+import lombok.NonNull;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -23,13 +23,17 @@ import java.util.stream.Collectors;
  * @author Gabriela Kandova
  */
 @Service
+@Transactional(readOnly = true)
 public class TeamServiceImpl implements TeamService {
 
-    @Inject
-    TeamDao teamDao;
+    private final TeamDao teamDao;
+    private final MatchRecordDao matchRecordDao;
 
     @Inject
-    MatchRecordDao matchRecordDao;
+    public TeamServiceImpl(@NonNull TeamDao teamDao, @NonNull MatchRecordDao matchRecordDao) {
+        this.teamDao = teamDao;
+        this.matchRecordDao = matchRecordDao;
+    }
 
     @Override
     public List<Team> findAll() {
@@ -37,59 +41,67 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team findById(Long id) {
+    public Team findById(@NonNull Long id) {
         return teamDao.findById(id);
     }
 
     @Override
-    public Team findByName(String name) {
+    public Team findByName(@NonNull String name) {
         return teamDao.findByName(name);
     }
 
     @Override
-    public Team findByAbbreviation(String abbreviation) {
+    public Team findByAbbreviation(@NonNull String abbreviation) {
         return teamDao.findByAbbreviation(abbreviation);
     }
 
     @Override
-    public void create(Team team) {
+    @Modifying
+    public void create(@NonNull Team team) {
         teamDao.create(team);
     }
 
     @Override
-    public void remove(Team team) {
+    @Modifying
+    public void remove(@NonNull Team team) {
+        Set<Player> teamPlayers = team.getPlayers();
+        for (Player player: teamPlayers) { // remove association first
+            teamDao.removePlayer(team, player);
+        }
         teamDao.delete(team);
     }
 
     @Override
-    public void addPlayer(Team team, Player player) {
+    @Modifying
+    public void addPlayer(@NonNull Team team, @NonNull Player player) {
         if (team.getPlayers().contains(player)) {
             throw new EsportsServiceException(String.format(
-                    "Player %s is already member of team %s", player.getName(), team.getName()
+                    "Player '%s' is already member of team '%s'", player.getName(), team.getName()
             ));
         }
         if (player.getTeam() != null) {
             throw new EsportsServiceException(String.format(
-                    "Player %s is already member of team %s", player.getName(), player.getTeam().getName()
+                    "Player '%s' is already member of team '%s'", player.getName(), player.getTeam().getName()
             ));
         }
 
-        team.addPlayer(player); // is this all that's necessary?
+        teamDao.addPlayer(team, player);
     }
 
     @Override
-    public void removePlayer(Team team, Player player) {
+    @Modifying
+    public void removePlayer(@NonNull Team team, @NonNull Player player) {
         if (!team.getPlayers().contains(player)) {
             throw new EsportsServiceException(String.format(
-                    "Player %s is not member of team %s", player.getName(), team.getName()
+                    "Player '%s' is not a member of team '%s'", player.getName(), team.getName()
             ));
         }
 
-        team.removePlayer(player); // is this all that's necessary?
+        teamDao.removePlayer(team, player);
     }
 
     @Override
-    public Double getAverageTeamScoreForCompetition(Team team, Competition competition) {
+    public Double getAverageTeamScoreForCompetition(@NonNull Team team, @NonNull Competition competition) {
         // all match records for the given competition
         List<MatchRecord> matchRecords = matchRecordDao.findByCompetition(competition);
 
@@ -112,7 +124,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Double getAverageTeamScoreForGame(Team team, Game game) {
+    public Double getAverageTeamScoreForGame(@NonNull Team team, @NonNull Game game) {
         // all match records for the given team
         List<MatchRecord> matchRecords = matchRecordDao.findByTeam(team);
 
