@@ -50,7 +50,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         playerService.create(mrOrange);
 
         Player mrPink = new Player();
-        mrPink.setName(null);
+        mrPink.setName("null");
         mrPink.setGender(Gender.MALE);
         playerService.create(mrPink);
 
@@ -83,9 +83,15 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Competition c2 = new Competition();
         Competition c3 = new Competition();
 
+        c1.setId(1L);
+        c2.setId(2L);
+        c3.setId(3L);
+
         c1.setName("Japan League 2021");
         c2.setName("Nordic Championship 2021");
         c3.setName("Masters Clash Championship");
+
+        c1.addTeam(t1);
 
         c1.setLocation("Japan");
         c2.setLocation("Oslo");

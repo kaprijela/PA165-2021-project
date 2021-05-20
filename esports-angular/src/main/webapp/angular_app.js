@@ -10,7 +10,8 @@ pa165eshopApp.config(['$routeProvider',
     function ($routeProvider) {
         console.log("log")
         $routeProvider.
-        when('/player/:playerId', {templateUrl: 'partials/player_detail.html', controller: 'PlayerDetailCtrl'})
+        when('/player/:playerId', {templateUrl: 'partials/player_detail.html', controller: 'PlayerDetailCtrl'}).
+        when('/competition/:competitionId', {templateUrl: 'partials/competition_detail.html', controller: 'CompetitionDetailCtrl'})
     }]);
 
 pa165eshopApp.run(function ($rootScope,$http) {
@@ -69,11 +70,13 @@ eshopControllers.controller('CompetitionDetailCtrl',
         var competitionId = $routeParams.competitionId;
         $http.get('/esports/api/v2/esports/competitions/id/' + competitionId).then(
             function (response) {
-                $scope.competition = response.data;
+                var competition = response.data;
+                $scope.competition = competition;
                 console.log('AJAX loaded detail of competition ' + $scope.competition.name);
+                loadCompetitionTeams($http, competition, competition['_links'].teams.href);
             },
             function error(response) {
-                console.log("failed to load competition "+competitionId);
+                console.log("failed to load competition " + competitionId);
                 console.log(response);
                 $rootScope.warningAlert = 'Cannot load competition: '+response.data.message;
             }
@@ -129,10 +132,10 @@ eshopControllers.controller('PlayersCtrl',
  */
 
 // helper procedure loading products to category
-function loadCategoryProducts($http, category, prodLink) {
+function loadCompetitionTeams($http, competition, prodLink) {
     $http.get(prodLink).then(function (response) {
-        category.products = response.data['_embedded']['productDTOList'];
-        console.log('AJAX loaded ' + category.products.length + ' products to category ' + category.name);
+        competition.teams = response.data['_embedded']['teamDTOSet'];
+        console.log('AJAX loaded ' + competition.teams.length + ' products to category ' + competition.name);
     });
 }
 

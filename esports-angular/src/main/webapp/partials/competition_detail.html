@@ -1,0 +1,23 @@
+<h1>{{Competition.name}}</h1>
+<!-- button for adding a new category -->
+<table class="table">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>category name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{competition.id}}</td>
+        <td>{{competition.name}}</td>
+    </tr>
+    </tbody>
+    <tbody>
+    <tr ng-repeat="team in teams track by $index">
+        <td>{{team.id}}</td>
+        <td>{{team.name}}</td>
+        <td>{{team.abbreviation}}</td>
+    </tr>
+    </tbody>
+</table>
