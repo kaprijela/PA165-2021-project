@@ -2,9 +2,7 @@ package cz.muni.fi.pa165.esports.dao;
 
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,20 +15,17 @@ import java.util.List;
  * @author Gabriela Kandova
  */
 @Repository
-@Transactional(readOnly = true)
 public class TeamDaoImpl implements TeamDao {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    @Modifying
     public void create(Team team) {
         em.persist(team);
     }
 
     @Override
-    @Modifying
     public void delete(Team team) {
         if (em.contains(team)) {
             em.remove(team);
@@ -40,7 +35,6 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    @Modifying
     public void addPlayer(Team team, Player player) {
         team.addPlayer(player);
         em.merge(team);
@@ -48,7 +42,6 @@ public class TeamDaoImpl implements TeamDao {
     }
 
     @Override
-    @Modifying
     public void removePlayer(Team team, Player player) {
         team.removePlayer(player);
         em.merge(team);
