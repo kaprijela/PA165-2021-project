@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.dao;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Gabriela Kandova
  */
 @Repository
+@Transactional
 public class TeamDaoImpl implements TeamDao {
 
     @PersistenceContext
