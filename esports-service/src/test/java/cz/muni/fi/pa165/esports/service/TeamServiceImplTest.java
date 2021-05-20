@@ -20,7 +20,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,20 +31,17 @@ import static org.testng.Assert.*;
  * @author Radovan Tomasik, Gabriela Kandova
  */
 @ContextConfiguration(classes = {ServiceConfiguration.class})
-public class TeamServiceTest extends AbstractTestNGSpringContextTests {
+public class TeamServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private TeamDao teamDao;
-
     @Mock
     private MatchRecordDao matchRecordDao;
-
     @Mock
     private CompetitionDao competitionDao;
 
-    @Inject
     @InjectMocks
-    private TeamService teamService;
+    private TeamServiceImpl teamService;
 
     @BeforeClass
     public void setUp() {
