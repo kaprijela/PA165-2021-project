@@ -10,6 +10,8 @@ pa165eshopApp.config(['$routeProvider',
     function ($routeProvider) {
         console.log("log")
         $routeProvider.
+        when('/home', {templateUrl: 'partials/home.html'}).
+        when('/login', {templateUrl: 'partials/login.html'}).
         when('/player/:playerId', {templateUrl: 'partials/player_detail.html', controller: 'PlayerDetailCtrl'}).
         when('/players', {templateUrl: 'partials/players.html', controller: 'PlayersCtrl'}).
         when('/competitions', {templateUrl: 'partials/competitions.html', controller: 'CompetitionsCtrl'}).
@@ -53,14 +55,16 @@ eshopControllers.controller('PlayerDetailCtrl',
         );
     });
 
-eshopControllers.controller('TeamDetailCtrl',
+eshopControllers.controller('TeamsDetailCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
         // get product id from URL fragment #/product/:productId
         var teamId = $routeParams.teamId;
         $http.get('/esports/api/v2/esports/teams/id/' + teamId).then(
             function (response) {
-                $scope.player = response.data;
+                var team = response.data;
+                $scope.team = response.data;
                 console.log('AJAX loaded detail of team ' + $scope.team.name);
+                loadPlayersTeams($http, team, team['_links'].players.href);
             },
             function error(response) {
                 console.log("failed to load team "+teamId);
@@ -150,6 +154,12 @@ function loadCompetitionTeams($http, competition, prodLink) {
 function loadPlayerTeams($http, player, prodLink) {
     $http.get(prodLink).then(function (response) {
         player.teams = response.data['_embedded']['teamDTOSet'];
+    });
+}
+
+function loadPlayersTeams($http, team, prodLink) {
+    $http.get(prodLink).then(function (response) {
+        team.players = response.data['_embedded']['playerDTOSet'];
     });
 }
 

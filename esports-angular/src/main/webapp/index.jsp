@@ -21,7 +21,7 @@
 <!-- navigation bar -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">eSports<i class="bi bi-joystick ms-2"></i></a>
+        <a class="navbar-brand" href="#!/home">eSports<i class="bi bi-joystick ms-2"></i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,7 +29,7 @@
             <ul class="navbar-nav me-auto">
                 <!-- TODO change active item based on current page -->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#!/home">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#!/players">Players</a>
