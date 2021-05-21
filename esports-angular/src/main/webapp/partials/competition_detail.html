@@ -1,17 +1,58 @@
 <div>
     <h1>{{competition.name}}</h1>
+    <br>
+    <div>
 
+        <p>
+            The League of Legends Japan League (LJL) is the top level of professional League of Legends competition in Japan.
+            The league franchised prior to start of the 2019 season and has eight teams under partnership. &nbsp;
+            Each annual season of play is divided into two splits, spring and summer, both consisting of ten rounds of round-robin
+            tournament play, which then conclude with playoff tournaments between the top three teams. &nbsp;
+            The spring and summer champions qualify for the Mid-Season Invitational and World Championship respectively.
+        </p>
+
+        <br> <br>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Location</th>
+            <th scope="col">Date</th>
+            <th scope="col">Prize</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{competition.location}}</td>
+            <td>{{competition.date}}</td>
+            <td>{{competition.prizepool}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <br> <br>
+
+    <h4 style="color: black"> Teams enrolled in competition</h4>
     <div class="row">
-        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2" ng-repeat="team in competition.teams">
-            <a href="#!/team/{{team.id}}">
-                <div class="thumbnail">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Team</th>
 
-                    <div class="caption">
-                        <h3>{{team.name}}</h3>
-                        <span style="color: red; font-weight: bold;">{{team.name}}&nbsp;{{team.id}}</span>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="team in competition.teams">
+                <td>{{team.id}}</td>
+                <td>
+                    <div style="height:100%; width:100%">
+                        <a href="#!/team/{{team.id}}">
+                            {{team.name}}
+                        </a>
                     </div>
-                </div>
-            </a>
-        </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

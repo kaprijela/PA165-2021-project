@@ -8,7 +8,7 @@
     <title>eShop AngularJS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/static/css.css">
+    <link rel="stylesheet" href="/static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-resource.min.js"></script>
@@ -74,9 +74,14 @@
         <div ng-view></div>
     </div>
 
-    <footer class="footer">
-        <p>&copy;&nbsp;Masaryk University</p>
-    </footer>
 </div>
 </body>
+
+<!-- Footer -->
+<footer class="footer bg-dark"  style="position: relative; bottom: 0; top:235px; height: 20%; width: 100%; padding-bottom: 0;">
+    <div class="container">
+        <span class="text-light">&copy;&nbsp;Masaryk University</span>
+    </div>
+</footer>
+
 </html>

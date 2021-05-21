@@ -40,8 +40,10 @@ eshopControllers.controller('PlayerDetailCtrl',
         var playerId = $routeParams.playerId;
         $http.get('/esports/api/v2/esports/players/id/' + playerId).then(
             function (response) {
+                var player = response.data;
                 $scope.player = response.data;
                 console.log('AJAX loaded detail of player ' + $scope.player.name);
+                loadPlayerTeams($http, player, player['_links'].teams.href);
             },
             function error(response) {
                 console.log("failed to load product "+playerId);
@@ -142,6 +144,12 @@ function loadCompetitionTeams($http, competition, prodLink) {
     $http.get(prodLink).then(function (response) {
         competition.teams = response.data['_embedded']['teamDTOSet'];
         console.log('AJAX loaded ' + competition.teams.length + ' products to category ' + competition.name);
+    });
+}
+
+function loadPlayerTeams($http, player, prodLink) {
+    $http.get(prodLink).then(function (response) {
+        player.teams = response.data['_embedded']['teamDTOSet'];
     });
 }
 
