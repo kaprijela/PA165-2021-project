@@ -45,7 +45,7 @@ eshopControllers.controller('PlayerDetailCtrl',
                 var player = response.data;
                 $scope.player = response.data;
                 console.log('AJAX loaded detail of player ' + $scope.player.name);
-                loadPlayerTeams($http, player, player['_links'].teams.href);
+                loadPlayerTeams($http, player, player['_links'].team.href);
             },
             function error(response) {
                 console.log("failed to load product "+playerId);
@@ -153,7 +153,7 @@ function loadCompetitionTeams($http, competition, prodLink) {
 
 function loadPlayerTeams($http, player, prodLink) {
     $http.get(prodLink).then(function (response) {
-        player.teams = response.data['_embedded']['teamDTOSet'];
+        player.team = response.data['_embedded']['teamDTOSet'];
     });
 }
 
