@@ -1,0 +1,18 @@
+<div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Team</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngfor="let player of players">
+      <td>{{player.id}}</td>
+      <td>{{player.name}}</td>
+      <td>{{player.team}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

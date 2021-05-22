@@ -1,0 +1,17 @@
+<p>competition-list works!</p>
+<div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngfor="let competition of competitions">
+      <td>{{competition.id}}</td>
+      <td>{{competition.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
