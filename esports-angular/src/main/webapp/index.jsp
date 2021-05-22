@@ -86,13 +86,14 @@
     </div>
 
 </div>
+    <!-- Footer -->
+    <!-- uncomment when it is properly sticky
+    <footer class="footer bg-dark"  style="position: relative; bottom: 0; width: 100%; padding-bottom: 0;">
+        <div class="container">
+            <span class="text-light">&copy;&nbsp;Masaryk University</span>
+        </div>
+    </footer>
+    -->
 </body>
-
-<!-- Footer -->
-<footer class="footer bg-dark"  style="position: relative; bottom: 0; top:235px; height: 20%; width: 100%; padding-bottom: 0;">
-    <div class="container">
-        <span class="text-light">&copy;&nbsp;Masaryk University</span>
-    </div>
-</footer>
 
 </html>
