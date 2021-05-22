@@ -32,7 +32,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Slf4j
 @RestController
 @ExposesResourceFor(CompetitionDTO.class)
-@RequestMapping("/esports/restv1/teams")
+@RequestMapping("/esports/teams")
 public class TeamController {
 
     @Inject
@@ -84,7 +84,7 @@ public class TeamController {
 
         TeamDTO teamDTO = teamFacade.findTeamById(id);
         if (teamDTO == null) {
-            throw new ResourceNotFoundException("Competition not found");
+            throw new ResourceNotFoundException("Team not found");
         }
         return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamDTO));
     }
@@ -117,7 +117,7 @@ public class TeamController {
         try {
             teamFacade.removeTeam(teamFacade.findTeamById(id));
         } catch (IllegalArgumentException ex) {
-            log.error("competition " + id + " not found");
+            log.error("team " + id + " not found");
             throw new ResourceNotFoundException("competition " + id + " not found");
         } catch (Throwable ex) {
             log.error("cannot delete competition " + id + " :" + ex.getMessage());

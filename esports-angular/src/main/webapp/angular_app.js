@@ -10,7 +10,14 @@ pa165eshopApp.config(['$routeProvider',
     function ($routeProvider) {
         console.log("log")
         $routeProvider.
-        when('/player/:playerId', {templateUrl: 'partials/player_detail.html', controller: 'PlayerDetailCtrl'})
+        when('/home', {templateUrl: 'partials/home.html'}).
+        when('/login', {templateUrl: 'partials/login.html'}).
+        when('/player/:playerId', {templateUrl: 'partials/player_detail.html', controller: 'PlayerDetailCtrl'}).
+        when('/players', {templateUrl: 'partials/players.html', controller: 'PlayersCtrl'}).
+        when('/competitions', {templateUrl: 'partials/competitions.html', controller: 'CompetitionsCtrl'}).
+        when('/teams', {templateUrl: 'partials/teams.html', controller: 'TeamsCtrl'}).
+        when('/teams/:teamId', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailCtrl'}).
+        when('/competition/:competitionId', {templateUrl: 'partials/competition_detail.html', controller: 'CompetitionDetailCtrl'})
     }]);
 
 pa165eshopApp.run(function ($rootScope,$http) {
@@ -35,13 +42,98 @@ eshopControllers.controller('PlayerDetailCtrl',
         var playerId = $routeParams.playerId;
         $http.get('/esports/api/v2/esports/players/id/' + playerId).then(
             function (response) {
+                var player = response.data;
                 $scope.player = response.data;
-                console.log('AJAX loaded detail of product ' + $scope.player.name);
+                console.log('AJAX loaded detail of player ' + $scope.player.name);
+                loadPlayerTeams($http, player, player['_links'].team.href);
             },
             function error(response) {
                 console.log("failed to load product "+playerId);
                 console.log(response);
                 $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('TeamsDetailCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        // get product id from URL fragment #/product/:productId
+        var teamId = $routeParams.teamId;
+        $http.get('/esports/api/v2/esports/teams/id/' + teamId).then(
+            function (response) {
+                var team = response.data;
+                $scope.team = response.data;
+                console.log('AJAX loaded detail of team ' + $scope.team.name);
+                loadPlayersTeams($http, team, team['_links'].players.href);
+            },
+            function error(response) {
+                console.log("failed to load team "+teamId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load team: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('CompetitionDetailCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        // get product id from URL fragment #/product/:productId
+        var competitionId = $routeParams.competitionId;
+        $http.get('/esports/api/v2/esports/competitions/id/' + competitionId).then(
+            function (response) {
+                var competition = response.data;
+                $scope.competition = competition;
+                console.log('AJAX loaded detail of competition ' + $scope.competition.name);
+                loadCompetitionTeams($http, competition, competition['_links'].teams.href);
+            },
+            function error(response) {
+                console.log("failed to load competition " + competitionId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load competition: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('CompetitionsCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        $http.get('/esports/api/v2/esports/competitions/').then(
+            function (response) {
+                $scope.competitions = response.data['_embedded']['competitionDTOList'];
+                console.log('AJAX loaded competitions ');
+            },
+            function error(response) {
+                console.log("failed to load competitions ");
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load competitions: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('TeamsCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        $http.get('/esports/api/v2/esports/teams/').then(
+            function (response) {
+                $scope.teams = response.data['_embedded']['teamDTOList'];
+                console.log('AJAX loaded teams ');
+            },
+            function error(response) {
+                console.log("failed to load teams ");
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load teams: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('PlayersCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        $http.get('/esports/api/v2/esports/players/').then(
+            function (response) {
+                $scope.players = response.data['_embedded']['playerDTOList'];
+                console.log('AJAX loaded players ');
+            },
+            function error(response) {
+                console.log("failed to load players ");
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load players: '+response.data.message;
             }
         );
     });
@@ -52,10 +144,22 @@ eshopControllers.controller('PlayerDetailCtrl',
  */
 
 // helper procedure loading products to category
-function loadCategoryProducts($http, category, prodLink) {
+function loadCompetitionTeams($http, competition, prodLink) {
     $http.get(prodLink).then(function (response) {
-        category.products = response.data['_embedded']['productDTOList'];
-        console.log('AJAX loaded ' + category.products.length + ' products to category ' + category.name);
+        competition.teams = response.data['_embedded']['teamDTOSet'];
+        console.log('AJAX loaded ' + competition.teams.length + ' products to category ' + competition.name);
+    });
+}
+
+function loadPlayerTeams($http, player, prodLink) {
+    $http.get(prodLink).then(function (response) {
+        player.team = response.data['_embedded']['teamDTOSet'];
+    });
+}
+
+function loadPlayersTeams($http, team, prodLink) {
+    $http.get(prodLink).then(function (response) {
+        team.players = response.data['_embedded']['playerDTOSet'];
     });
 }
 

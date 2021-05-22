@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in</title>
+</head>
+<body>
+
+<br><br>
+<div id="main" style="display:none;">
+    <div class="container col-md-6 offset-md-3 ">
+        <div class="row">
+            <div class="col">
+                <div class="">
+                    <h1>Login</h1>
+                    <hr>
+                    <form action="#" method="POST">
+
+                        <div class="form-group" >
+                            <label class="text-white">Username</label>
+                            <input class="form-control" type="text" name="username" size="30">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="text-white">Password</label>
+                            <input class="form-control" type="password" name="password" size="10">
+                        </div>
+                        &nbsp; &nbsp;<br> <br>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+
+                        <a class="text-white" href="#"> &nbsp; &nbsp; Sign Up </a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        console.log('FADEIN');
+        $('#main').css('display', 'none');
+        $('#main').fadeIn(500);
+    });
+</script>
+
+</body>
+</html>

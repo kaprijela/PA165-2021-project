@@ -1,0 +1,41 @@
+<h1>PLAYERS</h1>
+
+<!-- button for adding a new product -->
+<a href="#!/newplayer" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    New Player
+</a>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Player</th>
+        <th>Gender</th>
+        <th>Team</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="player in players track by $index">
+        <td>{{player.id}}</td>
+        <td>
+                <div style="height:100%; width:100%">
+                    <a style="text-decoration: none" href="#!/player/{{player.id}}">
+                        {{player.name}}
+                    </a>
+                </div>
+        </td>
+        <td> {{player.gender}}</td>
+        <td>
+            <div style="height:100%;width:100%">
+                <a style="text-decoration: none" href="#!/team/{{player.team}}">
+                    {{player.team}}
+                </a>
+            </div>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
