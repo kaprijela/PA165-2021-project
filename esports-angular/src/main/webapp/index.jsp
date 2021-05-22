@@ -30,7 +30,7 @@
 </head>
 <body>
 <!-- navigation bar -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark" id="main-navbar">
     <div class="container">
         <a class="navbar-brand" href="#!/home">eSports<i class="bi bi-joystick ms-2"></i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +56,7 @@
             <!-- TODO change when user is logged in -->
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-secondary" href="#!/login">Log in</a>
+                    <a class="btn btn-outline-light" href="#!/login" id="login-button">Log in</a>
                 </li>
             </ul>
         </div>

@@ -1,8 +1,22 @@
 /* tables */
-a{
+a {
     text-decoration: none;
     color: black
 }
-a:hover{
+
+a:hover {
     color: blueviolet;
+}
+
+nav#main-navbar {
+    background-color: blueviolet !important;
+    color: white;
+}
+
+nav#main-navbar #login-button:hover {
+    color: blueviolet;
+}
+
+nav#main-navbar .navbar-brand {
+    font-family: 'Rajdhani', sans-serif;
 }
