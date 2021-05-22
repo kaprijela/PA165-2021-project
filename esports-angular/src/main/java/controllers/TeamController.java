@@ -2,6 +2,7 @@ package controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+import cz.muni.fi.pa165.esports.dto.TeamCreateDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
@@ -64,7 +65,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<EntityModel<TeamDTO>> createTeam(@RequestBody TeamDTO teamDTO, BindingResult bindingResult) throws Exception {
+    public final HttpEntity<EntityModel<TeamDTO>> createTeam(@RequestBody TeamCreateDTO teamDTO, BindingResult bindingResult) throws Exception {
         log.debug("restv1 createTeam()");
         if (bindingResult.hasErrors()) {
             log.error("failed validation {}", bindingResult.toString());
@@ -100,7 +101,7 @@ public class TeamController {
         return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamByName));
     }
 
-    @RequestMapping(value = "/id/{abbreviation}", method = RequestMethod.GET)
+    @RequestMapping(value = "/abbreviation/{abbreviation}", method = RequestMethod.GET)
     public final HttpEntity<EntityModel<TeamDTO>> getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws Exception {
         log.debug("restv1 get by abbreviation {}",abbreviation);
 
