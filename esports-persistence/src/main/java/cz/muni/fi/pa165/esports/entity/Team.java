@@ -110,4 +110,9 @@ public class Team {
     public int hashCode() {
         return Objects.hash(getName(), getAbbreviation());
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }
