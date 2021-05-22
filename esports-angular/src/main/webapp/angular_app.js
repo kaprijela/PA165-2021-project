@@ -17,7 +17,9 @@ pa165eshopApp.config(['$routeProvider',
         when('/competitions', {templateUrl: 'partials/competitions.html', controller: 'CompetitionsCtrl'}).
         when('/teams', {templateUrl: 'partials/teams.html', controller: 'TeamsCtrl'}).
         when('/teams/:teamId', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailCtrl'}).
+        when('/teams/name/:teamName', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailNameCtrl'}).
         when('/newteam', {templateUrl: 'partials/new_team.html', controller: 'NewTeamCtrl'}).
+        when('/newplayer', {templateUrl: 'partials/new_player.html', controller: 'NewPlayerCtrl'}).
         when('/competition/:competitionId', {templateUrl: 'partials/competition_detail.html', controller: 'CompetitionDetailCtrl'})
     }]);
 
@@ -61,6 +63,25 @@ eshopControllers.controller('TeamsDetailCtrl',
         // get product id from URL fragment #/product/:productId
         var teamId = $routeParams.teamId;
         $http.get('/esports/api/v2/esports/teams/id/' + teamId).then(
+            function (response) {
+                var team = response.data;
+                $scope.team = response.data;
+                console.log('AJAX loaded detail of team ' + $scope.team.name);
+                loadPlayersTeams($http, team, team['_links'].players.href);
+            },
+            function error(response) {
+                console.log("failed to load team "+teamId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load team: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('TeamsDetailNameCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        // get product id from URL fragment #/product/:productId
+        var teamName = $routeParams.teamName;
+        $http.get('/esports/api/v2/esports/teams/name/' + teamName).then(
             function (response) {
                 var team = response.data;
                 $scope.team = response.data;
@@ -155,6 +176,43 @@ eshopControllers.controller('NewTeamCtrl',
                         break;
                     default:
                         $rootScope.errorAlert = 'Cannot create team ! Reason given by the server: '+response.data.message;
+                        break;
+                }
+            });
+        };
+    });
+
+eshopControllers.controller('NewPlayerCtrl',
+    function ($scope, $routeParams, $http, $location, $rootScope) {
+        //set object bound to form fields
+        $scope.player = {
+            'name': ''
+        };
+        // function called when submit button is clicked, creates category on server
+        $scope.create = function (player) {
+            $http({
+                method: 'POST',
+                url: '/esports/api/v2/esports/players/create',
+                data: player
+            }).then(function success(response) {
+                var createdPlayer = response.data;
+                //display confirmation alert
+                $rootScope.successAlert = 'A new player "' + createdPlayer.name + '" was created';
+                //change view to list of products
+                $location.path("/players");
+            }, function error(response) {
+                //display error
+                console.log("error when creating player");
+                console.log(response);
+                switch (response.data.code) {
+                    case 'PersistenceException':
+                        $rootScope.errorAlert = 'player with the same name already exists ! ';
+                        break;
+                    case 'InvalidRequestException':
+                        $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
+                        break;
+                    default:
+                        $rootScope.errorAlert = 'Cannot create player ! Reason given by the server: '+response.data.message;
                         break;
                 }
             });

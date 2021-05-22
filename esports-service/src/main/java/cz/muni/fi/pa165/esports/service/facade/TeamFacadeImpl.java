@@ -55,12 +55,12 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public Long registerNewTeam(TeamCreateDTO team) {
+    public Long registerNewTeam(TeamDTO team) {
         Team team1 = new Team();
         team1.setName(team.getName());
         team1.setAbbreviation(team.getAbbreviation());
         teamService.create(team1);
-        return null;
+        return teamService.findByAbbreviation(team.getAbbreviation()).getId();
     }
 
     @Override

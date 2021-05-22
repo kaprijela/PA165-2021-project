@@ -50,7 +50,7 @@ public interface TeamFacade {
      * @param team team to be registered
      * @return
      */
-    Long registerNewTeam(TeamCreateDTO team);
+    Long registerNewTeam(TeamDTO team);
 
     /**
      * Removes a registered team from the system.
