@@ -1,0 +1,21 @@
+<h1 class="mt-4">Registered Teams</h1>
+<div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Abbreviation</th>
+      <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let team of teams">
+      <td>{{team.id}}</td>
+      <td>{{team.name}}</td>
+      <td>{{team.abbreviation}}</td>
+      <td>{{team.description}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

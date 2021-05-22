@@ -32,11 +32,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Slf4j
 @RestController
 @ExposesResourceFor(CompetitionDTO.class)
-@RequestMapping("/esports/teams")
+@RequestMapping("/teams")
 public class TeamController {
 
-    @Inject
     TeamFacade teamFacade;
+
+    @Inject
+    public TeamController(TeamFacade teamFacade) {
+        this.teamFacade = teamFacade;
+    }
 
     @Inject
     PlayerFacade playerFacade;
@@ -50,10 +54,13 @@ public class TeamController {
     @Inject
     StatisticsRepresentatitionModelAssembler statisticsRepresentatitionModelAssembler;
 
-    @Inject
-    private EntityLinks entityLink;
-
     @RequestMapping(value = "", method = RequestMethod.GET)
+    public final List<TeamDTO> getAllTeams() {
+        log.debug("rest getAllTeams()");
+        return teamFacade.getAllTeams();
+    }
+
+    /*
     public final HttpEntity<CollectionModel<EntityModel<TeamDTO>>> getPlayers() {
         log.debug("restv1 getCompetitions()");
         List<TeamDTO> allTeams = teamFacade.getAllTeams();
@@ -182,4 +189,5 @@ public class TeamController {
         }
         return new HttpEntity<>(statisticsRepresentatitionModelAssembler.toModel(result));
     }
+     */
 }
