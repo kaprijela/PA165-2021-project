@@ -3,11 +3,13 @@ package cz.muni.pa165.sampledata;
 
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Player;
+import cz.muni.fi.pa165.esports.entity.SystemUser;
 import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.enums.Gender;
 import cz.muni.fi.pa165.esports.service.CompetitionService;
 import cz.muni.fi.pa165.esports.service.PlayerService;
 import cz.muni.fi.pa165.esports.service.TeamService;
+import cz.muni.fi.pa165.esports.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,12 +34,16 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Autowired
     CompetitionService competitionService;
 
+    @Autowired
+    UserService userService;
+
     @Override
     public void loadData() throws IOException {
         Team t1 = new Team();
         t1.setName("Orcs");
         t1.setAbbreviation("O");
         teamService.create(t1);
+
 
         Player player = new Player();
         player.setName("Radko");

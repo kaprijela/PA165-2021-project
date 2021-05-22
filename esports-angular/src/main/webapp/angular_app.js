@@ -17,6 +17,7 @@ pa165eshopApp.config(['$routeProvider',
         when('/competitions', {templateUrl: 'partials/competitions.html', controller: 'CompetitionsCtrl'}).
         when('/teams', {templateUrl: 'partials/teams.html', controller: 'TeamsCtrl'}).
         when('/teams/:teamId', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailCtrl'}).
+        when('/newteam', {templateUrl: 'partials/new_team.html', controller: 'NewTeamCtrl'}).
         when('/competition/:competitionId', {templateUrl: 'partials/competition_detail.html', controller: 'CompetitionDetailCtrl'})
     }]);
 
@@ -121,6 +122,43 @@ eshopControllers.controller('TeamsCtrl',
                 $rootScope.warningAlert = 'Cannot load teams: '+response.data.message;
             }
         );
+    });
+
+eshopControllers.controller('NewTeamCtrl',
+    function ($scope, $routeParams, $http, $location, $rootScope) {
+        //set object bound to form fields
+        $scope.team = {
+            'name': ''
+        };
+        // function called when submit button is clicked, creates category on server
+        $scope.create = function (team) {
+            $http({
+                method: 'POST',
+                url: '/esports/api/v2/esports/teams/create',
+                data: team
+            }).then(function success(response) {
+                var createdTeam = response.data;
+                //display confirmation alert
+                $rootScope.successAlert = 'A new team "' + createdTeam.name + '" was created';
+                //change view to list of products
+                $location.path("/teams");
+            }, function error(response) {
+                //display error
+                console.log("error when creating team");
+                console.log(response);
+                switch (response.data.code) {
+                    case 'PersistenceException':
+                        $rootScope.errorAlert = 'team with the same name already exists ! ';
+                        break;
+                    case 'InvalidRequestException':
+                        $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
+                        break;
+                    default:
+                        $rootScope.errorAlert = 'Cannot create team ! Reason given by the server: '+response.data.message;
+                        break;
+                }
+            });
+        };
     });
 
 eshopControllers.controller('PlayersCtrl',
