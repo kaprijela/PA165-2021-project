@@ -10,7 +10,7 @@ export class CompetitionService {
   private readonly competitionUrl: string;
 
   constructor(private http: HttpClient) {
-    this.competitionUrl = 'http://localhost:8080/esports/rest/competitions';
+    this.competitionUrl = 'http://localhost:8080/esports/api/v2/competitions';
   }
 
   public findAll(): Observable<Competition[]> {

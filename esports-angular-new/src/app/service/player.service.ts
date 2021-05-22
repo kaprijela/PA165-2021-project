@@ -10,7 +10,7 @@ export class PlayerService {
   private readonly playersUrl: string;
 
   constructor(private http: HttpClient) {
-    this.playersUrl = 'http://localhost:8080/esports/api/v2/esports/players';
+    this.playersUrl = 'http://localhost:8080/esports/api/v2/players';
   }
 
   public findAll(): Observable<Player[]> {
