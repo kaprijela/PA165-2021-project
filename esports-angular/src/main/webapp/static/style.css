@@ -17,6 +17,20 @@ nav#main-navbar #login-button:hover {
     color: blueviolet;
 }
 
-nav#main-navbar .navbar-brand {
+.esports-title {
     font-family: 'Rajdhani', sans-serif;
+}
+
+.btn-primary, .btn-primary:focus {
+    background-color: blueviolet !important;
+    color: white !important;
+    border-color: blueviolet !important;
+}
+
+i.inline-right {
+    font-size: 120%;
+    vertical-align: -15%;
+    line-height: 1;
+    display: inline-block;
+    margin-right: 0.3em;
 }
