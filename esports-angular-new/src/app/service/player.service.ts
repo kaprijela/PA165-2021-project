@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Player} from "../model/player";
 import {Observable} from "rxjs";
 import {Team} from "../model/team";
+import {Statistics} from "../model/statistics";
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class PlayerService {
   }
 
   // public getPlayerScore(id: number): number {
-  //   return this.http.get<Team>(this.statistics + "/" + id);
+  //   return this.http.get<Statistics>(this.statistics + "/" + id);
   // }
 
 }
