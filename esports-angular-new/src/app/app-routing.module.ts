@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'players', component: PlayerListComponent },
   { path: 'competitions', component: CompetitionListComponent },
   { path: 'teams', component: TeamListComponent },
-  // { path: 'team/:id', component: TeamDetailComponent },
+  { path: 'teams/id/:id', component: TeamDetailComponent },
   // { path: 'teams/new', component: TeamAddComponent, canActivate: [AuthGuard], data: { role: ['TEAM_MANAGER'] } },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', component: NotFoundComponent },
