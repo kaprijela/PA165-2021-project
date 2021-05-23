@@ -6,3 +6,7 @@ nav#navbar-main {
 .esports-title {
   font-family: 'Rajdhani', sans-serif;
 }
+
+#username {
+  color: white;
+}
