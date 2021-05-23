@@ -43,16 +43,14 @@ export class CompetitionDetailComponent implements OnInit {
     const value = this.addTeam.value;
     // @ts-ignore
     this.competitionService.addTeam(this.competition.id,value.idTeamA).subscribe()
-    // @ts-ignore
-    this.router.navigate(['/competitions/id/' + this.competition.id]);
+    location.reload();
   }
 
   remove(){
     const value = this.removeTeam.value;
     // @ts-ignore
     this.competitionService.removeTeam(this.competition.id, value.idTeamR).subscribe()
-    // @ts-ignore
-    this.router.navigate(['/competitions/id/' + this.competition.id]);
+    location.reload();
   }
 
 }

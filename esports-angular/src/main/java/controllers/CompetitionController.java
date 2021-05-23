@@ -33,7 +33,7 @@ public class CompetitionController {
     }
 
     /**
-     * Get list of Competitions curl -i -X GET http://localhost:8080/pa165/api/v2/esports/competitions/
+     * Get list of Competitions curl -i -X GET http://localhost:8080/pa165/api/v2/competitions/
      *
      * @return List<CompetitionDTO>
      */

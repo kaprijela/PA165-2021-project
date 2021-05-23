@@ -126,8 +126,8 @@ public class TeamController {
         }
     }
     //garbage error handling
-    @RequestMapping(value = "/{idTeam}/addPlayer/{idPlayer}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("name") Long idPlayer){
+    @RequestMapping(value = "add/{idTeam}/addPlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final PlayerDTO addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer){
         log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
 
         TeamDTO teamById = teamFacade.findTeamById(idTeam);
@@ -141,10 +141,11 @@ public class TeamController {
         } catch (Exception e) {
             log.error("Exception: {}", e.getMessage());
         }
+        return playerById;
     }
 
-    @RequestMapping(value = "/{idTeam}/removePlayer/{idPlayer}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void removePlayerFromTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("name") Long idPlayer){
+    @RequestMapping(value = "remove/{idTeam}/removePlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final PlayerDTO removePlayerFromTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer){
         log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
 
         TeamDTO teamById = teamFacade.findTeamById(idTeam);
@@ -158,6 +159,7 @@ public class TeamController {
         } catch (Exception e) {
             log.error("Exception: {}", e.getMessage());
         }
+        return playerById;
     }
 
     @RequestMapping(value = "{id}/getCompetitionStatistics/{competitionId}", produces = MediaType.APPLICATION_JSON_VALUE)

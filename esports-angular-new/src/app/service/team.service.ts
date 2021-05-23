@@ -65,12 +65,12 @@ export class TeamService {
     this.http.delete(this.teamsUrl + "/" + id);
   }
 
-  public addPlayer(team: number, player: number){
-    this.http.get(this.teamsUrl + "/" + team + "/addPlayer/" + player );
+  public addPlayer(team: number, player: number): Observable<any>{
+   return this.http.get<any>(this.teamsUrl + "/add/" + team + "/addPlayer/" + player );
   }
 
-  public removePlayer(team: number, player: number){
-    this.http.get(this.teamsUrl + "/" + team + "/removePlayer/" + player );
+  public removePlayer(team: number, player: number): Observable<any>{
+    return this.http.get<Team>(this.teamsUrl + "/remove/" + team + "/removePlayer/" + player );
   }
 
 

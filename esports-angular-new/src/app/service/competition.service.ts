@@ -47,14 +47,14 @@ export class CompetitionService {
     this.http.delete(this.apiEndpoint + "/" + id);
   }
 
-  public addTeam(competition: number | undefined, team: string): Observable<Competition>{
+  public addTeam(competition: number, team: string): Observable<Competition>{
+    this.router.navigate(['/competitions/id/' + competition]);
     return this.http.get<Competition>(this.apiEndpoint + "/add/" + competition + "/addTeam/" + team);
   }
 
-  public removeTeam(competition: number | undefined, team: string): Observable<Competition>{
-    var x = this.http.get<Competition>(this.apiEndpoint + "/remove/" + competition + "/removeTeam/" + team);
-    // @ts-ignore
-    return x
+  public removeTeam(competition: number, team: string): Observable<Competition>{
+    this.router.navigate(['/competitions/id/' + competition]);
+    return this.http.get<Competition>(this.apiEndpoint + "/remove/" + competition + "/removeTeam/" + team);
   }
 
   public addMatchRecord(competitionId: number, record: MatchRecord) {
