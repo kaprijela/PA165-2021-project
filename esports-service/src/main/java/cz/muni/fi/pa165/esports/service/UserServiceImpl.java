@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.service;
 import cz.muni.fi.pa165.esports.dao.UserDao;
 import cz.muni.fi.pa165.esports.entity.SystemUser;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,17 +25,16 @@ public class UserServiceImpl implements UserService{
     @Inject
     private UserDao userDao;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     //Persistence
     @Override
     public SystemUser create(SystemUser systemUser, String password) {
-        if (userDao.findByEmail(systemUser.getEmail() ) == null) {
             //Put password as a hash
             String passwordHash = passwordEncoder.encode(password);
             systemUser.setPasswordHash(passwordHash);
             userDao.create(systemUser);
-        }
 
        return systemUser;
     }
