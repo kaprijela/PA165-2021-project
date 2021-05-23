@@ -1,0 +1,11 @@
+<div *ngIf="team">
+  <h1 class="mt-4">{{team.name}} [{{team.abbreviation}}]</h1>
+  <div *ngIf="team.players.length > 0">
+    <h3>Team members</h3>
+    <ul>
+      <li *ngFor="let player of team.players">
+        {{player.name}}
+      </li>
+    </ul>
+  </div>
+</div>

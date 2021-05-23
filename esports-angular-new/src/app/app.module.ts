@@ -13,6 +13,7 @@ import {TeamListComponent} from './components/team-list/team-list.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     CompetitionListComponent,
     TeamListComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    TeamDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     HttpClientModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [PlayerService, CompetitionService, TeamService],
   bootstrap: [AppComponent]
