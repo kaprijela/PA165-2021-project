@@ -126,6 +126,5 @@ public class CompetitionController {
             throw new ResourceNotFoundException("Competition not found");
         }
         return competitionFacade.findCompetitionById(id);
-
     }
 }
