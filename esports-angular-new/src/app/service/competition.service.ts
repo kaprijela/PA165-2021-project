@@ -15,7 +15,7 @@ export class CompetitionService {
   private readonly byName = 'http://localhost:8080/pa165/api/v2/competitions/name';
 
   constructor(private http: HttpClient) {
-    this.competitionUrl = 'http://localhost:8080//api/v2/competitions';
+    this.competitionUrl = 'http://localhost:8080/pa165/api/v2/competitions';
   }
 
   public findAll(): Observable<Competition[]> {
