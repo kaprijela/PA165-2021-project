@@ -8,9 +8,11 @@ import {Observable} from "rxjs";
 })
 export class PlayerService {
   private readonly playersUrl: string;
+  private readonly createUrl = 'http://localhost:8080/pa165/api/v2/players/create';
 
   constructor(private http: HttpClient) {
-    this.playersUrl = 'http://localhost:8080/esports/api/v2/players';
+    this.playersUrl = 'http://localhost:8080/pa165/api/v2/players';
+
   }
 
   public findAll(): Observable<Player[]> {

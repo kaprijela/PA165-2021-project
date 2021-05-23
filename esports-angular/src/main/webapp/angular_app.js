@@ -44,7 +44,7 @@ eshopControllers.controller('PlayerDetailCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
         // get product id from URL fragment #/product/:productId
         var playerId = $routeParams.playerId;
-        $http.get('/esports/api/v2/esports/players/id/' + playerId).then(
+        $http.get('/esports/api/v2/players/id/' + playerId).then(
             function (response) {
                 $scope.player = response.data;
                 console.log('AJAX loaded detail of player ' + $scope.player.name);
@@ -55,7 +55,7 @@ eshopControllers.controller('PlayerDetailCtrl',
                 $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
             }
         );
-        $http.get('/esports/api/v2/esports/players/getPlayerStatistics/id/' + playerId).then(
+        $http.get('/esports/api/v2/players/getPlayerStatistics/id/' + playerId).then(
                     function (response) {
                         $scope.stats = response.data;
                         console.log('AJAX loaded detail of player ' + $scope.player.name);
@@ -72,7 +72,7 @@ eshopControllers.controller('TeamsDetailCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
         // get product id from URL fragment #/product/:productId
         var teamId = $routeParams.teamId;
-        $http.get('/esports/api/v2/esports/teams/id/' + teamId).then(
+        $http.get('/esports/api/v2/teams/id/' + teamId).then(
             function (response) {
                 var team = response.data;
                 $scope.team = response.data;
@@ -91,7 +91,7 @@ eshopControllers.controller('TeamsDetailNameCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
         // get product id from URL fragment #/product/:productId
         var teamName = $routeParams.teamName;
-        $http.get('/esports/api/v2/esports/teams/name/' + teamName).then(
+        $http.get('/esports/api/v2/teams/name/' + teamName).then(
             function (response) {
                 var team = response.data;
                 $scope.team = response.data;
@@ -110,7 +110,7 @@ eshopControllers.controller('CompetitionDetailCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
         // get product id from URL fragment #/product/:productId
         var competitionId = $routeParams.competitionId;
-        $http.get('/esports/api/v2/esports/competitions/id/' + competitionId).then(
+        $http.get('/esports/api/v2/competitions/id/' + competitionId).then(
             function (response) {
                 var competition = response.data;
                 $scope.competition = competition;
@@ -127,7 +127,7 @@ eshopControllers.controller('CompetitionDetailCtrl',
 
 eshopControllers.controller('CompetitionsCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
-        $http.get('/esports/api/v2/esports/competitions/').then(
+        $http.get('/esports/api/v2/competitions/').then(
             function (response) {
                 $scope.competitions = response.data['_embedded']['competitionDTOList'];
                 console.log('AJAX loaded competitions ');
@@ -142,7 +142,7 @@ eshopControllers.controller('CompetitionsCtrl',
 
 eshopControllers.controller('TeamsCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
-        $http.get('/esports/api/v2/esports/teams/').then(
+        $http.get('/esports/api/v2/teams/').then(
             function (response) {
                 $scope.teams = response.data['_embedded']['teamDTOList'];
                 console.log('AJAX loaded teams ');
@@ -165,7 +165,7 @@ eshopControllers.controller('NewTeamCtrl',
         $scope.create = function (team) {
             $http({
                 method: 'POST',
-                url: '/esports/api/v2/esports/teams/create',
+                url: '/esports/api/v2/teams/create',
                 data: team
             }).then(function success(response) {
                 var createdTeam = response.data;
@@ -202,7 +202,7 @@ eshopControllers.controller('NewPlayerCtrl',
         $scope.create = function (player) {
             $http({
                 method: 'POST',
-                url: '/esports/api/v2/esports/players/create',
+                url: '/esports/api/v2/players/create',
                 data: player
             }).then(function success(response) {
                 var createdPlayer = response.data;
@@ -234,7 +234,7 @@ eshopControllers.controller('AddPlayerCtrl',
         // get product id from URL fragment #/product/:productId
         var playerId = $routeParams.playerId;
         var teamId = $routeParams.teamId;
-        $http.get('/esports/api/v2/esports/players/id/' + playerId).then(
+        $http.get('/esports/api/v2/players/id/' + playerId).then(
             function (response) {
                 var player = response.data;
                 $scope.player = response.data;
@@ -243,7 +243,7 @@ eshopControllers.controller('AddPlayerCtrl',
                 $scope.addPlayerToTeam = function (player) {
                     $http({
                         method: 'POST',
-                        url: '/esports/api/v2/esports/teams/'+teamId+'/addPlayer/'+playerId,
+                        url: '/esports/api/v2/teams/'+teamId+'/addPlayer/'+playerId,
                         data: teamId, playerId
                     }).then(function success(response) {
                         var createdPlayer = response.data;
@@ -279,7 +279,7 @@ eshopControllers.controller('AddPlayerCtrl',
 
 eshopControllers.controller('PlayersCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
-        $http.get('/esports/api/v2/esports/players/').then(
+        $http.get('/esports/api/v2/players/').then(
             function (response) {
                 $scope.players = response.data['_embedded']['playerDTOList'];
                 console.log('AJAX loaded players ');

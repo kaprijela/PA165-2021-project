@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -51,9 +53,9 @@ public class TeamController {
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public final List<TeamDTO> getAllTeams() {
+    public final Set<TeamDTO> getAllTeams() {
         log.debug("rest getAllTeams()");
-        return teamFacade.getAllTeams();
+        return new HashSet<>(teamFacade.getAllTeams());
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
