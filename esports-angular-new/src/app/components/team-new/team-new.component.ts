@@ -32,5 +32,4 @@ export class TeamNewComponent implements OnInit {
           this.teamService.createTeam(this.team).subscribe();
         }
       }
-
 }
