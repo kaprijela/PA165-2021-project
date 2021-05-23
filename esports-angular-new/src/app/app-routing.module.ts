@@ -8,7 +8,7 @@ import {TeamDetailComponent} from "./components/team-detail/team-detail.componen
 import {AuthGuard} from "./auth.guard";
 import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
-import {TeamAddComponent} from "./components/team-add/team-add.component";
+// import {TeamAddComponent} from "./components/team-add/team-add.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

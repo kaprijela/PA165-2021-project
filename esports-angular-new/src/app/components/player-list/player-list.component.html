@@ -1,18 +1,32 @@
 <h1 class="mt-4">Registered players</h1>
 <div>
-  <table class="table table-striped">
+  <table class="table table-hover">
     <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Team</th>
+      <th>#</th>
+      <th>Player</th>
+      <th>Gender</th>
+      <th>Team</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let player of players">
       <td>{{player.id}}</td>
-      <td>{{player.name}}</td>
-      <td>{{player.team}}</td>
+      <td>
+        <div style="height:100%; width:100%">
+          <a style="text-decoration: none" href="#!/player/id/{{player.id}}">
+            {{player.name}}
+          </a>
+        </div>
+      </td>
+      <td> {{player.gender}}</td>
+      <td>
+      <div style="height:100%;width:100%">
+        <a style="text-decoration: none" href="#!/teams/name/{{player.team}}">
+          {{player.team}}
+        </a>
+      </div>
+      </td>
     </tr>
     </tbody>
   </table>

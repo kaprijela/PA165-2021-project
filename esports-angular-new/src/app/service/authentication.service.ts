@@ -8,7 +8,7 @@ import {User} from "../model/user";
 })
 export class AuthenticationService {
 
-  private loginUrl: string = "http://localhost:8080/esports/api/v2/login";
+  private loginUrl: string = "http://localhost:8080/pa165/api/v2/login";
 
   constructor(private http: HttpClient, private router: Router) { }
 
