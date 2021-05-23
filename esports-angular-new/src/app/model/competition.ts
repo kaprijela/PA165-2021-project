@@ -5,11 +5,11 @@ export class Competition {
   name: string;
   teams: Team[];
   location: string;
-  prizepool: string;
+  prizepool: number;
   game: string;
 
 
-  constructor(id: number, name: string, teams: Team[], location: string, prizepool: string, game: string) {
+  constructor(id: number, name: string, teams: Team[], location: string, prizepool: number, game: string) {
     this.id = id;
     this.name = name;
     this.teams = teams;

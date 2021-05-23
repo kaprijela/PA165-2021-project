@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Competition} from "../model/competition";
 import {Observable} from "rxjs";
-import {Player} from "../model/player";
-import {Team} from "../model/team";
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,16 @@ export class CompetitionService {
   }
 
   public createCompetition(competition: Competition): Observable<Competition> {
-    return this.http.post<Competition>(this.create, competition)
+    // var json = {"name": competition.name, "pricepool": competition.pricepool, "location": competition.location}
+    return this.http.post<Competition>(this.create, {
+      "id": null,
+      "name": competition.name,
+      "game": null,
+      "location": competition.location,
+      "prizepool":  competition.prizepool,
+      "teams": [],
+      "date": null
+    })
   }
 
   public findById(id: number): Observable<Competition> {

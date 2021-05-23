@@ -1,20 +1,21 @@
-<div class="text-center">
-  <div class="form-group col-md-6">
+<div class="container container-table align-items-center">
+  <div class="form-group col-md-6 align-items-center">
     <form class="form-login" [formGroup]="createCompetition">
-      <h1 class="mt-4">Register a new Team</h1>
+      <h1 class="mt-4">Register a new Competition</h1>
 
       <label for="name">Name</label>
-      <input type="email" class="form-control mb-1" id="name" required placeholder="name" formControlName="name">
+      <input type="email" class="form-control mb-1" id="name" required placeholder="Name" formControlName="name">
 
-      <label for="abbreviation">Abbreviation</label>
-      <input type="email" class="form-control" id="abbreviation" required placeholder="abbreviation"
-             formControlName="abbreviation">
-
-      <label for="description">Description</label>
-      <input type="email" class="form-control" id="description" required placeholder="description"
-             formControlName="description">
-
-      <button class="btn btn-lg btn-block btn-primary" type="submit" (click)="create()">Create TEAM</button>
+      <br/>
+      <label for="prizepool">Pricepool</label>
+      <input type="email" class="form-control" id="prizepool" required placeholder="Prizepool"
+             formControlName="prizepool">
+      <br/>
+      <label for="location">Location</label>
+      <input type="email" class="form-control" id="location" required placeholder="Location"
+             formControlName="location">
+      <br/>
+      <button class="btn btn-lg btn-block btn-primary" type="submit" (click)="createComp()">Create Competition</button>
     </form>
   </div>
 </div>

@@ -8,10 +8,10 @@ import {Observable} from "rxjs";
 })
 export class TeamService {
   private readonly teamsUrl: string = "http://localhost:8080/pa165/api/v2/teams";
-  private readonly byId: string = "http://localhost:8080/pa165/api/v2/teams/id";
-  private readonly byName: string = "http://localhost:8080/pa165/api/v2/teams/id";
-  private readonly create: string = "http://localhost:8080/pa165/api/v2/teams/create";
-  private readonly byAbbreviation: string = "http://localhost:8080/pa165/api/v2/teams/abbreviation";
+  private readonly byId: string = this.teamsUrl + "/id";
+  private readonly byName: string = this.teamsUrl + "/name";
+  private readonly create: string = this.teamsUrl + "/create";
+  private readonly byAbbreviation: string = this.teamsUrl + "/abbreviation";
   constructor(private http: HttpClient) { }
 
   public findAll(): Observable<Team[]> {
