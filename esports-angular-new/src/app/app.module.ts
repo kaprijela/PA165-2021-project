@@ -18,6 +18,8 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PlayerDetailComponent } from './components/player-detail/player-detail.component';
 import { TeamNewComponent } from './components/team-new/team-new.component';
+import { CompetitionDetailComponent } from './components/competition-detail/competition-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { TeamNewComponent } from './components/team-new/team-new.component';
     UnauthorizedComponent,
     NotFoundComponent,
     PlayerDetailComponent,
-    TeamNewComponent
+    TeamNewComponent,
+    CompetitionDetailComponent,
   ],
   imports: [
     BrowserModule,

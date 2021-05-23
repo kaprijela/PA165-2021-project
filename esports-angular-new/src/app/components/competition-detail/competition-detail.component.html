@@ -1,0 +1,14 @@
+<div *ngIf="competition">
+  <h1 class="mt-4">{{competition.name}}</h1>
+  <p>Game: {{competition.game}}</p>
+  <p>Location: {{competition.location}}</p>
+  <p>Prizepool: {{competition.prizepool}}</p>
+  <div *ngIf="competition.teams.length > 0">
+    <h3>Competition members</h3>
+    <ul>
+      <li *ngFor="let team of competition.teams">
+        {{team.name}}
+      </li>
+    </ul>
+  </div>
+</div>
