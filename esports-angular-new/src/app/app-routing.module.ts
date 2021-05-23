@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: 'competitions/create', component: CompetitionNewComponent},
   { path: 'teams', component: TeamListComponent },
   { path: 'teams/id/:id', component: TeamDetailComponent },
+  { path: 'teams/name/:name', component: TeamDetailComponent },
   { path: 'teams/new', component: TeamNewComponent, canActivate: [AuthGuard], data: { role: ['TEAM_MANAGER'] } },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', component: NotFoundComponent },
