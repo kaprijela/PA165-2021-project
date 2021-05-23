@@ -36,8 +36,8 @@ export class PlayerService {
     return this.http.get<Player>(this.byName + "/" + name);
   }
 
-  // public getPlayerScore(id: number): number {
-  //   return this.http.get<Statistics>(this.statistics + "/" + id);
-  // }
+  public getPlayerScore(id: number): Observable<Statistics> {
+    return this.http.get<Statistics>(this.statistics + "/" + id);
+  }
 
 }

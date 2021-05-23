@@ -264,17 +264,17 @@ public class PlayerServiceTest extends AbstractTestNGSpringContextTests {
     public void getPlayerAverageTest() {
         Player alice = playerDao.findById(1L);
         assertNotNull(alice);
-        double aliceAverage = playerService.getPlayerAverage(alice);
+        double aliceAverage = playerService.getPlayerAverage(alice.getId());
         assertEquals(aliceAverage, 6.25);
 
         Player bob = playerDao.findById(2L);
         assertNotNull(bob);
-        double bobAverage = playerService.getPlayerAverage(bob);
+        double bobAverage = playerService.getPlayerAverage(bob.getId());
         assertEquals(bobAverage, 1.0);
 
         Player bobbert = playerDao.findById(3L);
         assertNotNull(bobbert);
-        double bobbertAverage = playerService.getPlayerAverage(bobbert);
+        double bobbertAverage = playerService.getPlayerAverage(bobbert.getId());
         assertEquals(bobbertAverage, 0.0);
     }
 

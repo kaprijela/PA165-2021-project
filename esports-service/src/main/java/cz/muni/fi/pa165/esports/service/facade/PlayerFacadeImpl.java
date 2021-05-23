@@ -64,7 +64,7 @@ public class PlayerFacadeImpl implements PlayerFacade {
     }
 
     @Override
-    public Double getPlayerAverage(PlayerDTO playerDTO) {
-        return playerService.getPlayerAverage(beanMappingService.mapTo(playerDTO, Player.class));
+    public Double getPlayerAverage(Long playerId) {
+        return playerService.getPlayerAverage(playerId);
     }
 }

@@ -3,6 +3,7 @@ package controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+import cz.muni.fi.pa165.esports.dto.StatisticsDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import exception.InvalidRequestException;
@@ -68,23 +69,22 @@ public class PlayerController {
         return player;
     }
 
-    @RequestMapping(value = "getPlayerStatistics/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Double getAveragePlayerScore(@PathVariable("id") Long idPlayer){
+    @RequestMapping(value = "getPlayerStatistics/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final StatisticsDTO getAveragePlayerScore(@PathVariable("id") Long idPlayer){
         log.debug("restv1 get statitistics for Player: {}", idPlayer);
 
-        PlayerDTO playerById = playerFacade.findPlayerById(idPlayer);
-
-        if (playerById == null) {
-            throw new ResourceNotFoundException("Competition not found");
-        }
         Double result = null;
         try {
-            result = playerFacade.getPlayerAverage(playerById);
+            result = playerFacade.getPlayerAverage(idPlayer);
         } catch (Exception e) {
             log.error("Exception: {}", e.getMessage());
         }
-        assert result != null;
-        return result;
+        if (result == null){
+            throw new IllegalArgumentException("curak");
+        }
+        StatisticsDTO statisticsDTO = new StatisticsDTO();
+        statisticsDTO.setScore(result);
+        return statisticsDTO;
     }
 
     public PlayerController(PlayerFacade playerFacade) {

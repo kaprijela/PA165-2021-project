@@ -45,7 +45,7 @@ public interface PlayerService {
      * @param player player entity
      * @return a double
      */
-    Double getPlayerAverage(Player player);
+    Double getPlayerAverage(Long playerId);
 
     /**
      * Get player's average stats in a game

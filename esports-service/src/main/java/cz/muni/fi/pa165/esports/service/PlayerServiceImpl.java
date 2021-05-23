@@ -48,8 +48,9 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Double getPlayerAverage(Player player) {
-        List<MatchRecord> matchRecords = matchRecordDao.findByPlayer(player);
+    public Double getPlayerAverage(Long player) {
+        Player byId = playerDao.findById(player);
+        List<MatchRecord> matchRecords = matchRecordDao.findByPlayer(byId);
         System.out.println(matchRecords);
         int numberOfMatches = 0;
         int totalScore = 0;
@@ -61,6 +62,7 @@ public class PlayerServiceImpl implements PlayerService {
         if (numberOfMatches == 0) {
             return 0.0;
         }
+//        return Double.valueOf(2);
         return ((double) totalScore / numberOfMatches);
     }
 
