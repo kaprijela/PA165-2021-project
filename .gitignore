@@ -2,3 +2,4 @@
 .gradle/
 target/
 *.iml
+node_modules
