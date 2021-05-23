@@ -9,8 +9,20 @@
     </thead>
     <tbody>
     <tr *ngFor="let competition of competitions">
-      <td>{{competition.id}}</td>
-      <td>{{competition.name}}</td>
+      <td>
+        <div style="height:100%; width:100%">
+          <a style="text-decoration: none" href="/competitions/id/{{competition.id}}">
+            {{competition.id}}
+          </a>
+        </div>
+      </td>
+      <td>
+        <div style="height:100%; width:100%">
+          <a style="text-decoration: none" href="/competitions/id/{{competition.id}}">
+            {{competition.name}}
+          </a>
+        </div>
+      </td>
     </tr>
     </tbody>
   </table>

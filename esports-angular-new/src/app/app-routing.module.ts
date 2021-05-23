@@ -10,6 +10,7 @@ import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.comp
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {PlayerDetailComponent} from "./components/player-detail/player-detail.component";
 import {TeamNewComponent} from "./components/team-new/team-new.component";
+import {CompetitionDetailComponent} from "./components/competition-detail/competition-detail.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'players', component: PlayerListComponent },
   { path: 'players/id/:id', component: PlayerDetailComponent },
   { path: 'competitions', component: CompetitionListComponent },
+  { path: 'competitions/id/:id', component: CompetitionDetailComponent },
   { path: 'teams', component: TeamListComponent },
   { path: 'teams/id/:id', component: TeamDetailComponent },
   { path: 'teams/new', component: TeamNewComponent, canActivate: [AuthGuard], data: { role: ['TEAM_MANAGER'] } },

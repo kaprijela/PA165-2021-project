@@ -21,15 +21,15 @@ export class CompetitionService {
   }
 
   public createCompetition(competition: Competition): Observable<Competition> {
-    return this.http.post<Team>(this.create, competition)
+    return this.http.post<Competition>(this.create, competition)
   }
 
   public findById(id: number): Observable<Competition> {
-    return this.http.get<Team>(this.byId + "/" + id);
+    return this.http.get<Competition>(this.byId + "/" + id);
   }
 
   public findByName(name: string): Observable<Competition> {
-    return this.http.get<Team>(this.byName + "/" + name);
+    return this.http.get<Competition>(this.byName + "/" + name);
   }
 
   public deleteCompetition(id: number): void {
