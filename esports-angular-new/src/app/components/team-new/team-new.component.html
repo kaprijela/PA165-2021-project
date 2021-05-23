@@ -1,29 +1,16 @@
-<form name="form"  novalidate class="form-horizontal">
-  <div class="form-group" ng-class="{'has-error': !(form.name.$valid)}">
-    <label for="name" class="col-sm-2 control-label">Name</label>
-    <div class="col-sm-10">
-      <input placeholder="name" id="name" type="text" ng-minlength="3" name="name" class="form-control" ng-model="team.name" formControlName="name" required/>
-      <p class="help-block" ng-show="form.name.$error.required">name is required</p>
-      <p class="help-block" ng-show="form.name.$error.minlength">name must be at least 3 characters</p>
-    </div>
-  </div>
-  <div class="form-group" ng-class="{'has-error': !(form.abbreviation.$valid)}">
-    <label for="abbreviation" class="col-sm-2 control-label">Abbreviation</label>
-    <div class="col-sm-10">
-      <input placeholder="abbreviation" id="abbreviation" ng-minlength="3"  name="abbreviation" class="form-control" ng-model="team.abbreviation" formControlName="abbreviation" required/>
-      <p class="help-block" ng-show="form.abbreviation.$error.required">abbreviation is required</p>
-      <p class="help-block" ng-show="form.abbreviation.$error.minlength">abbreviation must be ate least 3 characters</p>
-    </div>
-    <div class="form-group" ng-class="{'has-error': !(form.description.$valid)}">
-      <label for="description" class="col-sm-2 control-label">Description</label>
-      <div class="col-sm-10">
-        <textarea placeholder="description" ng-minlength="3" required cols="80" rows="20" id="description" name="description" class="form-control" ng-model="team.description" formControlName="description"></textarea>
-        <p class="help-block" ng-show="form.description.$error.minlength">description must be ate least 3 characters</p>
-      </div>
-    </div>
-  </div>
+<div class="text-center">
+  <form class="form-login" [formGroup]="loginForm">
+    <h1 class="mt-4">Register a new Team</h1>
 
+    <label for="name" >Name</label>
+    <input type="email" class="form-control mb-1" id="name" required placeholder="name" formControlName="name">
 
-  <!-- show disabled button if form is not valid -->
-  <button ng-disabled="!form.$valid" class="btn btn-primary" type="submit" ng-click="create()">Create TEAM</button>
-</form>
+    <label for="abbreviation" >Abbreviation</label>
+    <input type="email" class="form-control" id="abbreviation" required placeholder="abbreviation" formControlName="abbreviation">
+
+    <label for="description">Description</label>
+    <input type="email" class="form-control" id="description" required placeholder="description" formControlName="description">
+
+    <button class="btn btn-lg btn-block btn-primary" type="submit" (click)="create()">Create TEAM</button>
+  </form>
+</div>

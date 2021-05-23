@@ -25,10 +25,10 @@ export class TeamNewComponent implements OnInit {
 
   create() {
         const value = this.loginForm.value;
-        if (value.name && value.abbreviation) {
-          this.team.name = value.name
-          this.team.abbreviation = value.abbreviation
-          this.team.description = value.description
+        if (value.name && value.abbreviation && value.description) {
+          this.team.name = value.name;
+          this.team.abbreviation = value.abbreviation;
+          this.team.description = value.description;
           this.teamService.createTeam(this.team);
         }
       }

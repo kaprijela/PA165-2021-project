@@ -27,16 +27,9 @@ export class TeamService {
   }
 
   public createTeam(team: Team): Observable<Team> {
+  console.log("Response: ");
     return this.http.post<Team>(this.create, team)
   }
-
-  /** POST: add a new hero to the database */
-//   addHero(hero: Hero): Observable<Hero> {
-//     return this.http.post<Hero>(this.heroesUrl, hero, httpOptions)
-//       .pipe(
-//         catchError(this.handleError('addHero', hero))
-//       );
-//   }
 
   public findByAbbreviation(abbreviation: string): Observable<Team> {
     return this.http.get<Team>(this.byAbbreviation + "/" + abbreviation);
