@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpErrorResponse} from "@angular/common/http";
-import { Observable, Subject, throwError} from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {Observable, throwError} from 'rxjs';
 import {Router} from "@angular/router";
 import {Team} from "../model/team";
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type': 'application/json',
     Authorization: 'my-auth-token'
   })
 };
@@ -21,6 +20,7 @@ export class TeamService {
   private readonly byName: string = "http://localhost:8080/pa165/api/v2/teams/name";
   private readonly create: string = "http://localhost:8080/pa165/api/v2/teams/create";
   private readonly byAbbreviation: string = "http://localhost:8080/pa165/api/v2/teams/abbreviation";
+
   private handleError(error: HttpErrorResponse, team: Team) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -36,7 +36,9 @@ export class TeamService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-  constructor(private http: HttpClient, private router: Router) { }
+
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   public findAll(): Observable<Team[]> {
     return this.http.get<Team[]>(this.teamsUrl);
@@ -51,9 +53,9 @@ export class TeamService {
   }
 
   public createTeam(team: Team): Observable<any> {
-  const body=JSON.stringify(team);
-  console.log(team);
-  this.router.navigate(['/teams']);
+    const body = JSON.stringify(team);
+    console.log(team);
+    this.router.navigate(['/teams']);
     return this.http.post(this.create, team)
   }
 
@@ -65,14 +67,13 @@ export class TeamService {
     this.http.delete(this.teamsUrl + "/" + id);
   }
 
-  public addPlayer(team: number, player: number): Observable<any>{
-   return this.http.get<any>(this.teamsUrl + "/add/" + team + "/addPlayer/" + player );
+  public addPlayer(team: number, player: number): Observable<any> {
+    return this.http.get<any>(this.teamsUrl + "/add/" + team + "/addPlayer/" + player);
   }
 
-  public removePlayer(team: number, player: number): Observable<any>{
-    return this.http.get<Team>(this.teamsUrl + "/remove/" + team + "/removePlayer/" + player );
+  public removePlayer(team: number, player: number): Observable<any> {
+    return this.http.get<Team>(this.teamsUrl + "/remove/" + team + "/removePlayer/" + player);
   }
-
 
 
 }

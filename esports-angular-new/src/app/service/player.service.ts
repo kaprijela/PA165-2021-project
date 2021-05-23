@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import {Player} from "../model/player";
 import {Observable} from "rxjs";
-import {Team} from "../model/team";
 import {Router} from "@angular/router";
 import {Statistics} from "../model/statistics";
 
@@ -14,7 +13,7 @@ export class PlayerService {
   private readonly create = 'http://localhost:8080/pa165/api/v2/players/create';
   private readonly byId = 'http://localhost:8080/pa165/api/v2/players/id';
   private readonly byName = 'http://localhost:8080/pa165/api/v2/players/name';
-  private readonly statistics= 'http://localhost:8080/pa165/api/v2/players/getPlayerStatistics';
+  private readonly statistics = 'http://localhost:8080/pa165/api/v2/players/getPlayerStatistics';
 
   constructor(private http: HttpClient, private router: Router) {
     this.playersUrl = 'http://localhost:8080/pa165/api/v2/players';
@@ -26,7 +25,7 @@ export class PlayerService {
   }
 
   public createPlayer(player: Player): Observable<any> {
-  this.router.navigate(['/players']);
+    this.router.navigate(['/players']);
     return this.http.post<Player>(this.create, player)
   }
 

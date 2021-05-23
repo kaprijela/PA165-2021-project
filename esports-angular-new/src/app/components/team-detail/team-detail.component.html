@@ -8,12 +8,13 @@
       </li>
     </ul>
   </div>
-<p>not working : :(</p>
+  <p>not working : :(</p>
   <div class="form-group col-md-6 align-items-center">
     <form class="form-login" [formGroup]="addPlayer">
 
       <label for="playerAdd">Name</label>
-      <input type="number" class="form-control mb-1" id="playerAdd" required placeholder="Name of a Player" formControlName="playerAdd">
+      <input type="number" class="form-control mb-1" id="playerAdd" required placeholder="Name of a Player"
+             formControlName="playerAdd">
 
       <br/>
       <button class="btn  btn-block btn-primary" type="submit" (click)="add()">Add a team</button>
@@ -25,7 +26,8 @@
     <form class="form-login" [formGroup]="removePlayer">
 
       <label for="playerRem">Name</label>
-      <input type="number" class="form-control mb-1" id="playerRem" required placeholder="Name of a team" formControlName="playerRem">
+      <input type="number" class="form-control mb-1" id="playerRem" required placeholder="Name of a team"
+             formControlName="playerRem">
 
       <br/>
       <button class="btn  btn-block btn-primary" type="submit" (click)="remove()">Remove a team</button>

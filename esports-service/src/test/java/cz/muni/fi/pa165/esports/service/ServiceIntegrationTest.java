@@ -56,7 +56,7 @@ public class ServiceIntegrationTest extends AbstractTestNGSpringContextTests {
 
         // find all
         List<Player> players = playerService.getAllPlayers();
-        for (Player player: players) {
+        for (Player player : players) {
             if (alice.equals(player)) {
                 return;
             }
@@ -79,7 +79,7 @@ public class ServiceIntegrationTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(persistedCops, cops);
 
         List<Team> teams = teamService.findAll();
-        for (Team team: teams) {
+        for (Team team : teams) {
             if (cops.equals(team)) {
                 return;
             }

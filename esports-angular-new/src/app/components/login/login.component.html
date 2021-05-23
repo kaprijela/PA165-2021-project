@@ -1,13 +1,15 @@
 <div class="text-center">
   <form class="form-login" [formGroup]="loginForm">
-  <h1 class="mt-4">Log in</h1>
+    <h1 class="mt-4">Log in</h1>
 
-  <label for="logInUsername" class="visually-hidden">Username</label>
-  <input type="email" class="form-control mb-1" id="logInUsername" required placeholder="Username" formControlName="username">
+    <label for="logInUsername" class="visually-hidden">Username</label>
+    <input type="email" class="form-control mb-1" id="logInUsername" required placeholder="Username"
+           formControlName="username">
 
-  <label for="logInPassword" class="visually-hidden">Password</label>
-  <input type="password" class="form-control" id="logInPassword" required placeholder="Password" formControlName="password">
+    <label for="logInPassword" class="visually-hidden">Password</label>
+    <input type="password" class="form-control" id="logInPassword" required placeholder="Password"
+           formControlName="password">
 
-  <button class="btn btn-lg btn-block btn-primary" type="submit" (click)="login()">Log in</button>
+    <button class="btn btn-lg btn-block btn-primary" type="submit" (click)="login()">Log in</button>
   </form>
 </div>

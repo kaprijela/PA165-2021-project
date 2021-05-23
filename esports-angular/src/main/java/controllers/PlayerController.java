@@ -1,24 +1,18 @@
-
 package controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
 import cz.muni.fi.pa165.esports.dto.StatisticsDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import exception.InvalidRequestException;
 import exception.ResourceAlreadyExistingException;
 import exception.ResourceNotFoundException;
-import hateoas.PlayerRepresentationModelAssembler;
-import hateoas.StatisticsRepresentatitionModelAssembler;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -70,7 +64,7 @@ public class PlayerController {
     }
 
     @RequestMapping(value = "getPlayerStatistics/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final StatisticsDTO getAveragePlayerScore(@PathVariable("id") Long idPlayer){
+    public final StatisticsDTO getAveragePlayerScore(@PathVariable("id") Long idPlayer) {
         log.debug("restv1 get statitistics for Player: {}", idPlayer);
 
         Double result = null;
@@ -79,7 +73,7 @@ public class PlayerController {
         } catch (Exception e) {
             log.error("Exception: {}", e.getMessage());
         }
-        if (result == null){
+        if (result == null) {
             throw new IllegalArgumentException("curak");
         }
         StatisticsDTO statisticsDTO = new StatisticsDTO();

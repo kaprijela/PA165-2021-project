@@ -1,7 +1,5 @@
 package cz.muni.fi.pa165.esports.service.facade;
 
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
-import cz.muni.fi.pa165.esports.entity.Team;
 import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.TeamService;
 import org.junit.Test;
@@ -12,7 +10,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author Radovan Tomasik

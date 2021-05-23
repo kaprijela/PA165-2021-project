@@ -27,7 +27,7 @@ public class TeamRepresentationModelAssembler implements RepresentationModelAsse
             competitionResourceModel.add(catLink);
 
             Link competitionLink = entityLinks.linkForItemResource(CompetitionDTO.class, id).slash("/teams").withRel("teams");
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("cannot link HATEOAS: {}", e.getMessage());
         }
         return competitionResourceModel;

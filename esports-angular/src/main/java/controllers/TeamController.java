@@ -11,27 +11,16 @@ import exception.InvalidRequestException;
 import exception.ResourceAlreadyExistingException;
 import exception.ResourceNotFoundException;
 import exception.ServerProblemException;
-import hateoas.StatisticsRepresentatitionModelAssembler;
-import hateoas.TeamRepresentationModelAssembler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.hateoas.server.ExposesResourceFor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Slf4j
 @RestController
@@ -98,7 +87,7 @@ public class TeamController {
 
     @RequestMapping(value = "/abbreviation/{abbreviation}", method = RequestMethod.GET)
     public final TeamDTO getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws Exception {
-        log.debug("restv1 get by abbreviation {}",abbreviation);
+        log.debug("restv1 get by abbreviation {}", abbreviation);
 
         TeamDTO teamDTO = teamFacade.findTeamByAbbreviation(abbreviation);
         if (teamDTO == null) {
@@ -117,7 +106,7 @@ public class TeamController {
             throw new ResourceNotFoundException("competition " + id + " not found");
         } catch (Throwable ex) {
             log.error("cannot delete competition " + id + " :" + ex.getMessage());
-            Throwable rootCause=ex;
+            Throwable rootCause = ex;
             while ((ex = ex.getCause()) != null) {
                 rootCause = ex;
                 log.error("caused by : " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
@@ -125,9 +114,10 @@ public class TeamController {
             throw new ServerProblemException(rootCause.getMessage());
         }
     }
+
     //garbage error handling
     @RequestMapping(value = "add/{idTeam}/addPlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final PlayerDTO addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer){
+    public final PlayerDTO addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer) {
         log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
 
         TeamDTO teamById = teamFacade.findTeamById(idTeam);
@@ -145,7 +135,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "remove/{idTeam}/removePlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final PlayerDTO removePlayerFromTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer){
+    public final PlayerDTO removePlayerFromTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer) {
         log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
 
         TeamDTO teamById = teamFacade.findTeamById(idTeam);
@@ -163,7 +153,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "{id}/getCompetitionStatistics/{competitionId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final StatisticsDTO getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition){
+    public final StatisticsDTO getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition) {
         log.debug("restv1 get statitistics for team: {} team in competition: {}", idTeam, idTeam);
 
         TeamDTO teamById = teamFacade.findTeamById(idTeam);

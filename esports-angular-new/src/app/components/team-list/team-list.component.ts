@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Team} from "../../model/team";
 import {TeamService} from "../../service/team.service";
 
@@ -10,7 +10,8 @@ import {TeamService} from "../../service/team.service";
 export class TeamListComponent implements OnInit {
   teams: Team[] = [];
 
-  constructor(private teamService: TeamService) { }
+  constructor(private teamService: TeamService) {
+  }
 
   ngOnInit(): void {
     this.teamService.findAll().subscribe(data => {

@@ -1,4 +1,4 @@
-<form name="form"  novalidate class="form-horizontal">
+<form name="form" novalidate class="form-horizontal">
     <div class="form-group">
         <label for="categoryId" class="col-sm-2 control-label">Category</label>
         <div class="col-sm-10">
@@ -11,7 +11,8 @@
     <div class="form-group" ng-class="{'has-error': !(form.name.$valid)}">
         <label for="name" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
-            <input placeholder="name" id="name" type="text" ng-minlength="3" name="name" class="form-control" ng-model="product.name" required/>
+            <input placeholder="name" id="name" type="text" ng-minlength="3" name="name" class="form-control"
+                   ng-model="product.name" required/>
             <p class="help-block" ng-show="form.name.$error.required">name is required</p>
             <p class="help-block" ng-show="form.name.$error.minlength">name must be at least 3 characters</p>
         </div>
@@ -19,22 +20,25 @@
     <div class="form-group" ng-class="{'has-error': !(form.description.$valid)}">
         <label for="description" class="col-sm-2 control-label">Description</label>
         <div class="col-sm-10">
-            <textarea placeholder="description" ng-minlength="3" required cols="80" rows="20" id="description" name="description" class="form-control" ng-model="product.description"></textarea>
-            <p class="help-block" ng-show="form.description.$error.minlength">description must be ate least 3 characters</p>
+            <textarea placeholder="description" ng-minlength="3" required cols="80" rows="20" id="description"
+                      name="description" class="form-control" ng-model="product.description"></textarea>
+            <p class="help-block" ng-show="form.description.$error.minlength">description must be ate least 3
+                characters</p>
         </div>
     </div>
     <div class="form-group">
         <label for="color" class="col-sm-2 control-label">Color</label>
         <div class="col-sm-10">
             <select id="color" name="color" class="form-control" ng-model="product.color">
-                    <option ng-repeat="color in colors" value="{{color}}">{{color}}</option>
+                <option ng-repeat="color in colors" value="{{color}}">{{color}}</option>
             </select>
         </div>
     </div>
-    <div class="form-group" ng-class="{'has-error': !(form.price.$valid)}" >
+    <div class="form-group" ng-class="{'has-error': !(form.price.$valid)}">
         <label for="price" class="col-sm-2 control-label">Price</label>
         <div class="col-sm-10">
-            <input type="number" min="1" integer required id="price" name="price" class="form-control" ng-model="product.price" />
+            <input type="number" min="1" integer required id="price" name="price" class="form-control"
+                   ng-model="product.price"/>
             <p class="help-block" ng-show="form.price.$error.required">price is required</p>
             <p class="help-block" ng-show="form.price.$error.min">price greater than zero is required</p>
         </div>
@@ -49,5 +53,6 @@
     </div>
 
     <!-- show disabled button if form is not valid -->
-    <button ng-disabled="!form.$valid" class="btn btn-primary" type="submit" ng-click="create(product)">Create product</button>
+    <button ng-disabled="!form.$valid" class="btn btn-primary" type="submit" ng-click="create(product)">Create product
+    </button>
 </form>

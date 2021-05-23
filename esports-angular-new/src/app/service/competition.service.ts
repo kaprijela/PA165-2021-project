@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import {Competition} from "../model/competition";
 import {MatchRecord} from "../model/match-record";
 import {Observable} from "rxjs";
@@ -15,7 +15,8 @@ export class CompetitionService {
   private readonly byId = this.apiEndpoint + "/id";
   private readonly byName = this.apiEndpoint + "/name";
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   public findAll(): Observable<Competition[]> {
     return this.http.get<Competition[]>(this.apiEndpoint);
@@ -28,7 +29,7 @@ export class CompetitionService {
       "name": competition.name,
       "game": null,
       "location": competition.location,
-      "prizepool":  competition.prizepool,
+      "prizepool": competition.prizepool,
       "teams": [],
       "date": null
     })
@@ -47,12 +48,12 @@ export class CompetitionService {
     this.http.delete(this.apiEndpoint + "/" + id);
   }
 
-  public addTeam(competition: number, team: string): Observable<Competition>{
+  public addTeam(competition: number, team: string): Observable<Competition> {
     this.router.navigate(['/competitions/id/' + competition]);
     return this.http.get<Competition>(this.apiEndpoint + "/add/" + competition + "/addTeam/" + team);
   }
 
-  public removeTeam(competition: number, team: string): Observable<Competition>{
+  public removeTeam(competition: number, team: string): Observable<Competition> {
     this.router.navigate(['/competitions/id/' + competition]);
     return this.http.get<Competition>(this.apiEndpoint + "/remove/" + competition + "/removeTeam/" + team);
   }

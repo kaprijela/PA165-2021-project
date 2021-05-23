@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.esports.service;
 
 import cz.muni.fi.pa165.esports.dao.UserDao;
 import cz.muni.fi.pa165.esports.entity.SystemUser;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,15 +12,14 @@ import java.util.List;
 
 /**
  * @author Elena Álvarez
- *
- *  Implementation of the {@link UserServiceImpl}. This class is part of the
- *  service module of the application that provides the implementation of the
- *  business logic (main logic of the application).
- *
+ * <p>
+ * Implementation of the {@link UserServiceImpl}. This class is part of the
+ * service module of the application that provides the implementation of the
+ * business logic (main logic of the application).
  */
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Inject
     private UserDao userDao;
 
@@ -31,12 +29,12 @@ public class UserServiceImpl implements UserService{
     //Persistence
     @Override
     public SystemUser create(SystemUser systemUser, String password) {
-            //Put password as a hash
-            String passwordHash = passwordEncoder.encode(password);
-            systemUser.setPasswordHash(passwordHash);
-            userDao.create(systemUser);
+        //Put password as a hash
+        String passwordHash = passwordEncoder.encode(password);
+        systemUser.setPasswordHash(passwordHash);
+        userDao.create(systemUser);
 
-       return systemUser;
+        return systemUser;
     }
 
     @Override
@@ -46,16 +44,24 @@ public class UserServiceImpl implements UserService{
 
     //Getters
     @Override
-    public List<SystemUser> findAll() {return userDao.findAll();}
+    public List<SystemUser> findAll() {
+        return userDao.findAll();
+    }
 
     @Override
-    public SystemUser findById(Long id) {return userDao.findById(id);}
+    public SystemUser findById(Long id) {
+        return userDao.findById(id);
+    }
 
     @Override
-    public SystemUser findByUsername(String username) { return userDao.findByUsername(username); }
+    public SystemUser findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
 
     @Override
-    public SystemUser findByEmail(String email) { return userDao.findByEmail(email); }
+    public SystemUser findByEmail(String email) {
+        return userDao.findByEmail(email);
+    }
 
 
     //Check

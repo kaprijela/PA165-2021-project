@@ -1,41 +1,15 @@
 package controllers;
-import cz.muni.fi.pa165.esports.dto.*;
 
-import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa165.esports.dto.PlayerDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
-import cz.muni.fi.pa165.esports.dto.UserDTO;
+import cz.muni.fi.pa165.esports.dto.AuthenticatedUserDTO;
 import cz.muni.fi.pa165.esports.enums.Role;
-import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
-import cz.muni.fi.pa165.esports.facade.PlayerFacade;
-import cz.muni.fi.pa165.esports.facade.TeamFacade;
 import cz.muni.fi.pa165.esports.facade.UserFacade;
-import exception.InvalidRequestException;
-import exception.ResourceAlreadyExistingException;
-import exception.ResourceNotFoundException;
-import exception.ServerProblemException;
-import hateoas.PlayerRepresentationModelAssembler;
-import hateoas.StatisticsRepresentatitionModelAssembler;
-import hateoas.TeamRepresentationModelAssembler;
-import hateoas.UserRepresentationModelAssembler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.EntityLinks;
-import org.springframework.hateoas.server.ExposesResourceFor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Slf4j
 @RestController

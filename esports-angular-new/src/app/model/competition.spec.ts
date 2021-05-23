@@ -1,4 +1,4 @@
-import { Competition } from './competition';
+import {Competition} from './competition';
 
 describe('Competition', () => {
   it('should create an instance', () => {

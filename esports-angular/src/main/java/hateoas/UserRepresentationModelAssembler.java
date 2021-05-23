@@ -1,9 +1,7 @@
 package hateoas;
-import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+
 import cz.muni.fi.pa165.esports.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.EntityLinks;

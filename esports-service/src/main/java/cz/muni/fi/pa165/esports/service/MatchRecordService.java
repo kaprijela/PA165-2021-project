@@ -1,13 +1,12 @@
 package cz.muni.fi.pa165.esports.service;
 
-import java.util.List;
-
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
-
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Elena Álvarez
@@ -39,12 +38,14 @@ public interface MatchRecordService {
 
     /**
      * Fetches all MatchRecords.
+     *
      * @return return all MatchRecords
      */
     public List<MatchRecord> findAll();
 
     /**
      * Fetches all MatchRecords.
+     *
      * @param player
      * @return return all MatchRecords for a given player
      */
@@ -52,6 +53,7 @@ public interface MatchRecordService {
 
     /**
      * Fetches all MatchRecords.
+     *
      * @param competition
      * @return return all MatchRecords for a given competition
      */
@@ -59,6 +61,7 @@ public interface MatchRecordService {
 
     /**
      * Fetches all MatchRecords.
+     *
      * @param team
      * @return return all MatchRecords for a given team
      */
@@ -66,6 +69,7 @@ public interface MatchRecordService {
 
     /**
      * Fetches score.
+     *
      * @param matchRecord
      * @return return score for a given matchRecord
      */
@@ -73,6 +77,7 @@ public interface MatchRecordService {
 
     /**
      * Fetches Competition.
+     *
      * @param matchRecord
      * @return return competition for a given matchRecord
      */
@@ -80,6 +85,7 @@ public interface MatchRecordService {
 
     /**
      * Fetches Competition.
+     *
      * @param matchRecord
      * @return return team for a given matchRecord
      */
@@ -87,6 +93,7 @@ public interface MatchRecordService {
 
     /**
      * Add Competition for a given matchRecord.
+     *
      * @param matchRecord
      * @param competition
      */
@@ -94,6 +101,7 @@ public interface MatchRecordService {
 
     /**
      * Add Team for a given matchRecord.
+     *
      * @param matchRecord
      * @param team
      */

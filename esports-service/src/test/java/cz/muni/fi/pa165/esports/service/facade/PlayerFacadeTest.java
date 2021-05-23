@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 /**
  * Simple tests for the Player facade.
+ *
  * @author Gabriela Kandova
  */
 public class PlayerFacadeTest {

@@ -9,22 +9,40 @@ var eshopControllers = angular.module('esportsControllers', []);
 pa165eshopApp.config(['$routeProvider',
     function ($routeProvider) {
         console.log("log")
-        $routeProvider.
-        when('/home', {templateUrl: 'partials/home.html'}).
-        when('/login', {templateUrl: 'partials/login.html'}).
-        when('/player/:playerId', {templateUrl: 'partials/player_detail.html', controller: 'PlayerDetailCtrl'}).
-        when('/players', {templateUrl: 'partials/players.html', controller: 'PlayersCtrl'}).
-        when('/competitions', {templateUrl: 'partials/competitions.html', controller: 'CompetitionsCtrl'}).
-        when('/teams', {templateUrl: 'partials/teams.html', controller: 'TeamsCtrl'}).
-        when('/teams/:teamId', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailCtrl'}).
-        when('/teams/name/:teamName', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailNameCtrl'}).
-        when('/newteam', {templateUrl: 'partials/new_team.html', controller: 'NewTeamCtrl'}).
-        when('/newplayer', {templateUrl: 'partials/new_player.html', controller: 'NewPlayerCtrl'}).
-        when('/addplayer', {templateUrl: 'partials/add_player.html', controller: 'AddPlayerCtrl'}).
-        when('/competition/:competitionId', {templateUrl: 'partials/competition_detail.html', controller: 'CompetitionDetailCtrl'})
+        $routeProvider.when('/home', {templateUrl: 'partials/home.html'}).when('/login', {templateUrl: 'partials/login.html'}).when('/player/:playerId', {
+            templateUrl: 'partials/player_detail.html',
+            controller: 'PlayerDetailCtrl'
+        }).when('/players', {
+            templateUrl: 'partials/players.html',
+            controller: 'PlayersCtrl'
+        }).when('/competitions', {
+            templateUrl: 'partials/competitions.html',
+            controller: 'CompetitionsCtrl'
+        }).when('/teams', {
+            templateUrl: 'partials/teams.html',
+            controller: 'TeamsCtrl'
+        }).when('/teams/:teamId', {
+            templateUrl: 'partials/team_detail.html',
+            controller: 'TeamsDetailCtrl'
+        }).when('/teams/name/:teamName', {
+            templateUrl: 'partials/team_detail.html',
+            controller: 'TeamsDetailNameCtrl'
+        }).when('/newteam', {
+            templateUrl: 'partials/new_team.html',
+            controller: 'NewTeamCtrl'
+        }).when('/newplayer', {
+            templateUrl: 'partials/new_player.html',
+            controller: 'NewPlayerCtrl'
+        }).when('/addplayer', {
+            templateUrl: 'partials/add_player.html',
+            controller: 'AddPlayerCtrl'
+        }).when('/competition/:competitionId', {
+            templateUrl: 'partials/competition_detail.html',
+            controller: 'CompetitionDetailCtrl'
+        })
     }]);
 
-pa165eshopApp.run(function ($rootScope,$http) {
+pa165eshopApp.run(function ($rootScope, $http) {
     // alert closing functions defined in root scope to be available in every template
     $rootScope.hideSuccessAlert = function () {
         $rootScope.successAlert = undefined;
@@ -50,22 +68,22 @@ eshopControllers.controller('PlayerDetailCtrl',
                 console.log('AJAX loaded detail of player ' + $scope.player.name);
             },
             function error(response) {
-                console.log("failed to load product "+playerId);
+                console.log("failed to load product " + playerId);
                 console.log(response);
-                $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
+                $rootScope.warningAlert = 'Cannot load product: ' + response.data.message;
             }
         );
         $http.get('/esports/api/v2/players/getPlayerStatistics/id/' + playerId).then(
-                    function (response) {
-                        $scope.stats = response.data;
-                        console.log('AJAX loaded detail of player ' + $scope.player.name);
-                    },
-                    function error(response) {
-                        console.log("failed to load product "+playerId);
-                        console.log(response);
-                        $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
-                    }
-                );
+            function (response) {
+                $scope.stats = response.data;
+                console.log('AJAX loaded detail of player ' + $scope.player.name);
+            },
+            function error(response) {
+                console.log("failed to load product " + playerId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load product: ' + response.data.message;
+            }
+        );
     });
 
 eshopControllers.controller('TeamsDetailCtrl',
@@ -80,9 +98,9 @@ eshopControllers.controller('TeamsDetailCtrl',
                 loadPlayersTeams($http, team, team['_links'].players.href);
             },
             function error(response) {
-                console.log("failed to load team "+teamId);
+                console.log("failed to load team " + teamId);
                 console.log(response);
-                $rootScope.warningAlert = 'Cannot load team: '+response.data.message;
+                $rootScope.warningAlert = 'Cannot load team: ' + response.data.message;
             }
         );
     });
@@ -99,9 +117,9 @@ eshopControllers.controller('TeamsDetailNameCtrl',
                 loadPlayersTeams($http, team, team['_links'].players.href);
             },
             function error(response) {
-                console.log("failed to load team "+teamId);
+                console.log("failed to load team " + teamId);
                 console.log(response);
-                $rootScope.warningAlert = 'Cannot load team: '+response.data.message;
+                $rootScope.warningAlert = 'Cannot load team: ' + response.data.message;
             }
         );
     });
@@ -120,7 +138,7 @@ eshopControllers.controller('CompetitionDetailCtrl',
             function error(response) {
                 console.log("failed to load competition " + competitionId);
                 console.log(response);
-                $rootScope.warningAlert = 'Cannot load competition: '+response.data.message;
+                $rootScope.warningAlert = 'Cannot load competition: ' + response.data.message;
             }
         );
     });
@@ -135,7 +153,7 @@ eshopControllers.controller('CompetitionsCtrl',
             function error(response) {
                 console.log("failed to load competitions ");
                 console.log(response);
-                $rootScope.warningAlert = 'Cannot load competitions: '+response.data.message;
+                $rootScope.warningAlert = 'Cannot load competitions: ' + response.data.message;
             }
         );
     });
@@ -150,7 +168,7 @@ eshopControllers.controller('TeamsCtrl',
             function error(response) {
                 console.log("failed to load teams ");
                 console.log(response);
-                $rootScope.warningAlert = 'Cannot load teams: '+response.data.message;
+                $rootScope.warningAlert = 'Cannot load teams: ' + response.data.message;
             }
         );
     });
@@ -185,7 +203,7 @@ eshopControllers.controller('NewTeamCtrl',
                         $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
                         break;
                     default:
-                        $rootScope.errorAlert = 'Cannot create team ! Reason given by the server: '+response.data.message;
+                        $rootScope.errorAlert = 'Cannot create team ! Reason given by the server: ' + response.data.message;
                         break;
                 }
             });
@@ -222,7 +240,7 @@ eshopControllers.controller('NewPlayerCtrl',
                         $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
                         break;
                     default:
-                        $rootScope.errorAlert = 'Cannot create player ! Reason given by the server: '+response.data.message;
+                        $rootScope.errorAlert = 'Cannot create player ! Reason given by the server: ' + response.data.message;
                         break;
                 }
             });
@@ -243,7 +261,7 @@ eshopControllers.controller('AddPlayerCtrl',
                 $scope.addPlayerToTeam = function (player) {
                     $http({
                         method: 'POST',
-                        url: '/esports/api/v2/teams/'+teamId+'/addPlayer/'+playerId,
+                        url: '/esports/api/v2/teams/' + teamId + '/addPlayer/' + playerId,
                         data: teamId, playerId
                     }).then(function success(response) {
                         var createdPlayer = response.data;
@@ -263,16 +281,16 @@ eshopControllers.controller('AddPlayerCtrl',
                                 $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
                                 break;
                             default:
-                                $rootScope.errorAlert = 'Cannot create player ! Reason given by the server: '+response.data.message;
+                                $rootScope.errorAlert = 'Cannot create player ! Reason given by the server: ' + response.data.message;
                                 break;
                         }
                     });
                 };
             },
             function error(response) {
-                console.log("failed to load product "+playerId);
+                console.log("failed to load product " + playerId);
                 console.log(response);
-                $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
+                $rootScope.warningAlert = 'Cannot load product: ' + response.data.message;
             }
         );
     });
@@ -287,12 +305,10 @@ eshopControllers.controller('PlayersCtrl',
             function error(response) {
                 console.log("failed to load players ");
                 console.log(response);
-                $rootScope.warningAlert = 'Cannot load players: '+response.data.message;
+                $rootScope.warningAlert = 'Cannot load players: ' + response.data.message;
             }
         );
     });
-
-
 
 
 /*
@@ -313,7 +329,7 @@ function loadPlayerTeams($http, player, prodLink) {
     });
 }
 
-function loadPlayerStats($http, player, prodLink){
+function loadPlayerStats($http, player, prodLink) {
 
 }
 

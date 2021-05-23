@@ -1,7 +1,6 @@
 package hateoas;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
@@ -10,7 +9,6 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import java.util.List;
 
 
 @Slf4j
@@ -46,7 +44,7 @@ public class CompetitionRepresentationModelAssembler implements RepresentationMo
             Link removeTeam = entityLinks.linkForItemResource(CompetitionDTO.class, id).slash("/removeTeam/").withRel("removeTeamByName");
             competitionResourceModel.add(removeTeam);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("cannot link HATEOAS: {}", e.getMessage());
         }
         return competitionResourceModel;

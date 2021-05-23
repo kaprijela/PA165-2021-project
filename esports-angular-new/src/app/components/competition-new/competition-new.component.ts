@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TeamService} from "../../service/team.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Competition} from "../../model/competition";
@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 })
 export class CompetitionNewComponent implements OnInit {
   createCompetition: FormGroup = this.formBuilder.group({name: "", prizepool: "", location: ""})
-  competition = <Competition> {}
+  competition = <Competition>{}
 
   constructor(private competitionService: CompetitionService, private formBuilder: FormBuilder, private router: Router) {
     this.createCompetition = this.formBuilder.group({

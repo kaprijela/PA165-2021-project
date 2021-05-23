@@ -1,18 +1,15 @@
 package cz.muni.fi.pa165.esports.service.facade;
 
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
-import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import cz.muni.fi.pa165.esports.entity.Player;
+import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -52,8 +49,8 @@ public class PlayerFacadeImpl implements PlayerFacade {
     @Override
     public List<PlayerDTO> getAllPlayers() {
         List<PlayerDTO> list = new ArrayList<>();
-        for (Player player: playerService.getAllPlayers()
-             ) {
+        for (Player player : playerService.getAllPlayers()
+        ) {
             PlayerDTO playerDTO = beanMappingService.mapTo(player, PlayerDTO.class);
             if (player.getTeam() != null) {
                 playerDTO.setTeam(player.getTeam().getName());

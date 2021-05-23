@@ -20,13 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackageClasses={TeamService.class, CompetitionFacade.class})
+@ComponentScan(basePackageClasses = {TeamService.class, CompetitionFacade.class})
 public class ServiceConfiguration {
     @Bean
     public Mapper dozer() {
         DozerBeanMapper dozer = new DozerBeanMapper();
         return dozer;
     }
+
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();

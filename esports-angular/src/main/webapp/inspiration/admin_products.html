@@ -17,15 +17,15 @@
     </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="product in products track by $index">
-            <td>{{product.id}}</td>
-            <td>{{product.addedDate}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.color}}</td>
-            <td>{{product.currentPrice.value}} {{product.currentPrice.currency}}</td>
-            <td>
-              <button ng-click="deleteProduct(product)" type="submit" class="btn btn-primary">Delete</button>
-            </td>
-        </tr>
+    <tr ng-repeat="product in products track by $index">
+        <td>{{product.id}}</td>
+        <td>{{product.addedDate}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.color}}</td>
+        <td>{{product.currentPrice.value}} {{product.currentPrice.currency}}</td>
+        <td>
+            <button ng-click="deleteProduct(product)" type="submit" class="btn btn-primary">Delete</button>
+        </td>
+    </tr>
     </tbody>
 </table>

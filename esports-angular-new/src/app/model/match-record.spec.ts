@@ -1,4 +1,4 @@
-import { MatchRecord } from './match-record';
+import {MatchRecord} from './match-record';
 
 describe('MatchRecord', () => {
   it('should create an instance', () => {

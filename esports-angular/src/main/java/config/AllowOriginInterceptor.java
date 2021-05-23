@@ -1,7 +1,9 @@
 package config;
+
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  * We need to rewrite headers to allow for cross-origin access for some
@@ -25,7 +27,7 @@ public class AllowOriginInterceptor extends HandlerInterceptorAdapter {
         response.setHeader("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Headers","Content-Type, *");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, *");
         return true;
     }
 

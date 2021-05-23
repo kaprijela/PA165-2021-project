@@ -27,10 +27,10 @@ export class TeamDetailComponent implements OnInit {
       this.getTeam(id);
     }
     if (arg) {
-          const name = arg;
-          console.log(arg)
-          this.getTeamName(name);
-        }
+      const name = arg;
+      console.log(arg)
+      this.getTeamName(name);
+    }
     this.addPlayer = this.formBuilder.group({
       playerAdd: new FormControl(),
     });
@@ -45,21 +45,22 @@ export class TeamDetailComponent implements OnInit {
       this.team = data;
     })
   }
-  getTeamName(name: string) {
-      console.log("getTeam")
-      this.teamService.findByName(name).subscribe(data => {
-        this.team = data;
-      })
-    }
 
-  add(){
+  getTeamName(name: string) {
+    console.log("getTeam")
+    this.teamService.findByName(name).subscribe(data => {
+      this.team = data;
+    })
+  }
+
+  add() {
     const value = this.addPlayer.value;
     // @ts-ignore
     this.teamService.addPlayer(this.team.id, value.playerAdd).subscribe()
     location.reload();
   }
 
-  remove(){
+  remove() {
     const value = this.removePlayer.value;
     // @ts-ignore
     this.teamService.removePlayer(this.team.id, value.playerRem).subscribe()
