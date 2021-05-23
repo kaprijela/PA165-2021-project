@@ -10,6 +10,7 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.List;
 
 
 @Slf4j
@@ -27,7 +28,24 @@ public class CompetitionRepresentationModelAssembler implements RepresentationMo
             Link catLink = entityLinks.linkForItemResource(CompetitionDTO.class, id).withSelfRel();
             competitionResourceModel.add(catLink);
 
-            Link competitionLink = entityLinks.linkForItemResource(CompetitionDTO.class, id).slash("/competitions").withRel("competitions");
+            Link create = entityLinks.linkFor(CompetitionDTO.class).slash("/create").withRel("competitions");
+            competitionResourceModel.add(create);
+
+            Link findByName = entityLinks.linkFor(CompetitionDTO.class).slash("/name/").withRel("findByName");
+            competitionResourceModel.add(findByName);
+
+            Link findById = entityLinks.linkFor(CompetitionDTO.class).slash("/id/").withRel("findById");
+            competitionResourceModel.add(findById);
+
+            Link delete = entityLinks.linkFor(CompetitionDTO.class).slash("/").withRel("deleteById");
+            competitionResourceModel.add(delete);
+
+            Link addTeam = entityLinks.linkForItemResource(CompetitionDTO.class, id).slash("/addTeam/").withRel("addTeamByName");
+            competitionResourceModel.add(addTeam);
+
+            Link removeTeam = entityLinks.linkForItemResource(CompetitionDTO.class, id).slash("/removeTeam/").withRel("removeTeamByName");
+            competitionResourceModel.add(removeTeam);
+
         } catch (Exception e){
             log.error("cannot link HATEOAS: {}", e.getMessage());
         }

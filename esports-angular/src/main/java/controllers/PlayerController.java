@@ -70,19 +70,19 @@ public class PlayerController {
     }
 
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public final HttpEntity<CollectionModel<EntityModel<PlayerDTO>>> getByName(@PathVariable("name") String name) throws Exception {
+    public final List<PlayerDTO> getByName(@PathVariable("name") String name) throws Exception {
         log.debug("restv1 get by name {}", name);
 
-        List<PlayerDTO> playersByName = playerFacade.findPlayerByName(name);
-        if (playersByName == null) {
-            throw new ResourceNotFoundException("Players not found");
-        }
-        log.debug("restv1 getPlayers()");
-        List<PlayerDTO> allPlayers = playerFacade.getAllPlayers();
-        CollectionModel<EntityModel<PlayerDTO>> entityModels = playerRepresentationModelAssembler.toCollectionModel(allPlayers);
-        entityModels.add(linkTo(PlayerController.class).withSelfRel());
-        entityModels.add(linkTo(PlayerController.class).slash("/create").withRel("create"));
-        return new ResponseEntity<>(entityModels, HttpStatus.OK);
+        return playerFacade.findPlayerByName(name);
+//        if (playersByName == null) {
+//            throw new ResourceNotFoundException("Players not found");
+//        }
+//        log.debug("restv1 getPlayers()");
+//        List<PlayerDTO> allPlayers = playerFacade.getAllPlayers();
+//        CollectionModel<EntityModel<PlayerDTO>> entityModels = playerRepresentationModelAssembler.toCollectionModel(allPlayers);
+//        entityModels.add(linkTo(PlayerController.class).withSelfRel());
+//        entityModels.add(linkTo(PlayerController.class).slash("/create").withRel("create"));
+//        return new ResponseEntity<>(entityModels, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)

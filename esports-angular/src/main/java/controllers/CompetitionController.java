@@ -21,6 +21,9 @@ import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
+/**
+ * Should be hateoas
+ */
 @Slf4j
 @RestController
 @ExposesResourceFor(CompetitionDTO.class)
@@ -36,16 +39,25 @@ public class CompetitionController {
     @Inject
     private EntityLinks entityLink;
 
+    /**
+     * Get list of Competitions curl -i -X GET http://localhost:8080/esports/api/v2/esports/competitions/
+     *
+     * @return List<CompetitionDTO>
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public final HttpEntity<CollectionModel<EntityModel<CompetitionDTO>>> getPlayers() {
         log.debug("restv1 getCompetitions()");
         List<CompetitionDTO> allCompetitions = competitionFacade.getAllCompetitions();
         CollectionModel<EntityModel<CompetitionDTO>> entityModels = competitionRepresentationModelAssembler.toCollectionModel(allCompetitions);
-        entityModels.add(linkTo(CompetitionController.class).withSelfRel());
-        entityModels.add(linkTo(CompetitionController.class).slash("/create").withRel("create"));
         return new ResponseEntity<>(entityModels, HttpStatus.OK);
     }
 
+    /**
+     * Create a Competition
+     * curl -X POST -i -H "Content-Type: application/json" --data '{"name":"Fist Fight","location":"behind the bar"}' http://localhost:8080/esports/api/v2/esports/competitions/create
+     *
+     * @return CompetitionDTO
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<EntityModel<CompetitionDTO>> createCompetition(@RequestBody CompetitionDTO competitionDTO, BindingResult bindingResult) throws Exception {
         log.debug("restv1 createCompetition()");
