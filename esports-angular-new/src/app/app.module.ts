@@ -21,6 +21,7 @@ import { TeamNewComponent } from './components/team-new/team-new.component';
 import { CompetitionDetailComponent } from './components/competition-detail/competition-detail.component';
 import { CompetitionNewComponent } from './components/competition-new/competition-new.component';
 import { MatchRecordNewComponent } from './components/match-record-new/match-record-new.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { MatchRecordNewComponent } from './components/match-record-new/match-rec
     CompetitionDetailComponent,
     CompetitionNewComponent,
     MatchRecordNewComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

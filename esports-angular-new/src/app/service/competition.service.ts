@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Competition} from "../model/competition";
+import {MatchRecord} from "../model/match-record";
 import {Observable} from "rxjs";
-import {Router} from "@angular/router";
 
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,9 @@ export class CompetitionService {
 
   public removeTeam(competition: number | undefined, team: string){
     this.http.get(this.apiEndpoint + "/" + competition + "/removeTeam/" + team );
+  }
+
+  public addMatchRecord(competitionId: number, record: MatchRecord) {
+    this.http.post<MatchRecord>(this.apiEndpoint + "/" + competitionId + "/records", record);
   }
 }

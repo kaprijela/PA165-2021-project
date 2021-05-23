@@ -70,7 +70,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         playerService.create(mrOrange);
 
         Player mrPink = new Player();
-        mrPink.setName("null");
+        mrPink.setName("FERO");
         mrPink.setGender(Gender.MALE);
         playerService.create(mrPink);
 
