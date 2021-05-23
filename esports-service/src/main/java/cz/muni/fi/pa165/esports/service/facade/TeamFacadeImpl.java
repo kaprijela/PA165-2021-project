@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.esports.service.facade;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+import cz.muni.fi.pa165.esports.dto.TeamCreateDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.Player;
@@ -10,6 +11,7 @@ import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.facade.TeamFacade;
 import cz.muni.fi.pa165.esports.service.BeanMappingService;
 import cz.muni.fi.pa165.esports.service.TeamService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +20,10 @@ import java.util.List;
 
 /**
  * Implementation of TeamFacade.
+ *
  * @author Gabriela Kandova
  */
+@Slf4j
 @Service
 @Transactional
 public class TeamFacadeImpl implements TeamFacade {
@@ -52,8 +56,11 @@ public class TeamFacadeImpl implements TeamFacade {
 
     @Override
     public Long registerNewTeam(TeamDTO team) {
-        teamService.create(bms.mapTo(team, Team.class));
-        return null;
+        Team team1 = new Team();
+        team1.setName(team.getName());
+        team1.setAbbreviation(team.getAbbreviation());
+        teamService.create(team1);
+        return teamService.findByAbbreviation(team.getAbbreviation()).getId();
     }
 
     @Override

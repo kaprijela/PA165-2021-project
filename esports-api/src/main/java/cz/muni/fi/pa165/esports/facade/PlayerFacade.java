@@ -36,4 +36,6 @@ public interface PlayerFacade {
      * @return a collection of all player
      */
     List<PlayerDTO> getAllPlayers();
+
+    Double getPlayerAverage(PlayerDTO playerDTO);
 }

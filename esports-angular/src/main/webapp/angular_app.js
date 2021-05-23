@@ -17,6 +17,10 @@ pa165eshopApp.config(['$routeProvider',
         when('/competitions', {templateUrl: 'partials/competitions.html', controller: 'CompetitionsCtrl'}).
         when('/teams', {templateUrl: 'partials/teams.html', controller: 'TeamsCtrl'}).
         when('/teams/:teamId', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailCtrl'}).
+        when('/teams/name/:teamName', {templateUrl: 'partials/team_detail.html', controller: 'TeamsDetailNameCtrl'}).
+        when('/newteam', {templateUrl: 'partials/new_team.html', controller: 'NewTeamCtrl'}).
+        when('/newplayer', {templateUrl: 'partials/new_player.html', controller: 'NewPlayerCtrl'}).
+        when('/addplayer', {templateUrl: 'partials/add_player.html', controller: 'AddPlayerCtrl'}).
         when('/competition/:competitionId', {templateUrl: 'partials/competition_detail.html', controller: 'CompetitionDetailCtrl'})
     }]);
 
@@ -42,10 +46,8 @@ eshopControllers.controller('PlayerDetailCtrl',
         var playerId = $routeParams.playerId;
         $http.get('/esports/api/v2/esports/players/id/' + playerId).then(
             function (response) {
-                var player = response.data;
                 $scope.player = response.data;
                 console.log('AJAX loaded detail of player ' + $scope.player.name);
-                loadPlayerTeams($http, player, player['_links'].team.href);
             },
             function error(response) {
                 console.log("failed to load product "+playerId);
@@ -53,6 +55,17 @@ eshopControllers.controller('PlayerDetailCtrl',
                 $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
             }
         );
+        $http.get('/esports/api/v2/esports/players/getPlayerStatistics/id/' + playerId).then(
+                    function (response) {
+                        $scope.stats = response.data;
+                        console.log('AJAX loaded detail of player ' + $scope.player.name);
+                    },
+                    function error(response) {
+                        console.log("failed to load product "+playerId);
+                        console.log(response);
+                        $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
+                    }
+                );
     });
 
 eshopControllers.controller('TeamsDetailCtrl',
@@ -60,6 +73,25 @@ eshopControllers.controller('TeamsDetailCtrl',
         // get product id from URL fragment #/product/:productId
         var teamId = $routeParams.teamId;
         $http.get('/esports/api/v2/esports/teams/id/' + teamId).then(
+            function (response) {
+                var team = response.data;
+                $scope.team = response.data;
+                console.log('AJAX loaded detail of team ' + $scope.team.name);
+                loadPlayersTeams($http, team, team['_links'].players.href);
+            },
+            function error(response) {
+                console.log("failed to load team "+teamId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load team: '+response.data.message;
+            }
+        );
+    });
+
+eshopControllers.controller('TeamsDetailNameCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        // get product id from URL fragment #/product/:productId
+        var teamName = $routeParams.teamName;
+        $http.get('/esports/api/v2/esports/teams/name/' + teamName).then(
             function (response) {
                 var team = response.data;
                 $scope.team = response.data;
@@ -123,6 +155,128 @@ eshopControllers.controller('TeamsCtrl',
         );
     });
 
+eshopControllers.controller('NewTeamCtrl',
+    function ($scope, $routeParams, $http, $location, $rootScope) {
+        //set object bound to form fields
+        $scope.team = {
+            'name': ''
+        };
+        // function called when submit button is clicked, creates category on server
+        $scope.create = function (team) {
+            $http({
+                method: 'POST',
+                url: '/esports/api/v2/esports/teams/create',
+                data: team
+            }).then(function success(response) {
+                var createdTeam = response.data;
+                //display confirmation alert
+                $rootScope.successAlert = 'A new team "' + createdTeam.name + '" was created';
+                //change view to list of products
+                $location.path("/teams");
+            }, function error(response) {
+                //display error
+                console.log("error when creating team");
+                console.log(response);
+                switch (response.data.code) {
+                    case 'PersistenceException':
+                        $rootScope.errorAlert = 'team with the same name already exists ! ';
+                        break;
+                    case 'InvalidRequestException':
+                        $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
+                        break;
+                    default:
+                        $rootScope.errorAlert = 'Cannot create team ! Reason given by the server: '+response.data.message;
+                        break;
+                }
+            });
+        };
+    });
+
+eshopControllers.controller('NewPlayerCtrl',
+    function ($scope, $routeParams, $http, $location, $rootScope) {
+        //set object bound to form fields
+        $scope.player = {
+            'name': ''
+        };
+        // function called when submit button is clicked, creates category on server
+        $scope.create = function (player) {
+            $http({
+                method: 'POST',
+                url: '/esports/api/v2/esports/players/create',
+                data: player
+            }).then(function success(response) {
+                var createdPlayer = response.data;
+                //display confirmation alert
+                $rootScope.successAlert = 'A new player "' + createdPlayer.name + '" was created';
+                //change view to list of products
+                $location.path("/players");
+            }, function error(response) {
+                //display error
+                console.log("error when creating player");
+                console.log(response);
+                switch (response.data.code) {
+                    case 'PersistenceException':
+                        $rootScope.errorAlert = 'player with the same name already exists ! ';
+                        break;
+                    case 'InvalidRequestException':
+                        $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
+                        break;
+                    default:
+                        $rootScope.errorAlert = 'Cannot create player ! Reason given by the server: '+response.data.message;
+                        break;
+                }
+            });
+        };
+    });
+
+eshopControllers.controller('AddPlayerCtrl',
+    function ($scope, $rootScope, $routeParams, $http) {
+        // get product id from URL fragment #/product/:productId
+        var playerId = $routeParams.playerId;
+        var teamId = $routeParams.teamId;
+        $http.get('/esports/api/v2/esports/players/id/' + playerId).then(
+            function (response) {
+                var player = response.data;
+                $scope.player = response.data;
+
+                // function called when submit button is clicked, creates category on server
+                $scope.addPlayerToTeam = function (player) {
+                    $http({
+                        method: 'POST',
+                        url: '/esports/api/v2/esports/teams/'+teamId+'/addPlayer/'+playerId,
+                        data: teamId, playerId
+                    }).then(function success(response) {
+                        var createdPlayer = response.data;
+                        //display confirmation alert
+                        $rootScope.successAlert = 'A new player "' + createdPlayer.name + '" was add into the team';
+                        //change view to list of products
+                        $location.path("/players");
+                    }, function error(response) {
+                        //display error
+                        console.log("error when creating player");
+                        console.log(response);
+                        switch (response.data.code) {
+                            case 'PersistenceException':
+                                $rootScope.errorAlert = 'player with the same name already exists ! ';
+                                break;
+                            case 'InvalidRequestException':
+                                $rootScope.errorAlert = 'Sent data were found to be invalid by server ! ';
+                                break;
+                            default:
+                                $rootScope.errorAlert = 'Cannot create player ! Reason given by the server: '+response.data.message;
+                                break;
+                        }
+                    });
+                };
+            },
+            function error(response) {
+                console.log("failed to load product "+playerId);
+                console.log(response);
+                $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
+            }
+        );
+    });
+
 eshopControllers.controller('PlayersCtrl',
     function ($scope, $rootScope, $routeParams, $http) {
         $http.get('/esports/api/v2/esports/players/').then(
@@ -137,6 +291,8 @@ eshopControllers.controller('PlayersCtrl',
             }
         );
     });
+
+
 
 
 /*
@@ -155,6 +311,10 @@ function loadPlayerTeams($http, player, prodLink) {
     $http.get(prodLink).then(function (response) {
         player.team = response.data['_embedded']['teamDTOSet'];
     });
+}
+
+function loadPlayerStats($http, player, prodLink){
+
 }
 
 function loadPlayersTeams($http, team, prodLink) {

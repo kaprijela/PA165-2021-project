@@ -1,13 +1,9 @@
 package cz.muni.pa165.sampledata;
 
 
-import cz.muni.fi.pa165.esports.entity.Competition;
-import cz.muni.fi.pa165.esports.entity.Player;
-import cz.muni.fi.pa165.esports.entity.Team;
+import cz.muni.fi.pa165.esports.entity.*;
 import cz.muni.fi.pa165.esports.enums.Gender;
-import cz.muni.fi.pa165.esports.service.CompetitionService;
-import cz.muni.fi.pa165.esports.service.PlayerService;
-import cz.muni.fi.pa165.esports.service.TeamService;
+import cz.muni.fi.pa165.esports.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +28,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Autowired
     CompetitionService competitionService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    MatchRecordService matchRecordService;
+
     @Override
     public void loadData() throws IOException {
         Team t1 = new Team();
@@ -39,11 +41,24 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         t1.setAbbreviation("O");
         teamService.create(t1);
 
+
+        SystemUser admin = new SystemUser();
+        admin.setUsername("BOSS");
+        admin.setEmail("KOKOT");
+        admin.setAdmin(true);
+        userService.create(admin, "1234");
+
         Player player = new Player();
         player.setName("Radko");
         player.setGender(Gender.MALE);
         player.setTeam(t1);
         playerService.create(player);
+        MatchRecord m1 = new MatchRecord();
+        m1.setMatchNumber(5L);
+        m1.setPlayer(player);
+        matchRecordService.create(m1);
+
+
 
         Player mrWhite = new Player();
         mrWhite.setName("Larry");

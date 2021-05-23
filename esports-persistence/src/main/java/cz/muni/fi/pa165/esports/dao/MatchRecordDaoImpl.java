@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,7 +54,7 @@ public class MatchRecordDaoImpl implements MatchRecordDao {
             return em.createQuery("select m from MatchRecord m where m.player = :player ", MatchRecord.class)
                     .setParameter("player", player).getResultList();
         } catch (NoResultException nfr){
-            return null;
+            return new ArrayList<MatchRecord>();
         }
     }
 

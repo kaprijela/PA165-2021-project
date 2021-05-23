@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.esports.facade;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+import cz.muni.fi.pa165.esports.dto.TeamCreateDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.enums.Game;
 
