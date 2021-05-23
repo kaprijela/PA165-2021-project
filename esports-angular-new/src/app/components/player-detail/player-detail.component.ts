@@ -34,11 +34,11 @@ export class PlayerDetailComponent implements OnInit {
     })
   }
 
-  private getStatsPlayer(id: number) {
-    console.log("getPlayer")
-    this.playerService.(id).subscribe(data => {
-      this.player = data;
-    })
-  }
+  // private getStatsPlayer(id: number) {
+  //   console.log("getPlayer")
+  //   this.playerService.(id).subscribe(data => {
+  //     this.player = data;
+  //   })
+  // }
 
 }
