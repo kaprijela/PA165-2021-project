@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CompetitionService} from "../../service/competition.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Competition} from "../../model/competition";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-competition-detail',
@@ -9,12 +10,13 @@ import {Competition} from "../../model/competition";
   styleUrls: ['./competition-detail.component.css']
 })
 export class CompetitionDetailComponent implements OnInit {
-
+  addTeam: FormGroup = this.formBuilder.group({idTeamA: ""})
+  removeTeam: FormGroup = this.formBuilder.group({idTeamR: ""})
   competition?: Competition;
 
   constructor(private competitionService: CompetitionService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get("id");
@@ -22,6 +24,12 @@ export class CompetitionDetailComponent implements OnInit {
       const id = +param;
       this.getCompetition(id);
     }
+    this.addTeam = this.formBuilder.group({
+      idTeamA: new FormControl(),
+    });
+    this.removeTeam = this.formBuilder.group({
+      idTeamR: new FormControl(),
+    });
   }
 
   getCompetition(id: number){
@@ -29,6 +37,20 @@ export class CompetitionDetailComponent implements OnInit {
     this.competitionService.findById(id).subscribe(data => {
       this.competition = data;
     })
+  }
+
+  add(){
+    const value = this.addTeam.value;
+    this.competitionService.addTeam(this.competition?.id,value.idTeamA)
+    // @ts-ignore
+    this.router.navigate(['/competitions/id/' + this.competition.id]);
+  }
+
+  remove(){
+    const value = this.removeTeam.value;
+    this.competitionService.removeTeam(this.competition?.id, value.idTeamR)
+    // @ts-ignore
+    this.router.navigate(['/competitions/id/' + this.competition.id]);
   }
 
 }

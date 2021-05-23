@@ -8,7 +8,6 @@ import {TeamService} from "../../service/team.service";
   styleUrls: ['./team-list.component.css'],
 })
 export class TeamListComponent implements OnInit {
-
   teams: Team[] = [];
 
   constructor(private teamService: TeamService) { }

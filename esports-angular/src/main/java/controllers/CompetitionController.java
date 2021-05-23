@@ -46,7 +46,6 @@ public class CompetitionController {
 
     /**
      * Create a Competition
-     * curl -X POST -i -H "Content-Type: application/json" --data '{"name":"Fist Fight","location":"behind the bar"}' http://localhost:8080/pa165/api/v2/esports/competitions/create
      *
      * @return CompetitionDTO
      */

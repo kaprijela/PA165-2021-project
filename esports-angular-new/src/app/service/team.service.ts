@@ -55,7 +55,6 @@ export class TeamService {
   console.log(team);
   this.router.navigate(['/teams']);
     return this.http.post(this.create, team)
-
   }
 
   public findByAbbreviation(abbreviation: string): Observable<Team> {

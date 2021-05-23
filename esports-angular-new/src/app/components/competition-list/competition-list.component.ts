@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Competition} from "../../model/competition";
 import {CompetitionService} from "../../service/competition.service";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-competition-list',
@@ -8,6 +9,7 @@ import {CompetitionService} from "../../service/competition.service";
   styleUrls: ['./competition-list.component.css']
 })
 export class CompetitionListComponent implements OnInit {
+
   competitions: Competition[];
 
   constructor(private competitionService: CompetitionService) {
@@ -19,5 +21,4 @@ export class CompetitionListComponent implements OnInit {
       this.competitions = data;
     })
   }
-
 }

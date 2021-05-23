@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Competition} from "../model/competition";
 import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class CompetitionService {
   private readonly byId = this.apiEndpoint + "/id";
   private readonly byName = this.apiEndpoint + "/name";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   public findAll(): Observable<Competition[]> {
     return this.http.get<Competition[]>(this.apiEndpoint);
@@ -44,11 +45,12 @@ export class CompetitionService {
     this.http.delete(this.apiEndpoint + "/" + id);
   }
 
-  public addTeam(competition: number, team: number){
+  public addTeam(competition: number | undefined, team: string){
+    this.router.navigate(['/teams']);
     this.http.get(this.apiEndpoint + "/" + competition + "/addTeam/" + team );
   }
 
-  public removeTeam(competition: number, team: number){
+  public removeTeam(competition: number | undefined, team: string){
     this.http.get(this.apiEndpoint + "/" + competition + "/removeTeam/" + team );
   }
 }

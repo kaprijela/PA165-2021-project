@@ -3,6 +3,7 @@ import {TeamService} from "../../service/team.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Competition} from "../../model/competition";
 import {CompetitionService} from "../../service/competition.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-competition-new',
@@ -13,7 +14,7 @@ export class CompetitionNewComponent implements OnInit {
   createCompetition: FormGroup = this.formBuilder.group({name: "", prizepool: "", location: ""})
   competition = <Competition> {}
 
-  constructor(private competitionService: CompetitionService, private formBuilder: FormBuilder) {
+  constructor(private competitionService: CompetitionService, private formBuilder: FormBuilder, private router: Router) {
     this.createCompetition = this.formBuilder.group({
       name: new FormControl(),
       prizepool: new FormControl(),
@@ -31,6 +32,7 @@ export class CompetitionNewComponent implements OnInit {
       this.competition.prizepool = value.prizepool;
       this.competition.location = value.description;
       this.competitionService.createCompetition(this.competition).subscribe();
+      this.router.navigate(['/competitions/']);
     }
   }
 }
