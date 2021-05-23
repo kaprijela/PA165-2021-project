@@ -98,8 +98,8 @@ public class PlayerController {
         return new ResponseEntity<>(entityModel, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}/getPlayerStatistics/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<EntityModel<Double>> getAveragePlayerScore(@PathVariable("id") Long idPlayer){
+    @RequestMapping(value = "/getPlayerStatistics/id/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Double getAveragePlayerScore(@PathVariable("id") Long idPlayer){
         log.debug("restv1 get statitistics for Player: {}", idPlayer);
 
         PlayerDTO playerById = playerFacade.findPlayerById(idPlayer);
@@ -107,14 +107,13 @@ public class PlayerController {
         if (playerById == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
-        Double result = null;
+        Double result = 0D;
         try {
             result = playerFacade.getPlayerAverage(playerById);
         } catch (Exception e) {
             log.error("Exception: {}", e.getMessage());
         }
-        assert result != null;
-        return new HttpEntity<>(statisticsRepresentatitionModelAssembler.toModel(result));
+        return result;
     }
 
 }

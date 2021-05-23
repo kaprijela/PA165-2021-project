@@ -41,8 +41,6 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         t1.setAbbreviation("O");
         teamService.create(t1);
 
-        MatchRecord m1 = new MatchRecord();
-        m1.setMatchNumber(5L);
 
         SystemUser admin = new SystemUser();
         admin.setUsername("BOSS");
@@ -54,9 +52,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         player.setName("Radko");
         player.setGender(Gender.MALE);
         player.setTeam(t1);
-        m1.setPlayer(player);
         playerService.create(player);
+        MatchRecord m1 = new MatchRecord();
+        m1.setMatchNumber(5L);
+        m1.setPlayer(player);
         matchRecordService.create(m1);
+
+
 
         Player mrWhite = new Player();
         mrWhite.setName("Larry");

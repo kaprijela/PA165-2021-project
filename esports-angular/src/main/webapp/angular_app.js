@@ -45,7 +45,7 @@ eshopControllers.controller('PlayerDetailCtrl',
         var playerId = $routeParams.playerId;
         $http.get('/esports/api/v2/esports/players/id/' + playerId).then(
             function (response) {
-                $scope.player = response.data['_embedded'];
+                $scope.player = response.data;
                 console.log('AJAX loaded detail of player ' + $scope.player.name);
             },
             function error(response) {
@@ -54,6 +54,17 @@ eshopControllers.controller('PlayerDetailCtrl',
                 $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
             }
         );
+        $http.get('/esports/api/v2/esports/players/getPlayerStatistics/id/' + playerId).then(
+                    function (response) {
+                        $scope.stats = response.data;
+                        console.log('AJAX loaded detail of player ' + $scope.player.name);
+                    },
+                    function error(response) {
+                        console.log("failed to load product "+playerId);
+                        console.log(response);
+                        $rootScope.warningAlert = 'Cannot load product: '+response.data.message;
+                    }
+                );
     });
 
 eshopControllers.controller('TeamsDetailCtrl',
