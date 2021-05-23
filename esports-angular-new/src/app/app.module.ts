@@ -20,6 +20,7 @@ import { PlayerDetailComponent } from './components/player-detail/player-detail.
 import { TeamNewComponent } from './components/team-new/team-new.component';
 import { CompetitionDetailComponent } from './components/competition-detail/competition-detail.component';
 import { CompetitionNewComponent } from './components/competition-new/competition-new.component';
+import { MatchRecordNewComponent } from './components/match-record-new/match-record-new.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { CompetitionNewComponent } from './components/competition-new/competitio
     TeamNewComponent,
     CompetitionDetailComponent,
     CompetitionNewComponent,
+    MatchRecordNewComponent,
   ],
   imports: [
     BrowserModule,
