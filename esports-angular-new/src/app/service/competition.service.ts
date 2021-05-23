@@ -9,17 +9,15 @@ import {Team} from "../model/team";
   providedIn: 'root'
 })
 export class CompetitionService {
-  private readonly competitionUrl: string;
-  private readonly create = 'http://localhost:8080/pa165/api/v2/competitions/create';
-  private readonly byId = 'http://localhost:8080/pa165/api/v2/competitions/id';
-  private readonly byName = 'http://localhost:8080/pa165/api/v2/competitions/name';
+  private readonly apiEndpoint: string = "http://localhost:8080/pa165/api/v2/competitions";
+  private readonly create = this.apiEndpoint + "/create";
+  private readonly byId = this.apiEndpoint + "/id";
+  private readonly byName = this.apiEndpoint + "/name";
 
-  constructor(private http: HttpClient) {
-    this.competitionUrl = 'http://localhost:8080//api/v2/competitions';
-  }
+  constructor(private http: HttpClient) { }
 
   public findAll(): Observable<Competition[]> {
-    return this.http.get<Competition[]>(this.competitionUrl);
+    return this.http.get<Competition[]>(this.apiEndpoint);
   }
 
   public createCompetition(competition: Competition): Observable<Competition> {
@@ -35,14 +33,14 @@ export class CompetitionService {
   }
 
   public deleteCompetition(id: number): void {
-    this.http.delete(this.competitionUrl + "/" + id);
+    this.http.delete(this.apiEndpoint + "/" + id);
   }
 
   public addTeam(competition: number, team: number){
-    this.http.get(this.competitionUrl + "/" + competition + "/addTeam/" + team );
+    this.http.get(this.apiEndpoint + "/" + competition + "/addTeam/" + team );
   }
 
   public removeTeam(competition: number, team: number){
-    this.http.get(this.competitionUrl + "/" + competition + "/removeTeam/" + team );
+    this.http.get(this.apiEndpoint + "/" + competition + "/removeTeam/" + team );
   }
 }
