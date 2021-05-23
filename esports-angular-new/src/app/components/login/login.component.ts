@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthenticationService, private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
-      username: new FormControl(),
-      password: new FormControl(),
+      username: new FormControl(null, Validators.required),
+      password: new FormControl(null, [Validators.required, Validators.minLength(2)]),
     });
   }
 
