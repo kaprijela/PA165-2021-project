@@ -21,7 +21,7 @@ export class CompetitionDetailComponent implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get("id");
     if (param) {
-      const id = +param;
+      const id = + param;
       this.getCompetition(id);
     }
     this.addTeam = this.formBuilder.group({
@@ -41,14 +41,16 @@ export class CompetitionDetailComponent implements OnInit {
 
   add(){
     const value = this.addTeam.value;
-    this.competitionService.addTeam(this.competition?.id,value.idTeamA)
+    // @ts-ignore
+    this.competitionService.addTeam(this.competition.id,value.idTeamA).subscribe()
     // @ts-ignore
     this.router.navigate(['/competitions/id/' + this.competition.id]);
   }
 
   remove(){
     const value = this.removeTeam.value;
-    this.competitionService.removeTeam(this.competition?.id, value.idTeamR)
+    // @ts-ignore
+    this.competitionService.removeTeam(this.competition.id, value.idTeamR).subscribe()
     // @ts-ignore
     this.router.navigate(['/competitions/id/' + this.competition.id]);
   }

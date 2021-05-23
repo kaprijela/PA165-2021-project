@@ -31,8 +31,7 @@ export class CompetitionNewComponent implements OnInit {
       this.competition.name = value.name;
       this.competition.prizepool = value.prizepool;
       this.competition.location = value.description;
-      this.competitionService.createCompetition(this.competition).subscribe();
-      this.router.navigate(['/competitions/']);
+      this.competitionService.createCompetition(this.competition);
     }
   }
 }

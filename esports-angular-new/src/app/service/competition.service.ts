@@ -21,9 +21,9 @@ export class CompetitionService {
     return this.http.get<Competition[]>(this.apiEndpoint);
   }
 
-  public createCompetition(competition: Competition): Observable<Competition> {
+  public createCompetition(competition: Competition): void {
     // var json = {"name": competition.name, "pricepool": competition.pricepool, "location": competition.location}
-    return this.http.post<Competition>(this.create, {
+    this.http.post<Competition>(this.create, {
       "id": null,
       "name": competition.name,
       "game": null,
@@ -32,6 +32,7 @@ export class CompetitionService {
       "teams": [],
       "date": null
     })
+    this.router.navigate(['/competitions/']);
   }
 
   public findById(id: number): Observable<Competition> {
@@ -46,16 +47,20 @@ export class CompetitionService {
     this.http.delete(this.apiEndpoint + "/" + id);
   }
 
-  public addTeam(competition: number | undefined, team: string){
-    this.router.navigate(['/teams']);
-    this.http.get(this.apiEndpoint + "/" + competition + "/addTeam/" + team );
+  public addTeam(competition: number | undefined, team: string): Observable<Competition>{
+    return this.http.get<Competition>(this.apiEndpoint + "/add/" + competition + "/addTeam/" + team);
   }
 
-  public removeTeam(competition: number | undefined, team: string){
-    this.http.get(this.apiEndpoint + "/" + competition + "/removeTeam/" + team );
+  public removeTeam(competition: number | undefined, team: string): Observable<Competition>{
+    var x = this.http.get<Competition>(this.apiEndpoint + "/remove/" + competition + "/removeTeam/" + team);
+    // @ts-ignore
+    return x
   }
 
   public addMatchRecord(competitionId: number, record: MatchRecord) {
-    this.http.post<MatchRecord>(this.apiEndpoint + "/" + competitionId + "/records", record);
+    var x = this.http.post<MatchRecord>(this.apiEndpoint + "/" + competitionId + "/records", record);
+    // @ts-ignore
+    this.router.navigate(['/competitions/id/' + this.competition.id]);
+    return x
   }
 }

@@ -105,7 +105,7 @@ public class CompetitionController {
         }
     }
 
-    @RequestMapping(value = "/{id}/addTeam/{team}", method = RequestMethod.GET)
+    @RequestMapping(value = "add/{id}/addTeam/{team}", method = RequestMethod.GET)
     public final CompetitionDTO addTeamToCompetition(@PathVariable("id") Long id, @PathVariable("team") String team) throws Exception {
         log.debug("restv1 delete by id {}", id);
         try {
@@ -116,7 +116,7 @@ public class CompetitionController {
         return competitionFacade.findCompetitionById(id);
     }
 
-    @RequestMapping(value = "/{id}/removeTeam/{team}", method = RequestMethod.GET)
+    @RequestMapping(value = "remove/{id}/removeTeam/{team}", method = RequestMethod.GET)
     public final CompetitionDTO removeTeamFromCompetition(@PathVariable("id") Long id, @PathVariable("team") String team) throws Exception {
         log.debug("restv1 delete by id {}", id);
         try {
