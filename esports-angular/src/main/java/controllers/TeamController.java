@@ -2,7 +2,6 @@ package controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
-import cz.muni.fi.pa165.esports.dto.TeamCreateDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
@@ -33,8 +32,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Slf4j
 @RestController
-@CrossOrigin
-//@ExposesResourceFor(CompetitionDTO.class)
+@ExposesResourceFor(CompetitionDTO.class)
+@RequestMapping("/teams")
 public class TeamController {
 
     TeamFacade teamFacade;
@@ -44,29 +43,21 @@ public class TeamController {
         this.teamFacade = teamFacade;
     }
 
-    @RequestMapping(value = "/teams", method = RequestMethod.GET)
+    @Inject
+    PlayerFacade playerFacade;
+
+    @Inject
+    CompetitionFacade competitionFacade;
+
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public final List<TeamDTO> getAllTeams() {
         log.debug("rest getAllTeams()");
         return teamFacade.getAllTeams();
     }
 
-    @RequestMapping(value = "/team/{id}", method = RequestMethod.GET)
-    public final TeamDTO getTeamById(@PathVariable("id") Long id) {
-        return teamFacade.findTeamById(id);
-    }
-
-    /*
-    public final HttpEntity<CollectionModel<EntityModel<TeamDTO>>> getPlayers() {
-        log.debug("restv1 getCompetitions()");
-        List<TeamDTO> allTeams = teamFacade.getAllTeams();
-        CollectionModel<EntityModel<TeamDTO>> entityModels = teamRepresentationModelAssembler.toCollectionModel(allTeams);
-        entityModels.add(linkTo(CompetitionController.class).withSelfRel());
-        entityModels.add(linkTo(CompetitionController.class).slash("/create").withRel("create"));
-        return new ResponseEntity<>(entityModels, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<EntityModel<TeamDTO>> createTeam(@RequestBody @Valid TeamDTO teamDTO, BindingResult bindingResult) throws Exception {
+    public final TeamDTO createTeam(@RequestBody @Valid TeamDTO teamDTO, BindingResult bindingResult) throws Exception {
         log.debug("restv1 createTeam()");
         if (bindingResult.hasErrors()) {
             log.error("failed validation {}", bindingResult.toString());
@@ -74,43 +65,43 @@ public class TeamController {
         }
         try {
             Long team = teamFacade.registerNewTeam(teamDTO);
-            return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamFacade.findTeamById(team)));
+            return teamFacade.findTeamById(team);
         } catch (Exception ex) {
             throw new ResourceAlreadyExistingException(ex.getMessage());
         }
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public final HttpEntity<EntityModel<TeamDTO>> getById(@PathVariable("id") Long id) throws Exception {
+    public final TeamDTO getById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 get by id {}", id);
 
         TeamDTO teamDTO = teamFacade.findTeamById(id);
         if (teamDTO == null) {
             throw new ResourceNotFoundException("Team not found");
         }
-        return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamDTO));
+        return teamDTO;
     }
 
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public final HttpEntity<EntityModel<TeamDTO>> getByName(@PathVariable("name") String name) throws Exception {
+    public final TeamDTO getByName(@PathVariable("name") String name) throws Exception {
         log.debug("restv1 get by name {}", name);
 
         TeamDTO teamByName = teamFacade.findTeamByName(name);
         if (teamByName == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
-        return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamByName));
+        return teamByName;
     }
 
     @RequestMapping(value = "/abbreviation/{abbreviation}", method = RequestMethod.GET)
-    public final HttpEntity<EntityModel<TeamDTO>> getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws Exception {
+    public final TeamDTO getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws Exception {
         log.debug("restv1 get by abbreviation {}",abbreviation);
 
         TeamDTO teamDTO = teamFacade.findTeamByAbbreviation(abbreviation);
         if (teamDTO == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
-        return new HttpEntity<>(teamRepresentationModelAssembler.toModel(teamDTO));
+        return teamDTO;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -167,7 +158,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "{id}/getCompetitionStatistics/{competitionId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<EntityModel<Double>> getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition){
+    public final Double getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition){
         log.debug("restv1 get statitistics for team: {} team in competition: {}", idTeam, idTeam);
 
         TeamDTO teamById = teamFacade.findTeamById(idTeam);
@@ -182,7 +173,6 @@ public class TeamController {
         } catch (Exception e) {
             log.error("Exception: {}", e.getMessage());
         }
-        return new HttpEntity<>(statisticsRepresentatitionModelAssembler.toModel(result));
+        return result;
     }
-     */
 }
