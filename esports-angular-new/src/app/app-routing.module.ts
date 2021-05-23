@@ -9,7 +9,7 @@ import {AuthGuard} from "./auth.guard";
 import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {PlayerDetailComponent} from "./components/player-detail/player-detail.component";
-// import {TeamAddComponent} from "./components/team-add/team-add.component";
+import {TeamNewComponent} from "./components/team-new/team-new.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'competitions', component: CompetitionListComponent },
   { path: 'teams', component: TeamListComponent },
   { path: 'teams/id/:id', component: TeamDetailComponent },
-  // { path: 'teams/new', component: TeamAddComponent, canActivate: [AuthGuard], data: { role: ['TEAM_MANAGER'] } },
+  { path: 'teams/new', component: TeamNewComponent, canActivate: [AuthGuard], data: { role: ['TEAM_MANAGER'] } },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', component: NotFoundComponent },
 ];

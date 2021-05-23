@@ -56,11 +56,21 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
       }
       // if role is specified and at least one of the current user's roles is allowed
       if (route.data.role) {
-        for (let role in userRoles) {
-          if (route.data.role.indexOf(role) !== -1) {
-            return true;
-          }
-        }
+        for(let i = 0; i < userRoles.length; i++) {
+
+                // Loop for array2
+                for(let j = 0; j < route.data.role.length; j++) {
+
+                    // Compare the element of each and
+                    // every element from both of the
+                    // arrays
+                    if(userRoles[i] === route.data.role[j]) {
+
+                        // Return if common element found
+                        return true;
+                    }
+                }
+            }
         this.router.navigate(['/unauthorized']);
         return false;
       }
