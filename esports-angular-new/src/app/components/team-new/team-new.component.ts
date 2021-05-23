@@ -29,8 +29,7 @@ export class TeamNewComponent implements OnInit {
           this.team.name = value.name;
           this.team.abbreviation = value.abbreviation;
           this.team.description = value.description;
-          this.teamService.createTeam(this.team);
+          this.teamService.createTeam(this.team).subscribe();
         }
       }
-
 }

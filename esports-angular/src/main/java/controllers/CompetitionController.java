@@ -34,7 +34,7 @@ public class CompetitionController {
     }
 
     /**
-     * Get list of Competitions curl -i -X GET http://localhost:8080/esports/api/v2/esports/competitions/
+     * Get list of Competitions curl -i -X GET http://localhost:8080/pa165/api/v2/esports/competitions/
      *
      * @return List<CompetitionDTO>
      */
@@ -46,7 +46,7 @@ public class CompetitionController {
 
     /**
      * Create a Competition
-     * curl -X POST -i -H "Content-Type: application/json" --data '{"name":"Fist Fight","location":"behind the bar"}' http://localhost:8080/esports/api/v2/esports/competitions/create
+     * curl -X POST -i -H "Content-Type: application/json" --data '{"name":"Fist Fight","location":"behind the bar"}' http://localhost:8080/pa165/api/v2/esports/competitions/create
      *
      * @return CompetitionDTO
      */

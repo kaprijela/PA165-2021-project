@@ -28,6 +28,7 @@ export class TeamService {
 
   public createTeam(team: Team): Observable<Team> {
   console.log("Response: ");
+    // var json = {"name": team.name, "abbreviation": team.abbreviation, "description": team.description}
     return this.http.post<Team>(this.create, team)
   }
 
