@@ -37,5 +37,5 @@ public interface PlayerFacade {
      */
     List<PlayerDTO> getAllPlayers();
 
-    Double getPlayerAverage(PlayerDTO playerDTO);
+    Double getPlayerAverage(Long playerId);
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+import cz.muni.fi.pa165.esports.dto.StatisticsDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
@@ -160,7 +161,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "{id}/getCompetitionStatistics/{competitionId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Double getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition){
+    public final StatisticsDTO getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition){
         log.debug("restv1 get statitistics for team: {} team in competition: {}", idTeam, idTeam);
 
         TeamDTO teamById = teamFacade.findTeamById(idTeam);
@@ -175,6 +176,8 @@ public class TeamController {
         } catch (Exception e) {
             log.error("Exception: {}", e.getMessage());
         }
-        return result;
+        StatisticsDTO statisticsDTO = new StatisticsDTO();
+        statisticsDTO.setScore(result);
+        return statisticsDTO;
     }
 }

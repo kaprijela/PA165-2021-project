@@ -1,4 +1,4 @@
 export class Statistics {
-  constructor(private score:number) {
+  constructor(public score: number) {
   }
 }

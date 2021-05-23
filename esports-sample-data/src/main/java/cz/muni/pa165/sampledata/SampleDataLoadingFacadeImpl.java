@@ -58,14 +58,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         m1.setPlayer(player);
         matchRecordService.create(m1);
 
-
-
         Player mrWhite = new Player();
         mrWhite.setName("Larry");
         mrWhite.setGender(Gender.MALE);
         t1.addPlayer(mrWhite);
         playerService.create(mrWhite);
-
 
         Player mrOrange = new Player();
         mrOrange.setName("Freddy");
@@ -91,8 +88,6 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         mrsRed.setName(mrWhite.getName());
         mrsRed.setGender(Gender.FEMALE);
         playerService.create(mrsRed);
-
-
 
         Team t2 = new Team();
         t2.setName("Elves");

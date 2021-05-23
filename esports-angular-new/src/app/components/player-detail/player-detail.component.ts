@@ -24,6 +24,7 @@ export class PlayerDetailComponent implements OnInit {
     if (param) {
       const id = +param;
       this.getPlayer(id);
+      this.getStatsPlayer(id);
     }
   }
 
@@ -34,11 +35,11 @@ export class PlayerDetailComponent implements OnInit {
     })
   }
 
-  // private getStatsPlayer(id: number) {
-  //   console.log("getPlayer")
-  //   this.playerService.(id).subscribe(data => {
-  //     this.player = data;
-  //   })
-  // }
+  private getStatsPlayer(id: number) {
+    console.log("getPlayer")
+    this.playerService.getPlayerScore(id).subscribe(data => {
+      this.statistics = data;
+    })
+  }
 
 }
