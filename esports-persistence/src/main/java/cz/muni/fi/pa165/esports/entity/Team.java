@@ -20,10 +20,12 @@ import java.util.Set;
  * @author Gabriela Kandova
  */
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity(name = "Team")
+@Table(name = "team")
 public class Team {
     public Team(Long id) {
         this.id = id;
@@ -60,14 +62,15 @@ public class Team {
      * A team consists of zero or more players.
      * At any time, a player can belong to at most one team.
      */
-    @OneToMany(mappedBy = "team")
+    @OneToMany
+    @JoinColumn(name="team_id")
     private Set<Player> players = new HashSet<>();
 
     /**
      * A team participates in competitions.
      * Zero or more match records refer to the team based on such participation.
      */
-    @OneToMany(mappedBy = "team")
+    @OneToMany
     private Set<MatchRecord> matchRecords = new HashSet<>();
 
     /* additional getters and setters */
@@ -109,5 +112,10 @@ public class Team {
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getAbbreviation());
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }

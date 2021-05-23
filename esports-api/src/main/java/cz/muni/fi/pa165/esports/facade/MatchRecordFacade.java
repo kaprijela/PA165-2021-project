@@ -10,6 +10,7 @@ import java.util.List;
 public interface MatchRecordFacade {
     /**
      * will create a MatchRecord
+     *
      * @param matchRecord matchRecord
      * @return long id of the matchRecord
      */
@@ -17,12 +18,14 @@ public interface MatchRecordFacade {
 
     /**
      * will delete matchRecord
+     *
      * @param matchRecordId id of the matchRecord to be removed
      */
     void delete(Long matchRecordId);
 
     /**
      * get MatchRecordById
+     *
      * @param id id
      * @return matchRecordDao
      */
@@ -30,12 +33,14 @@ public interface MatchRecordFacade {
 
     /**
      * Return all records
+     *
      * @return matchDTO
      */
     List<MatchRecordDTO> getAllMatchRecord();
 
     /**
      * Return a MatchRecords For a Player
+     *
      * @param playerId long
      * @return MatchRecordDTO
      */
@@ -43,6 +48,7 @@ public interface MatchRecordFacade {
 
     /**
      * Return a MatchRecords for a competition
+     *
      * @param competitionId unique identifier string
      * @return MatchRecordDTO
      */
@@ -50,6 +56,7 @@ public interface MatchRecordFacade {
 
     /**
      * Return a MatchRecords for a team
+     *
      * @param teamId unique identifier string
      * @return MatchRecordDTO
      */

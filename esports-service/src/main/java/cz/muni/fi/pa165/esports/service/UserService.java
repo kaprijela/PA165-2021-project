@@ -1,10 +1,9 @@
 package cz.muni.fi.pa165.esports.service;
 
-import java.util.List;
-
-import cz.muni.fi.pa165.esports.entity.*;
-
+import cz.muni.fi.pa165.esports.entity.SystemUser;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author Elena Álvarez
@@ -15,7 +14,7 @@ public interface UserService {
      * Register a user in the system.
      *
      * @param systemUser User to be registered
-     * @param password password without hash
+     * @param password   password without hash
      */
     public SystemUser create(SystemUser systemUser, String password);
 
@@ -61,7 +60,7 @@ public interface UserService {
      * Prove if a user is authenticate in the system
      *
      * @param systemUser entity of a user
-     * @param password  password provided
+     * @param password   password provided
      * @return true, if the password matches the hash stored previously, false if not
      */
     boolean isAuthenticated(SystemUser systemUser, String password);

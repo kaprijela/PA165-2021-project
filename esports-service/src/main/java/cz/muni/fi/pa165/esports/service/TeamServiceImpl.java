@@ -65,7 +65,7 @@ public class TeamServiceImpl implements TeamService {
     @Modifying
     public void remove(@NonNull Team team) {
         Set<Player> teamPlayers = team.getPlayers();
-        for (Player player: teamPlayers) { // remove association first
+        for (Player player : teamPlayers) { // remove association first
             teamDao.removePlayer(team, player);
         }
         teamDao.delete(team);

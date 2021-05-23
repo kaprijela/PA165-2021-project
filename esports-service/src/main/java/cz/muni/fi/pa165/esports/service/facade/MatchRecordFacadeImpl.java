@@ -1,23 +1,20 @@
 package cz.muni.fi.pa165.esports.service.facade;
-import java.util.List;
-
-import javax.inject.Inject;
 
 import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
-
-
-import cz.muni.fi.pa165.esports.facade.MatchRecordFacade;
 import cz.muni.fi.pa165.esports.entity.Competition;
 import cz.muni.fi.pa165.esports.entity.MatchRecord;
 import cz.muni.fi.pa165.esports.entity.Player;
 import cz.muni.fi.pa165.esports.entity.Team;
+import cz.muni.fi.pa165.esports.facade.MatchRecordFacade;
 import cz.muni.fi.pa165.esports.service.*;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
+import java.util.List;
+
 /**
- @author Elena Álvarez
+ * @author Elena Álvarez
  */
 @Service
 @Transactional

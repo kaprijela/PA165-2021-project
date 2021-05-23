@@ -15,7 +15,6 @@ import java.util.List;
  * An implementation of PlayerService
  *
  * @author Radovan Tomasik
- *
  */
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -48,18 +47,21 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Double getPlayerAverage(Player player) {
-        List<MatchRecord> matchRecords = matchRecordDao.findByPlayer(player);
+    public Double getPlayerAverage(Long player) {
+        Player byId = playerDao.findById(player);
+        List<MatchRecord> matchRecords = matchRecordDao.findByPlayer(byId);
+        System.out.println(matchRecords);
         int numberOfMatches = 0;
         int totalScore = 0;
-        for (MatchRecord matchRecord:
-             matchRecords) {
+        for (MatchRecord matchRecord :
+                matchRecords) {
             numberOfMatches++;
             totalScore += matchRecord.getScore();
         }
         if (numberOfMatches == 0) {
             return 0.0;
         }
+//        return Double.valueOf(2);
         return ((double) totalScore / numberOfMatches);
     }
 
@@ -68,9 +70,9 @@ public class PlayerServiceImpl implements PlayerService {
         List<MatchRecord> matchRecords = matchRecordDao.findByPlayer(player);
         int numberOfMatches = 0;
         int totalScore = 0;
-        for (MatchRecord matchRecord:
+        for (MatchRecord matchRecord :
                 matchRecords) {
-            if(matchRecord.getCompetition().getGame() == game) {
+            if (matchRecord.getCompetition().getGame() == game) {
                 numberOfMatches++;
                 totalScore += matchRecord.getScore();
             }
@@ -86,7 +88,7 @@ public class PlayerServiceImpl implements PlayerService {
         List<MatchRecord> matchRecords = matchRecordDao.findByPlayer(player);
         int numberOfMatches = 0;
         int totalScore = 0;
-        for (MatchRecord matchRecord:
+        for (MatchRecord matchRecord :
                 matchRecords) {
             if (matchRecord.getCompetition() == competition) {
                 numberOfMatches++;

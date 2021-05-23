@@ -79,7 +79,7 @@ public interface TeamService {
      * Calculates the average of scores that the team achieved
      * in the given competition.
      *
-     * @param team team to calculate the average for
+     * @param team        team to calculate the average for
      * @param competition competition for which to calculate the average
      * @return average of the achieved scores
      */

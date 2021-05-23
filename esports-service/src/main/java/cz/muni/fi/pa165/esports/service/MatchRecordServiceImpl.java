@@ -13,11 +13,10 @@ import java.util.List;
 
 /**
  * @author Elena Álvarez
- *
- *  Implementation of the {@link MatchRecordService}. This class is part of the
- *  service module of the application that provides the implementation of the
- *  business logic (main logic of the application).
- *
+ * <p>
+ * Implementation of the {@link MatchRecordService}. This class is part of the
+ * service module of the application that provides the implementation of the
+ * business logic (main logic of the application).
  */
 @Service
 public class MatchRecordServiceImpl implements MatchRecordService {
@@ -81,14 +80,14 @@ public class MatchRecordServiceImpl implements MatchRecordService {
     //Setters
     @Override
     public void addCompetition(MatchRecord matchRecord, Competition competition) {
-        if (matchRecord.getCompetition() == null && competition != null){
+        if (matchRecord.getCompetition() == null && competition != null) {
             matchRecord.setCompetition(competition);
         }
     }
 
     @Override
     public void addTeam(MatchRecord matchRecord, Team team) {
-        if (matchRecord.getTeam() == null && team != null){
+        if (matchRecord.getTeam() == null && team != null) {
             matchRecord.setTeam(team);
         }
     }

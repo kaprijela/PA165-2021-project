@@ -15,7 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 
 import javax.inject.Inject;
-
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;

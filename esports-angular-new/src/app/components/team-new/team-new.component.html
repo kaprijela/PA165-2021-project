@@ -1,0 +1,18 @@
+<div class="text-center">
+  <form class="form-login" [formGroup]="loginForm">
+    <h1 class="mt-4">Register a new Team</h1>
+
+    <label for="name">Name</label>
+    <input type="email" class="form-control mb-1" id="name" required placeholder="name" formControlName="name">
+
+    <label for="abbreviation">Abbreviation</label>
+    <input type="email" class="form-control" id="abbreviation" required placeholder="abbreviation"
+           formControlName="abbreviation">
+
+    <label for="description">Description</label>
+    <input type="email" class="form-control" id="description" required placeholder="description"
+           formControlName="description">
+
+    <button class="btn btn-lg btn-block btn-primary" type="submit" (click)="create()">Create TEAM</button>
+  </form>
+</div>

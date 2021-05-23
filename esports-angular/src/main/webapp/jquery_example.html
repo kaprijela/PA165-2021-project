@@ -14,9 +14,9 @@
                     var products = data._embedded.products;
                     var productsTable = $('#products_list');
                     productsTable.empty(); //remove all existing rows
-                    for(var i=0;i<products.length;i++) {
+                    for (var i = 0; i < products.length; i++) {
                         var p = products[i];
-                        productsTable.append('<tr><td>'+p.id+'</td><td>'+p.name+'</td><td>'+p.price+' '+p.currency+'</td></tr>');
+                        productsTable.append('<tr><td>' + p.id + '</td><td>' + p.name + '</td><td>' + p.price + ' ' + p.currency + '</td></tr>');
                     }
                 }
             });
@@ -30,17 +30,24 @@
                     var categories = data._embedded.categories;
                     var categoriesTable = $('#categories_list');
                     categoriesTable.empty();
-                    for(var i=0;i<categories.length;i++) {
+                    for (var i = 0; i < categories.length; i++) {
                         var p = categories[i];
-                        categoriesTable.append('<tr><td>'+p.id+'</td><td>'+p.name+'</td></tr>');
+                        categoriesTable.append('<tr><td>' + p.id + '</td><td>' + p.name + '</td></tr>');
                     }
                 }
             });
         }
     </script>
     <style>
-        table.basic { border-collapse: collapse; margin: 10px; }
-        table.basic th, table.basic td {  border: solid 1px black; padding: 4px; }
+        table.basic {
+            border-collapse: collapse;
+            margin: 10px;
+        }
+
+        table.basic th, table.basic td {
+            border: solid 1px black;
+            padding: 4px;
+        }
 
     </style>
 </head>

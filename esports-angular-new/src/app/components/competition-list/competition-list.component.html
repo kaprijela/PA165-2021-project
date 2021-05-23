@@ -1,0 +1,40 @@
+<h1 class="mt-4">Competitions</h1>
+<div>
+  <div class="row mt-4">
+    <div class="col-auto">
+      <!-- button for registering a new team -->
+      <!-- TODO only for managers? or is this how you become a manager? -->
+      <a href="/competitions/create" class="btn btn-primary">
+        <i class="bi bi-plus-circle-fill inline-right" aria-hidden="true"></i>
+        Register a new Competition
+      </a>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let competition of competitions">
+      <td>
+        <div style="height:100%; width:100%">
+          <a style="text-decoration: none" href="/competitions/id/{{competition.id}}">
+            {{competition.id}}
+          </a>
+        </div>
+      </td>
+      <td>
+        <div style="height:100%; width:100%">
+          <a style="text-decoration: none" href="/competitions/id/{{competition.id}}">
+            {{competition.name}}
+          </a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

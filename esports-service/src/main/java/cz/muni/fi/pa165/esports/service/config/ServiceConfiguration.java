@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Service configuration class.
@@ -18,11 +20,16 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackageClasses={TeamService.class, CompetitionFacade.class})
+@ComponentScan(basePackageClasses = {TeamService.class, CompetitionFacade.class})
 public class ServiceConfiguration {
     @Bean
     public Mapper dozer() {
         DozerBeanMapper dozer = new DozerBeanMapper();
         return dozer;
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 }

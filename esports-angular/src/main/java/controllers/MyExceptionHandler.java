@@ -38,7 +38,7 @@ public class MyExceptionHandler {
         } else {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        log.debug("handleProblem({}(\"{}\")) httpStatus={}", e.getClass().getName(), e.getMessage(),httpStatus);
+        log.debug("handleProblem({}(\"{}\")) httpStatus={}", e.getClass().getName(), e.getMessage(), httpStatus);
         return new ResponseEntity<>(error, httpStatus);
     }
 }

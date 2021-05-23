@@ -60,13 +60,13 @@ public class MatchRecordDaoTest extends AbstractTestNGSpringContextTests {
         MatchRecord matchRecord = new MatchRecord();
         Player bonkedPlayer = new Player();
         bonkedPlayer.setName("Bonked");
-        matchRecord.setScore(0);
+        matchRecord.setScore(11);
 
         matchRecord.setPlayer(bonkedPlayer);
         playerDao.create(bonkedPlayer);
         matchRecordDao.create(matchRecord);
         List<MatchRecord> byPlayer = matchRecordDao.findByPlayer(bonkedPlayer);
-        Assert.assertEquals(byPlayer.get(0).getScore(), 0);
+        Assert.assertEquals(byPlayer.get(0).getScore(), 11);
         matchRecordDao.delete(matchRecord);
         playerDao.delete(bonkedPlayer);
     }

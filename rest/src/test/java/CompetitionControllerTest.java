@@ -16,22 +16,17 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootWebContext.class})
@@ -135,7 +130,7 @@ public class CompetitionControllerTest {
 
     @Test
     void addInvalidTeamToCompetition() throws Exception {
-        doThrow(NoSuchElementException.class).when(competitionFacade).addTeam(3L,"invalidTeam");
+        doThrow(NoSuchElementException.class).when(competitionFacade).addTeam(3L, "invalidTeam");
 
         mockMvc.perform(get(ControllerConstants.COMPETITIONS + "/3/addTeam/invalidTeam"))
                 .andExpect(status().isNotFound())

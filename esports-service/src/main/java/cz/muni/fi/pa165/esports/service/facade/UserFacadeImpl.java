@@ -9,14 +9,12 @@ import cz.muni.fi.pa165.esports.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import javax.validation.ValidationException;
 import java.util.List;
 
-
-import javax.inject.Inject;
-
 /**
- @author Elena Álvarez
+ * @author Elena Álvarez
  */
 @Service
 @Transactional
@@ -43,14 +41,14 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public boolean isAuthenticated(AuthenticatedUserDTO authenticatedUser) {
         SystemUser systemUser = userService.findByUsername(authenticatedUser.getUsername());
-        if(systemUser == null) return false;
+        if (systemUser == null) return false;
         return userService.isAuthenticated(systemUser, authenticatedUser.getPassword());
     }
 
     @Override
     public boolean isAdmin(UserDTO userDTO) {
         SystemUser systemUser = userService.findById(userDTO.getId());
-        if(systemUser == null) return false;
+        if (systemUser == null) return false;
         return userService.isAdmin(systemUser.getId());
     }
 

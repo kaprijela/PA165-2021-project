@@ -7,6 +7,7 @@ import java.util.Objects;
 
 /**
  * Data transfer object for the User entity.
+ *
  * @author Elena Alvarez
  */
 @Getter

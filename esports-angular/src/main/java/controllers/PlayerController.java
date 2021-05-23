@@ -2,93 +2,86 @@ package controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
+import cz.muni.fi.pa165.esports.dto.StatisticsDTO;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import exception.InvalidRequestException;
 import exception.ResourceAlreadyExistingException;
 import exception.ResourceNotFoundException;
-import hateoas.PlayerRepresentationModelAssembler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.hateoas.server.ExposesResourceFor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Slf4j
 @RestController
 @ExposesResourceFor(CompetitionDTO.class)
-@RequestMapping("/esports/players")
+@RequestMapping("/players")
 public class PlayerController {
-    @Inject
-    PlayerFacade playerFacade;
 
-    @Inject
-    PlayerRepresentationModelAssembler playerRepresentationModelAssembler;
+    private final PlayerFacade playerFacade;
 
-    @Inject
-    private EntityLinks entityLink;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public final HttpEntity<CollectionModel<EntityModel<PlayerDTO>>> getPlayers() {
-        log.debug("restv1 getPlayers()");
-        List<PlayerDTO> allPlayers = playerFacade.getAllPlayers();
-        CollectionModel<EntityModel<PlayerDTO>> entityModels = playerRepresentationModelAssembler.toCollectionModel(allPlayers);
-        entityModels.add(linkTo(PlayerController.class).withSelfRel());
-        entityModels.add(linkTo(PlayerController.class).slash("/create").withRel("create"));
-        return new ResponseEntity<>(entityModels, HttpStatus.OK);
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<PlayerDTO> getPlayers() {
+        log.debug("rest getPlayers()");
+        return playerFacade.getAllPlayers();
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<EntityModel<PlayerDTO>> createCompetition(@RequestBody PlayerDTO playerDTO, BindingResult bindingResult) throws Exception {
-        log.debug("restv1 createCompetition()");
+    public final PlayerDTO createPlayer(@RequestBody @Valid PlayerDTO playerDTO, BindingResult bindingResult) throws Exception {
+        log.debug("restv1 createPlayer()");
         if (bindingResult.hasErrors()) {
             log.error("failed validation {}", bindingResult.toString());
             throw new InvalidRequestException("Failed validation");
         }
         try {
             Long player = playerFacade.createPlayer(playerDTO);
-            return new HttpEntity<>(playerRepresentationModelAssembler.toModel(playerFacade.findPlayerById(player)));
+            return playerFacade.findPlayerById(player);
         } catch (Exception ex) {
             throw new ResourceAlreadyExistingException(ex.getMessage());
         }
     }
 
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public final HttpEntity<CollectionModel<EntityModel<PlayerDTO>>> getByName(@PathVariable("name") String name) throws Exception {
+    public final List<PlayerDTO> getByName(@PathVariable("name") String name) throws Exception {
         log.debug("restv1 get by name {}", name);
 
-        List<PlayerDTO> playersByName = playerFacade.findPlayerByName(name);
-        if (playersByName == null) {
-            throw new ResourceNotFoundException("Players not found");
-        }
-        log.debug("restv1 getPlayers()");
-        List<PlayerDTO> allPlayers = playerFacade.getAllPlayers();
-        CollectionModel<EntityModel<PlayerDTO>> entityModels = playerRepresentationModelAssembler.toCollectionModel(allPlayers);
-        entityModels.add(linkTo(PlayerController.class).withSelfRel());
-        entityModels.add(linkTo(PlayerController.class).slash("/create").withRel("create"));
-        return new ResponseEntity<>(entityModels, HttpStatus.OK);
+        return playerFacade.findPlayerByName(name);
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public final HttpEntity<EntityModel<PlayerDTO>> getById(@PathVariable("id") Long id) throws Exception {
+    public final PlayerDTO getById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 get by id {}", id);
-
-        PlayerDTO playerById = playerFacade.findPlayerById(id);
-        if (playerById == null) {
+        PlayerDTO player = playerFacade.findPlayerById(id);
+        if (player == null) {
             throw new ResourceNotFoundException("PLayer not found");
         }
-        return new HttpEntity<>(playerRepresentationModelAssembler.toModel(playerById));
+        return player;
     }
 
+    @RequestMapping(value = "getPlayerStatistics/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final StatisticsDTO getAveragePlayerScore(@PathVariable("id") Long idPlayer) {
+        log.debug("restv1 get statitistics for Player: {}", idPlayer);
 
+        Double result = null;
+        try {
+            result = playerFacade.getPlayerAverage(idPlayer);
+        } catch (Exception e) {
+            log.error("Exception: {}", e.getMessage());
+        }
+        if (result == null) {
+            throw new IllegalArgumentException("curak");
+        }
+        StatisticsDTO statisticsDTO = new StatisticsDTO();
+        statisticsDTO.setScore(result);
+        return statisticsDTO;
+    }
+
+    public PlayerController(PlayerFacade playerFacade) {
+        this.playerFacade = playerFacade;
+    }
 }

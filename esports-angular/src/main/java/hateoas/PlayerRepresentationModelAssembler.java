@@ -3,7 +3,6 @@ package hateoas;
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.EntityLinks;
@@ -27,7 +26,7 @@ public class PlayerRepresentationModelAssembler implements RepresentationModelAs
             playerResourceModel.add(catLink);
 
             Link playerLink = entityLinks.linkForItemResource(CompetitionDTO.class, id).slash("/competitions").withRel("competitions");
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("cannot link HATEOAS: {}", e.getMessage());
         }
         return playerResourceModel;

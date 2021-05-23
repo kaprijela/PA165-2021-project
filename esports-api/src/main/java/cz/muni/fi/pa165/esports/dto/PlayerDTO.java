@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.esports.dto;
 
+import cz.muni.fi.pa165.esports.enums.Gender;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,8 @@ public class PlayerDTO {
     private Long id;
 
     private String Name;
+
+    private Gender gender;
 
     private Date joinedDate;
 

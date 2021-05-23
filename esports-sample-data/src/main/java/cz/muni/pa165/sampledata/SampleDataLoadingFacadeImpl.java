@@ -1,27 +1,21 @@
 package cz.muni.pa165.sampledata;
 
-
-import cz.muni.fi.pa165.esports.entity.Competition;
-import cz.muni.fi.pa165.esports.entity.Player;
-import cz.muni.fi.pa165.esports.entity.Team;
+import cz.muni.fi.pa165.esports.entity.*;
 import cz.muni.fi.pa165.esports.enums.Gender;
-import cz.muni.fi.pa165.esports.service.CompetitionService;
-import cz.muni.fi.pa165.esports.service.PlayerService;
-import cz.muni.fi.pa165.esports.service.TeamService;
+import cz.muni.fi.pa165.esports.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
-
 /**
- * Loads some sample data to populate the eshop database.
+ * Loads some sample data to populate the esports database.
  *
  * @author Radovan Tomasik
  */
 @Component
-@Transactional //transactions are handled on facade layer
+@Transactional // transactions are handled on facade layer
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Autowired
     PlayerService playerService;
@@ -32,6 +26,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Autowired
     CompetitionService competitionService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    MatchRecordService matchRecordService;
+
     @Override
     public void loadData() throws IOException {
         Team t1 = new Team();
@@ -39,15 +39,27 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         t1.setAbbreviation("O");
         teamService.create(t1);
 
+
+        SystemUser admin = new SystemUser();
+        admin.setUsername("BOSS");
+        admin.setEmail("KOKOT");
+        admin.setAdmin(true);
+        userService.create(admin, "1234");
+
         Player player = new Player();
         player.setName("Radko");
         player.setGender(Gender.MALE);
-        player.setTeam(t1);
+        t1.addPlayer(player);
         playerService.create(player);
+        MatchRecord m1 = new MatchRecord();
+        m1.setMatchNumber(5L);
+        m1.setPlayer(player);
+        matchRecordService.create(m1);
 
         Player mrWhite = new Player();
         mrWhite.setName("Larry");
         mrWhite.setGender(Gender.MALE);
+        t1.addPlayer(mrWhite);
         playerService.create(mrWhite);
 
         Player mrOrange = new Player();
@@ -56,7 +68,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         playerService.create(mrOrange);
 
         Player mrPink = new Player();
-        mrPink.setName("null");
+        mrPink.setName("FERO");
         mrPink.setGender(Gender.MALE);
         playerService.create(mrPink);
 
@@ -74,8 +86,6 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         mrsRed.setName(mrWhite.getName());
         mrsRed.setGender(Gender.FEMALE);
         playerService.create(mrsRed);
-
-
 
         Team t2 = new Team();
         t2.setName("Elves");
@@ -95,7 +105,6 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         c3.setName("Masters Clash Championship");
 
         c1.addTeam(t1);
-
 
         c1.setLocation("Japan");
         c2.setLocation("Oslo");

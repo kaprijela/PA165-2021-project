@@ -61,7 +61,7 @@ public interface TeamFacade {
     /**
      * Adds a new player to the team.
      *
-     * @param team team the player is joining
+     * @param team   team the player is joining
      * @param player player to join the team
      */
     void addPlayerToTeam(TeamDTO team, PlayerDTO player);
@@ -69,7 +69,7 @@ public interface TeamFacade {
     /**
      * Kicks one of the team's players from the team.
      *
-     * @param team team that is kicking the player
+     * @param team   team that is kicking the player
      * @param player player to kick from the team
      */
     void kickPlayerFromTeam(TeamDTO team, PlayerDTO player);
@@ -77,7 +77,7 @@ public interface TeamFacade {
     /**
      * Calculate average match score for a team in a given competition.
      *
-     * @param team team for which to calculate average score
+     * @param team        team for which to calculate average score
      * @param competition competition for which to limit average score calculation
      * @return average match score
      */
@@ -85,7 +85,7 @@ public interface TeamFacade {
 
     /**
      * Calculate average match score for a team for a given game.
-     *
+     * <p>
      * It is not ideal to use the entity enum {@link Game} here,
      * but we found no better solution for now.
      *

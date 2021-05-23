@@ -1,0 +1,37 @@
+<div *ngIf="competition">
+  <h1 class="mt-4">{{competition.name}}</h1>
+  <p>Game: {{competition.game}}</p>
+  <p>Location: {{competition.location}}</p>
+  <p>Prizepool: {{competition.prizepool}}</p>
+  <div *ngIf="competition.teams.length > 0">
+    <h3>Competition members</h3>
+    <ul>
+      <li *ngFor="let team of competition.teams">
+        {{team.name}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="form-group col-md-6 align-items-center">
+    <form class="form-login" [formGroup]="addTeam">
+
+      <label for="idTeamA">Name</label>
+      <input type="email" class="form-control mb-1" id="idTeamA" required placeholder="Name of a team" formControlName="idTeamA">
+
+      <br/>
+      <button class="btn  btn-block btn-primary" type="submit" (click)="add()">Add a team</button>
+    </form>
+  </div>
+
+
+  <div class="form-group col-md-6 align-items-center">
+    <form class="form-login" [formGroup]="removeTeam">
+
+      <label for="idTeamR">Name</label>
+      <input type="email" class="form-control mb-1" id="idTeamR" required placeholder="Name of a team" formControlName="idTeamR">
+
+      <br/>
+      <button class="btn  btn-block btn-primary" type="submit" (click)="remove()">Remove a team</button>
+    </form>
+  </div>
+</div>

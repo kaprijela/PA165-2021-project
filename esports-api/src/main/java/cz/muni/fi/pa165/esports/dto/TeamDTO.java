@@ -8,6 +8,7 @@ import java.util.Set;
 
 /**
  * Data transfer object for the Team entity.
+ *
  * @author Gabriela Kandova
  */
 @Getter

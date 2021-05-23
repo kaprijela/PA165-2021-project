@@ -67,7 +67,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     public Competition findByName(String name) {
         log.info("Getting a competition with name: {}", name);
         Competition byName = competitionDao.findByName(name);
-        if (byName == null){
+        if (byName == null) {
             log.warn("The Competition was not found");
             // should we throw exception?
         }
@@ -84,7 +84,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     public Competition findById(Long competitionId) {
         log.info("Looking for competition with id: {}", competitionId);
         Optional<Competition> byId = competitionDao.findById(competitionId);
-        if (byId.isEmpty()){
+        if (byId.isEmpty()) {
             throw new NoSuchElementException();
         }
         return byId.get();

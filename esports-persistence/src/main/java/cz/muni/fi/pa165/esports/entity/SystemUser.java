@@ -32,8 +32,8 @@ public class SystemUser {
     @Column(nullable = false)
     private String passwordHash;
 
-    @NotBlank
-    @Column(nullable = false, unique = true)
+
+    @Column(nullable = true, unique = true)
     private String email;
 
     private boolean isAdmin;

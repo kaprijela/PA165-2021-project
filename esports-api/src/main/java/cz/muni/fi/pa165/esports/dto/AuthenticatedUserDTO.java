@@ -7,6 +7,7 @@ import java.util.Objects;
 
 /**
  * Data transfer object for Users who are authenticated
+ *
  * @author Elena Alvarez
  */
 @Getter
