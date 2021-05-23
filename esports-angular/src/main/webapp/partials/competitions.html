@@ -1,29 +1,40 @@
-<h1>COMPETITIONS</h1>
+<div class="container">
 
-<!-- button for adding a new product -->
-<a href="#!/newcompetition" class="btn btn-primary">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    New Player
-</a>
+    <div class="row mt-4">
+        <div class="col">
+            <h1>PLAYERS</h1>
+        </div>
+        <div class="col-auto">
+            <!-- button for registering a new team -->
+            <!-- TODO only for managers? or is this how you become a manager? -->
+            <a href="#!/newcompetition" class="btn btn-primary">
+                <i class="bi bi-plus-circle-fill inline-right" aria-hidden="true"></i>
+                Register a new competition
+            </a>
+        </div>
+    </div>
 
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Competition</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="competition in competitions track by $index">
-        <td>{{competition.id}}</td>
-        <td>
-            <div style="height:100%; width:100%">
-                <a style="text-decoration: none" href="#!/competition/{{competition.id}}">
-                    {{competition.name}}
-                </a>
-            </div>
-        </td>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Competition</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="competition in competitions track by $index">
+            <td>{{competition.id}}</td>
+            <td>
+                <div style="height:100%; width:100%">
+                    <a style="text-decoration: none" href="#!/competition/{{competition.id}}">
+                        {{competition.name}}
+                    </a>
+                </div>
+            </td>
 
-    </tr>
-    </tbody>
-</table>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
