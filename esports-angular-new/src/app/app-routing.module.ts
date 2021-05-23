@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'competitions', component: CompetitionListComponent },
   { path: 'teams', component: TeamListComponent },
   { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
 @NgModule({
