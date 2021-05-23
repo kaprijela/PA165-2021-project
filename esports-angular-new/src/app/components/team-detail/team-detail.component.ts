@@ -19,10 +19,16 @@ export class TeamDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get("id");
+    const arg = this.route.snapshot.paramMap.get("name");
     if (param) {
       const id = +param;
       this.getTeam(id);
     }
+    if (arg) {
+          const name = arg;
+          console.log(arg)
+          this.getTeamName(name);
+        }
   }
 
   getTeam(id: number) {
@@ -31,4 +37,10 @@ export class TeamDetailComponent implements OnInit {
       this.team = data;
     })
   }
+  getTeamName(name: string) {
+      console.log("getTeam")
+      this.teamService.findByName(name).subscribe(data => {
+        this.team = data;
+      })
+    }
 }
