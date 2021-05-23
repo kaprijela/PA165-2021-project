@@ -1,6 +1,5 @@
 package cz.muni.pa165.sampledata;
 
-
 import cz.muni.fi.pa165.esports.entity.*;
 import cz.muni.fi.pa165.esports.enums.Gender;
 import cz.muni.fi.pa165.esports.service.*;
@@ -10,14 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
-
 /**
- * Loads some sample data to populate the eshop database.
+ * Loads some sample data to populate the esports database.
  *
  * @author Radovan Tomasik
  */
 @Component
-@Transactional //transactions are handled on facade layer
+@Transactional // transactions are handled on facade layer
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Autowired
     PlayerService playerService;
@@ -107,7 +105,6 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         c3.setName("Masters Clash Championship");
 
         c1.addTeam(t1);
-
 
         c1.setLocation("Japan");
         c2.setLocation("Oslo");
