@@ -68,7 +68,7 @@ public class PlayerController {
         return player;
     }
 
-    @RequestMapping(value = "{id}/getPlayerStatistics/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "getPlayerStatistics/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public final Double getAveragePlayerScore(@PathVariable("id") Long idPlayer){
         log.debug("restv1 get statitistics for Player: {}", idPlayer);
 
