@@ -8,13 +8,14 @@ import {TeamDetailComponent} from "./components/team-detail/team-detail.componen
 import {AuthGuard} from "./auth.guard";
 import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {PlayerDetailComponent} from "./components/player-detail/player-detail.component";
 // import {TeamAddComponent} from "./components/team-add/team-add.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'players', component: PlayerListComponent },
-  // { path: 'players/id/:id', component: PlayerDetailComponent },
+  { path: 'players/id/:id', component: PlayerDetailComponent },
   { path: 'competitions', component: CompetitionListComponent },
   { path: 'teams', component: TeamListComponent },
   { path: 'teams/id/:id', component: TeamDetailComponent },
