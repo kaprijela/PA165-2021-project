@@ -1,0 +1,5 @@
+<div *ngIf="player">
+  <h1 class="mt-4">{{player.name}}</h1>
+  <p class="mt-4">{{player.gender}}</p>
+  <a [routerLink]="['/teams/name', player.name]" class="card-link">{{player.team}}</a>
+</div>
