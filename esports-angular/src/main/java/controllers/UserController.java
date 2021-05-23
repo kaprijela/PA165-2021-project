@@ -1,8 +1,5 @@
 package controllers;
-import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa165.esports.dto.PlayerDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
-import cz.muni.fi.pa165.esports.dto.UserDTO;
+import cz.muni.fi.pa165.esports.dto.*;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import cz.muni.fi.pa165.esports.facade.TeamFacade;
@@ -34,18 +31,18 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Slf4j
 @RestController
-@ExposesResourceFor(CompetitionDTO.class)
-@RequestMapping("/esports/users")
+//@ExposesResourceFor(CompetitionDTO.class)
+@CrossOrigin
 public class UserController {
     @Inject
     UserFacade userFacade;
 
-    @Inject
-    UserRepresentationModelAssembler userRepresentationModelAssembler;
-
-    @Inject
-    private EntityLinks entityLink;
-
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public boolean login(@RequestBody AuthenticatedUserDTO user) {
+        log.info(user.getUsername(), user.getPassword());
+        return "admin".equals(user.getUsername()) && "admin".equals(user.getPassword());
+    }
+/*
     @RequestMapping(value = "", method = RequestMethod.GET)
     public final HttpEntity<CollectionModel<EntityModel<UserDTO>>> getUsers() {
         log.debug("restv1 getUsers()");
@@ -84,4 +81,6 @@ public class UserController {
         return new HttpEntity<>(userRepresentationModelAssembler.toModel(userById));
     }
 
+ */
 }
+

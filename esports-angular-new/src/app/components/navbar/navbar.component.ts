@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from "../../service/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  loggedIn: boolean = false;
 
-  ngOnInit(): void {
+  constructor(private authService: AuthenticationService, private router: Router) {
+    this.loggedIn = authService.isAuthenticated();
+    console.log(this.loggedIn);
   }
 
+  ngOnInit(): void {
+    // automatically refresh logged-in status after navigating
+    this.router.events.subscribe(event => {
+      if (event.constructor.name === "NavigationEnd") {
+        this.loggedIn = this.authService.isAuthenticated();
+      }
+    })
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login'])
+  }
 }

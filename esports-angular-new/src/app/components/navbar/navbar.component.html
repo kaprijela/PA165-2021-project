@@ -29,8 +29,11 @@
       </ul>
 
       <ul class="navbar-nav navbar-right">
-        <li class="nav-item">
-          <a class="btn btn-outline-light" href="#" id="login-button">Log in</a>
+        <li *ngIf="loggedIn == false" class="nav-item">
+          <a class="btn btn-outline-light" routerLink="/login" id="login-button">Log in</a>
+        </li>
+        <li *ngIf="loggedIn == true" class="nav-item">
+          <a class="btn btn-outline-light" (click)="logout()" id="logout-button">Log out</a>
         </li>
       </ul>
     </div>
