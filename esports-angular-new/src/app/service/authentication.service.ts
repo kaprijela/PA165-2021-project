@@ -13,9 +13,15 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private router: Router) { }
 
   authenticate(username: string, password: string) {
-    this.http.post<User>(this.loginUrl, {username: username, password: password}).subscribe(
+    this.http.post(this.loginUrl, {username: username, password: password}).subscribe(
       response => {
         console.log("Response: " + response);
+        if (response !== null) {
+          sessionStorage.setItem('user-role', response.toString());
+        } else {
+          return false;
+        }
+
         sessionStorage.setItem('username', username);
         this.router.navigate(['/competitions']);
         return true;
@@ -29,6 +35,7 @@ export class AuthenticationService {
 
   logout() {
     sessionStorage.removeItem('username');
+    sessionStorage.removeItem('user-role');
   }
 
   public isAuthenticated(): boolean {
@@ -37,4 +44,11 @@ export class AuthenticationService {
     return !(user === null)
   }
 
+  public getRoles(): string[] {
+    const role = sessionStorage.getItem("user-role");
+    if (role) {
+      return role.split(",")
+    }
+    return [];
+  }
 }
