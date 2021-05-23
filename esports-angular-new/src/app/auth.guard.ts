@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -11,7 +11,7 @@ import {
   UrlSegment,
   UrlTree
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {AuthenticationService} from "./service/authentication.service";
 
 @Injectable({
@@ -20,7 +20,8 @@ import {AuthenticationService} from "./service/authentication.service";
 export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
   private _url: any;
 
-  constructor(private authService: AuthenticationService, private router: Router) { }
+  constructor(private authService: AuthenticationService, private router: Router) {
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -28,11 +29,13 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     let url: string = state.url;
     return this.checkUserLogin(route, url);
   }
+
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return true;
   }
+
   canDeactivate(
     component: unknown,
     currentRoute: ActivatedRouteSnapshot,
@@ -40,6 +43,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return true;
   }
+
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -56,21 +60,13 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
       }
       // if role is specified and at least one of the current user's roles is allowed
       if (route.data.role) {
-        for(let i = 0; i < userRoles.length; i++) {
-
-                // Loop for array2
-                for(let j = 0; j < route.data.role.length; j++) {
-
-                    // Compare the element of each and
-                    // every element from both of the
-                    // arrays
-                    if(userRoles[i] === route.data.role[j]) {
-
-                        // Return if common element found
-                        return true;
-                    }
-                }
+        for (let i = 0; i < userRoles.length; i++) {
+          for (let j = 0; j < route.data.role.length; j++) {
+            if (userRoles[i] === route.data.role[j]) {
+              return true;
             }
+          }
+        }
         this.router.navigate(['/unauthorized']);
         return false;
       }
