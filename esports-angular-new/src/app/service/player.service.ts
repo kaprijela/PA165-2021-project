@@ -23,16 +23,16 @@ export class PlayerService {
     return this.http.get<Player[]>(this.playersUrl);
   }
 
-  public createPlayer(player: Player): Observable<Team> {
-    return this.http.post<Team>(this.create, player)
+  public createPlayer(player: Player): Observable<Player> {
+    return this.http.post<Player>(this.create, player)
   }
 
-  public findById(id: number): Observable<Team> {
-    return this.http.get<Team>(this.byId + "/" + id);
+  public findById(id: number): Observable<Player> {
+    return this.http.get<Player>(this.byId + "/" + id);
   }
 
-  public findByName(name: string): Observable<Team> {
-    return this.http.get<Team>(this.byName + "/" + name);
+  public findByName(name: string): Observable<Player> {
+    return this.http.get<Player>(this.byName + "/" + name);
   }
 
   // public getPlayerScore(id: number): number {

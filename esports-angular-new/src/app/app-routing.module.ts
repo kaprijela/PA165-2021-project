@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'players', component: PlayerListComponent },
+  // { path: 'players/id/:id', component: PlayerDetailComponent },
   { path: 'competitions', component: CompetitionListComponent },
   { path: 'teams', component: TeamListComponent },
   { path: 'teams/id/:id', component: TeamDetailComponent },
