@@ -1,16 +1,18 @@
-<h1 class="mt-4">Competitions</h1>
-<div>
-  <div class="row mt-4">
+<div class="container">
+  <div class="row mt-4 mb-4">
+    <div class="col">
+      <h1>Competitions</h1>
+    </div>
     <div class="col-auto">
-      <!-- button for registering a new team -->
-      <!-- TODO only for managers? or is this how you become a manager? -->
-      <a href="/competitions/create" class="btn btn-primary">
+      <!-- button for registering a new competition -->
+      <a href="/competitions/new" class="btn create">
         <i class="bi bi-plus-circle-fill inline-right" aria-hidden="true"></i>
-        Register a new Competition
+        Register a new competition
       </a>
     </div>
   </div>
-  <table class="table table-striped">
+
+  <table class="table table-striped table-hover">
     <thead>
     <tr>
       <th scope="col">#</th>
@@ -36,5 +38,4 @@
     </tr>
     </tbody>
   </table>
-
 </div>

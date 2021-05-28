@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'players/id/:id', component: PlayerDetailComponent },
   { path: 'competitions', component: CompetitionListComponent },
   { path: 'competitions/id/:id', component: CompetitionDetailComponent},
-  { path: 'competitions/create', component: CompetitionNewComponent},
+  { path: 'competitions/new', component: CompetitionNewComponent},
   { path: 'teams', component: TeamListComponent },
   { path: 'home', component: HomeComponent },
   { path: 'teams/id/:id', component: TeamDetailComponent },

@@ -1,13 +1,17 @@
-<h1 class="mt-4">Registered players</h1>
-<div class="col-auto">
-  <!-- button for registering a new team -->
-  <!-- TODO only for managers? or is this how you become a manager? -->
-  <a href="/players/new" class="btn btn-primary">
-    <i class="bi bi-plus-circle-fill inline-right" aria-hidden="true"></i>
-    Register a new player
-  </a>
-</div>
-<div>
+<div class="container">
+  <div class="row mt-4 mb-4">
+    <div class="col">
+      <h1>Registered players</h1>
+    </div>
+    <div class="col-auto">
+      <!-- button for registering a new player -->
+      <a href="/players/new" class="btn create">
+        <i class="bi bi-plus-circle-fill inline-right" aria-hidden="true"></i>
+        Register a new player
+      </a>
+    </div>
+  </div>
+
   <table class="table table-hover">
     <thead>
     <tr>
@@ -21,16 +25,16 @@
     <tr *ngFor="let player of players">
       <td>{{player.id}}</td>
       <td>
-        <div style="height:100%; width:100%">
-          <a style="text-decoration: none" href="/players/id/{{player.id}}">
+        <div>
+          <a href="/players/{{player.id}}">
             {{player.name}}
           </a>
         </div>
       </td>
-      <td> {{player.gender}}</td>
+      <td>{{player.gender | titlecase}}</td>
       <td>
-        <div style="height:100%;width:100%">
-          <a style="text-decoration: none" href="/teams/name/{{player.team}}">
+        <div>
+          <a href="/teams/name/{{player.team}}">
             {{player.team}}
           </a>
         </div>
