@@ -18,7 +18,7 @@
         <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">{{team.name}}</h5>
-            <h6 class="card-subtitle">{{team.players.length}} player(s)</h6>
+            <h6 class="card-subtitle mb-2">{{team.players.length}} player(s)</h6>
             <p *ngIf="team.description" class="card-text">{{team.description}}</p>
             <a [routerLink]="['/teams/id', team.id]" class="card-link">Profile page</a>
           </div>
