@@ -2,54 +2,105 @@ package cz.muni.pa165.sampledata;
 
 import cz.muni.fi.pa165.esports.entity.*;
 import cz.muni.fi.pa165.esports.enums.Gender;
+import cz.muni.fi.pa165.esports.enums.Role;
 import cz.muni.fi.pa165.esports.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
+import javax.inject.Inject;
 
 /**
- * Loads some sample data to populate the esports database.
+ * Loads sample data to populate the esports database.
  *
  * @author Radovan Tomasik
  */
 @Component
 @Transactional // transactions are handled on facade layer
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
-    @Autowired
     PlayerService playerService;
-
-    @Autowired
     TeamService teamService;
-
-    @Autowired
     CompetitionService competitionService;
-
-    @Autowired
+    MatchRecordService matchRecordService;
     UserService userService;
 
-    @Autowired
-    MatchRecordService matchRecordService;
+    @Inject
+    public SampleDataLoadingFacadeImpl(PlayerService playerService,
+                                       TeamService teamService,
+                                       CompetitionService competitionService,
+                                       MatchRecordService matchRecordService,
+                                       UserService userService) {
+        this.playerService = playerService;
+        this.teamService = teamService;
+        this.competitionService = competitionService;
+        this.matchRecordService = matchRecordService;
+        this.userService = userService;
+    }
 
     @Override
-    public void loadData() throws IOException {
-        Team t1 = new Team();
-        t1.setName("Orcs");
-        t1.setAbbreviation("O");
-        teamService.create(t1);
+    public void loadData() {
+        /* load users */
 
+        // team manager
+        SystemUser teamManager = new SystemUser();
+        teamManager.setUsername("teamAdmin");
+        teamManager.setEmail("team.admin@esports.org");
+        teamManager.setRole(Role.TEAM_MANAGER);
+        userService.create(teamManager, "admin");
 
-        SystemUser admin = new SystemUser();
-        admin.setUsername("BOSS");
-        admin.setEmail("KOKOT");
-        admin.setAdmin(true);
-        userService.create(admin, "1234");
+        // competition manager
+        SystemUser competitionManager = new SystemUser();
+        competitionManager.setUsername("compAdmin");
+        competitionManager.setEmail("comp.admin@esports.org");
+        competitionManager.setRole(Role.COMPETITION_MANAGER);
+        userService.create(competitionManager, "admin");
+
+        // player
+        SystemUser playerUser = new SystemUser();
+        playerUser.setUsername("player");
+        playerUser.setEmail("player123@esports.org");
+        playerUser.setRole(Role.PLAYER);
+        userService.create(playerUser, "player");
+
+        // no role, just a registered user
+        SystemUser lurker = new SystemUser();
+        lurker.setUsername("lurker");
+        lurker.setEmail("lurker456@esports.org");
+        userService.create(lurker, "lurk-lurk");
+
+        // both a player and a manager
+        SystemUser playerManager = new SystemUser();
+        playerManager.setUsername("playerManager");
+        playerManager.setEmail("player.manager@esports.org");
+        playerManager.setRole(Role.PLAYER);
+        playerManager.setRole(Role.TEAM_MANAGER); // do multiple roles work?
+        userService.create(playerManager, "admin");
+
+        /* load teams */
+
+        Team orcs = new Team();
+        orcs.setName("Orcs");
+        orcs.setAbbreviation("ORCS");
+        orcs.setDescription("Hurr durr!");
+        teamService.create(orcs);
+
+        Team elves = new Team();
+        elves.setName("Elves");
+        elves.setAbbreviation("ELVS");
+        elves.setDescription("Magnificence itself");
+        teamService.create(elves);
+
+        Team reservoirDogs = new Team();
+        reservoirDogs.setName("Reservoir Dogs");
+        reservoirDogs.setAbbreviation("RDOGS");
+        reservoirDogs.setDescription("The best ones for the job");
+        teamService.create(reservoirDogs);
+
+        /* load players */
 
         Player player = new Player();
         player.setName("Radko");
         player.setGender(Gender.MALE);
-        t1.addPlayer(player);
+        orcs.addPlayer(player);
         playerService.create(player);
         MatchRecord m1 = new MatchRecord();
         m1.setMatchNumber(5L);
@@ -59,27 +110,31 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Player mrWhite = new Player();
         mrWhite.setName("Larry");
         mrWhite.setGender(Gender.MALE);
-        t1.addPlayer(mrWhite);
+        reservoirDogs.addPlayer(mrWhite);
         playerService.create(mrWhite);
 
         Player mrOrange = new Player();
-        mrOrange.setName("Freddy");
+        mrOrange.setName("Mr. Orange");
         mrOrange.setGender(Gender.MALE);
+        reservoirDogs.addPlayer(mrOrange);
         playerService.create(mrOrange);
 
         Player mrPink = new Player();
-        mrPink.setName("FERO");
+        mrPink.setName("Mr. Pink");
         mrPink.setGender(Gender.MALE);
+        reservoirDogs.addPlayer(mrPink);
         playerService.create(mrPink);
 
         Player mrBrown = new Player();
         mrBrown.setName("Mr. Brown");
         mrBrown.setGender(Gender.MALE);
+        reservoirDogs.addPlayer(mrBrown);
         playerService.create(mrBrown);
 
         Player mrBlonde = new Player();
         mrBlonde.setName("Mr. Blonde");
         mrBlonde.setGender(Gender.MALE);
+        reservoirDogs.addPlayer(mrBlonde);
         playerService.create(mrBlonde);
 
         Player mrsRed = new Player();
@@ -87,10 +142,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         mrsRed.setGender(Gender.FEMALE);
         playerService.create(mrsRed);
 
-        Team t2 = new Team();
-        t2.setName("Elves");
-        t2.setAbbreviation("E");
-        teamService.create(t2);
+        /* load competitions */
 
         Competition c1 = new Competition();
         Competition c2 = new Competition();
@@ -104,7 +156,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         c2.setName("Nordic Championship 2021");
         c3.setName("Masters Clash Championship");
 
-        c1.addTeam(t1);
+        c1.addTeam(orcs);
 
         c1.setLocation("Japan");
         c2.setLocation("Oslo");
@@ -113,6 +165,5 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         competitionService.createCompetition(c1);
         competitionService.createCompetition(c2);
         competitionService.createCompetition(c3);
-
     }
 }
