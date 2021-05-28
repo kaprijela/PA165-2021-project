@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --primary-color: blueviolet;
+  --text-color: black;
+  --inverse-text-color: white;
+}
+
+.btn.create, .btn.create:focus {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--inverse-text-color);
+}
