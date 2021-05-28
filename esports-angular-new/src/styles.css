@@ -11,3 +11,11 @@
   border-color: var(--primary-color);
   color: var(--inverse-text-color);
 }
+
+i.inline-right {
+  font-size: 120%;
+  vertical-align: -10%;
+  line-height: 1;
+  display: inline-block;
+  margin-right: 0.2rem;
+}
