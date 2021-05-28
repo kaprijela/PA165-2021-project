@@ -12,92 +12,153 @@ import exception.ResourceAlreadyExistingException;
 import exception.ResourceNotFoundException;
 import exception.ServerProblemException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
 @RestController
-@ExposesResourceFor(CompetitionDTO.class)
 @RequestMapping("/teams")
 public class TeamController {
 
     TeamFacade teamFacade;
-
-    @Inject
-    public TeamController(TeamFacade teamFacade) {
-        this.teamFacade = teamFacade;
-    }
-
-    @Inject
     PlayerFacade playerFacade;
-
-    @Inject
     CompetitionFacade competitionFacade;
 
+    @Inject
+    public TeamController(TeamFacade teamFacade,
+                          PlayerFacade playerFacade,
+                          CompetitionFacade competitionFacade) {
+        this.teamFacade = teamFacade;
+        this.playerFacade = playerFacade;
+        this.competitionFacade = competitionFacade;
+    }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    /* GET operations */
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public final Set<TeamDTO> getAllTeams() {
-        log.debug("rest getAllTeams()");
+        log.debug("REST getAllTeams()");
         return new HashSet<>(teamFacade.getAllTeams());
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO createTeam(@RequestBody @Valid TeamDTO teamDTO, BindingResult bindingResult) throws Exception {
-        log.debug("restv1 createTeam()");
+    /**
+     * Gets a team according to its ID.
+     *
+     * @param id ID of the sought team
+     * @return team ({@link TeamDTO}) with the given abbreviation if it exists
+     * @throws ResourceNotFoundException if a team with the given ID does not exist
+     */
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO getById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        log.debug("REST getById({})", id);
+
+        TeamDTO teamDTO = teamFacade.findTeamById(id);
+        if (teamDTO == null) {
+            throw new ResourceNotFoundException("Team does not exist");
+        }
+        return teamDTO;
+    }
+
+    /**
+     * Gets a team according to its abbreviation.
+     *
+     * @param abbreviation abbreviation of the sought team
+     * @return team ({@link TeamDTO}) with the given abbreviation if it exists
+     * @throws ResourceNotFoundException if a team with the given abbreviation does not exist
+     */
+    @GetMapping(value = "/abbr/{abbreviation}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws ResourceNotFoundException {
+        log.debug("REST getByAbbreviation({})", abbreviation);
+
+        TeamDTO teamDTO = teamFacade.findTeamByAbbreviation(abbreviation);
+        if (teamDTO == null) {
+            throw new ResourceNotFoundException("Team does not exist");
+        }
+        return teamDTO;
+    }
+
+    /**
+     * Gets a list of the team's members.
+     *
+     * @param teamId ID of the examined team
+     * @return set of players {@link PlayerDTO}
+     */
+    @GetMapping(value = "/{id}/players", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Set<PlayerDTO> getPlayers(@PathVariable("id") Long teamId) {
+        log.debug("REST getPlayers({})", teamId);
+
+        TeamDTO team = teamFacade.findTeamById(teamId);
+        if (team == null) {
+            throw new ResourceNotFoundException("Team does not exist");
+        }
+
+        return new HashSet<>(team.getPlayers());
+    }
+
+    /**
+     * Gets a list of the team's members.
+     *
+     * @param teamAbbreviation abbreviation of the examined team
+     * @return set of players {@link PlayerDTO}
+     */
+    @GetMapping(value = "/abbr/{abbreviation}/players", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<PlayerDTO> getPlayersByTeamAbbreviation(@PathVariable("abbreviation") String teamAbbreviation) {
+        log.debug("REST getPlayersByTeamName({})", teamAbbreviation);
+
+        TeamDTO team = teamFacade.findTeamByAbbreviation(teamAbbreviation);
+        if (team == null) {
+            throw new ResourceNotFoundException("Team does not exist");
+        }
+
+        return new ArrayList<>(team.getPlayers());
+    }
+
+    /* POST operations */
+
+    /**
+     * Registers a new team in the system.
+     *
+     * @param teamDTO team to be created
+     * @param bindingResult
+     * @return newly created team {@link TeamDTO}
+     * @throws RuntimeException if the request is not valid or such a team already exists in the system
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO createTeam(@RequestBody @Valid TeamDTO teamDTO, BindingResult bindingResult) throws RuntimeException {
+        log.debug("REST createTeam()");
         if (bindingResult.hasErrors()) {
-            log.error("failed validation {}", bindingResult.toString());
+            log.error("failed validation during createTeam() {}", bindingResult);
             throw new InvalidRequestException("Failed validation");
         }
+
         try {
             Long team = teamFacade.registerNewTeam(teamDTO);
             return teamFacade.findTeamById(team);
         } catch (Exception ex) {
-            throw new ResourceAlreadyExistingException(ex.getMessage());
+            throw new ResourceAlreadyExistingException(ex.getMessage()); // FIXME
         }
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public final TeamDTO getById(@PathVariable("id") Long id) throws Exception {
-        log.debug("restv1 get by id {}", id);
-
-        TeamDTO teamDTO = teamFacade.findTeamById(id);
-        if (teamDTO == null) {
-            throw new ResourceNotFoundException("Team not found");
-        }
-        return teamDTO;
+    /* TODO finish
+    @PostMapping(value = "/{id}/players")
+    public final PlayerDTO addPlayer(@PathVariable("id") Long teamId) {
+        log.debug("REST addPlayer()");
     }
+     */
 
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public final TeamDTO getByName(@PathVariable("name") String name) throws Exception {
-        log.debug("restv1 get by name {}", name);
+    /* DELETE operations */
 
-        TeamDTO teamByName = teamFacade.findTeamByName(name);
-        if (teamByName == null) {
-            throw new ResourceNotFoundException("Competition not found");
-        }
-        return teamByName;
-    }
-
-    @RequestMapping(value = "/abbreviation/{abbreviation}", method = RequestMethod.GET)
-    public final TeamDTO getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws Exception {
-        log.debug("restv1 get by abbreviation {}", abbreviation);
-
-        TeamDTO teamDTO = teamFacade.findTeamByAbbreviation(abbreviation);
-        if (teamDTO == null) {
-            throw new ResourceNotFoundException("Competition not found");
-        }
-        return teamDTO;
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void deleteById(@PathVariable("id") Long id) throws Exception {
+    /* TODO check
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void deleteById(@PathVariable("id") Long id) throws RuntimeException {
         log.debug("restv1 delete by id {}", id);
         try {
             teamFacade.removeTeam(teamFacade.findTeamById(id));
@@ -114,7 +175,9 @@ public class TeamController {
             throw new ServerProblemException(rootCause.getMessage());
         }
     }
+     */
 
+    /*
     //garbage error handling
     @RequestMapping(value = "add/{idTeam}/addPlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer) {
@@ -172,4 +235,5 @@ public class TeamController {
         statisticsDTO.setScore(result);
         return statisticsDTO;
     }
+     */
 }
