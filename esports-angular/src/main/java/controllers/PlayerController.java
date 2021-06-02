@@ -24,13 +24,22 @@ public class PlayerController {
 
     private final PlayerFacade playerFacade;
 
-
+    /**
+     * Get list of Players curl -i -X GET http://localhost:8080/pa165/api/v2/players/
+     *
+     * @return List<PlayerDTO>
+     */
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<PlayerDTO> getPlayers() {
         log.debug("rest getPlayers()");
         return playerFacade.getAllPlayers();
     }
 
+    /**
+     * Create a Player
+     *
+     * @return created PlayerDTO
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO createPlayer(@RequestBody @Valid PlayerDTO playerDTO, BindingResult bindingResult) throws Exception {
         log.debug("restv1 createPlayer()");
@@ -46,6 +55,11 @@ public class PlayerController {
         }
     }
 
+    /**
+     * GET a Player by name
+     *
+     * @return PlayerDTO
+     */
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public final List<PlayerDTO> getByName(@PathVariable("name") String name) throws Exception {
         log.debug("restv1 get by name {}", name);
@@ -53,6 +67,11 @@ public class PlayerController {
         return playerFacade.findPlayerByName(name);
     }
 
+    /**
+     * GET a Player by ID
+     *
+     * @return PlayerDTO
+     */
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public final PlayerDTO getById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 get by id {}", id);
@@ -63,6 +82,11 @@ public class PlayerController {
         return player;
     }
 
+    /**
+     * GET a Player Statistics by Player ID
+     *
+     * @return statisticsDTO
+     */
     @RequestMapping(value = "getPlayerStatistics/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public final StatisticsDTO getAveragePlayerScore(@PathVariable("id") Long idPlayer) {
         log.debug("restv1 get statitistics for Player: {}", idPlayer);
