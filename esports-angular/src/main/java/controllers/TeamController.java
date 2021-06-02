@@ -41,13 +41,22 @@ public class TeamController {
     @Inject
     CompetitionFacade competitionFacade;
 
-
+    /**
+     * Get list of Competitions curl -i -X GET http://localhost:8080/pa165/api/v2/teams/
+     *
+     * @return List<TeamsDTO>
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public final Set<TeamDTO> getAllTeams() {
         log.debug("rest getAllTeams()");
         return new HashSet<>(teamFacade.getAllTeams());
     }
 
+    /**
+     * Create a Team
+     *
+     * @return created TeamDTO
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final TeamDTO createTeam(@RequestBody @Valid TeamDTO teamDTO, BindingResult bindingResult) throws Exception {
         log.debug("restv1 createTeam()");
@@ -63,6 +72,11 @@ public class TeamController {
         }
     }
 
+    /**
+     * GET a Team by ID
+     *
+     * @return TeamDTO
+     */
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public final TeamDTO getById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 get by id {}", id);
@@ -74,6 +88,11 @@ public class TeamController {
         return teamDTO;
     }
 
+    /**
+     * GET a Team by NAME
+     *
+     * @return TeamDTO
+     */
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public final TeamDTO getByName(@PathVariable("name") String name) throws Exception {
         log.debug("restv1 get by name {}", name);
@@ -85,6 +104,11 @@ public class TeamController {
         return teamByName;
     }
 
+    /**
+     * GET a Team by ABBREVIATION
+     *
+     * @return TeamDTO
+     */
     @RequestMapping(value = "/abbreviation/{abbreviation}", method = RequestMethod.GET)
     public final TeamDTO getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws Exception {
         log.debug("restv1 get by abbreviation {}", abbreviation);
@@ -96,6 +120,9 @@ public class TeamController {
         return teamDTO;
     }
 
+    /**
+     * Delete a Competition by ID
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 delete by id {}", id);
@@ -115,6 +142,12 @@ public class TeamController {
         }
     }
 
+
+    /**
+     * ADD Player to a Team
+     *
+     * @return playerDTO
+     */
     //garbage error handling
     @RequestMapping(value = "add/{idTeam}/addPlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer) {
@@ -134,6 +167,12 @@ public class TeamController {
         return playerById;
     }
 
+
+    /**
+     * Remove Player from a TEam by ID of the player
+     *
+     * @return playerDTO
+     */
     @RequestMapping(value = "remove/{idTeam}/removePlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO removePlayerFromTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer) {
         log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
@@ -152,6 +191,11 @@ public class TeamController {
         return playerById;
     }
 
+    /**
+     * GET average Team Score for Competition by Team and competition ID
+     *
+     * @return statisticsDTO
+     */
     @RequestMapping(value = "{id}/getCompetitionStatistics/{competitionId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public final StatisticsDTO getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition) {
         log.debug("restv1 get statitistics for team: {} team in competition: {}", idTeam, idTeam);

@@ -63,6 +63,11 @@ public class CompetitionController {
         }
     }
 
+    /**
+     * GET a Competition by name
+     *
+     * @return CompetitionDTO
+     */
     @GetMapping(value = "/name/{name}")
     public final CompetitionDTO getByName(@PathVariable("name") String name) throws Exception {
         log.debug("restv1 get by name {}", name);
@@ -74,6 +79,11 @@ public class CompetitionController {
         return competitionByName;
     }
 
+    /**
+     * GET a Competition by name
+     *
+     * @return CompetitionDTO
+     */
     @GetMapping(value = "/id/{id}")
     public final CompetitionDTO getById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 get by id {}", id);
@@ -85,6 +95,9 @@ public class CompetitionController {
         return competitionById;
     }
 
+    /**
+     * Delete a Competition
+     */
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteById(@PathVariable("id") Long id) throws Exception {
         log.debug("restv1 delete by id {}", id);
@@ -104,6 +117,11 @@ public class CompetitionController {
         }
     }
 
+    /**
+     * ADD a Team to a Competition by Team and Competition ID
+     *
+     * @return competitionDTO
+     */
     @RequestMapping(value = "add/{id}/addTeam/{team}", method = RequestMethod.GET)
     public final CompetitionDTO addTeamToCompetition(@PathVariable("id") Long id, @PathVariable("team") String team) throws Exception {
         log.debug("restv1 delete by id {}", id);
@@ -115,6 +133,10 @@ public class CompetitionController {
         return competitionFacade.findCompetitionById(id);
     }
 
+    /**
+     * Remove a Team from Competition by Team and Competition ID
+     *
+     */
     @RequestMapping(value = "remove/{id}/removeTeam/{team}", method = RequestMethod.GET)
     public final CompetitionDTO removeTeamFromCompetition(@PathVariable("id") Long id, @PathVariable("team") String team) throws Exception {
         log.debug("restv1 delete by id {}", id);
@@ -126,6 +148,11 @@ public class CompetitionController {
         return competitionFacade.findCompetitionById(id);
     }
 
+    /**
+     * ADD Matchrecord to a Competition
+     *
+     * @return competitionDTO
+     */
     @PostMapping("/{id}/records/")
     public final MatchRecordDTO addMatchRecordToCompetition(@PathVariable("id") Long competitionId, @RequestBody MatchRecordDTO matchRecord) {
         log.debug("rest add match record");
