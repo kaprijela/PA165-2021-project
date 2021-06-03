@@ -9,7 +9,7 @@
         <module>esports-api</module>
         <module>esports-persistence</module>
         <module>esports-service</module>
-        <module>esports-angular</module>
+        <module>esports-rest</module>
         <module>esports-sample-data</module>
     </modules>
 
