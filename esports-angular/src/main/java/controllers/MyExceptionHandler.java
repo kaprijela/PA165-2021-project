@@ -1,9 +1,6 @@
 package controllers;
 
-import exception.ErrorResource;
-import exception.ResourceAlreadyExistingException;
-import exception.ResourceNotFoundException;
-import exception.ServerProblemException;
+import exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -35,6 +32,8 @@ public class MyExceptionHandler {
             httpStatus = HttpStatus.NOT_FOUND;
         } else if (e instanceof ResourceAlreadyExistingException) {
             httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+        } else if (e instanceof InvalidRequestException) {
+            httpStatus = HttpStatus.CONFLICT;
         } else {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
