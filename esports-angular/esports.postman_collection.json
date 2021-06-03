@@ -1,0 +1,415 @@
+{
+	"info": {
+		"_postman_id": "43f568d9-f183-4416-bab3-3611111217e0",
+		"name": "esports",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "Statistics",
+					"item": [
+						{
+							"name": "Average team score for competition",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/1/competitions/1/statistics/average",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"1",
+										"competitions",
+										"1",
+										"statistics",
+										"average"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Average team score for game",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/1/games/LOL/statistics/average",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"1",
+										"games",
+										"LOL",
+										"statistics",
+										"average"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Players",
+					"item": [
+						{
+							"name": "Team players by team ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/{{teamWithPlayers}}/players",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"{{teamWithPlayers}}",
+										"players"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Team players by team abbreviation",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/abbr/{{teamWithPlayersAbbr}}/players",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"abbr",
+										"{{teamWithPlayersAbbr}}",
+										"players"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add player to team",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/2/players/7",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"2",
+										"players",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add player to team (player in another team)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/2/players/1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"2",
+										"players",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove player from team",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/{{teamWithPlayer}}/players/{{playerWithTeam}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"{{teamWithPlayer}}",
+										"players",
+										"{{playerWithTeam}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Competitions",
+					"item": [
+						{
+							"name": "Team competitions by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/1/competitions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"1",
+										"competitions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Team competitions by abbreviation",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/teams/abbr/ORCS/competitions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"teams",
+										"abbr",
+										"ORCS",
+										"competitions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Games",
+					"item": [
+						{
+							"name": "Team games",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "All teams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/teams",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Team by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/teams/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Team by abbreviation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/teams/abbr/RDOGS",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams",
+								"abbr",
+								"RDOGS"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create team",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/teams",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove team by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/teams/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"teams",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Players",
+			"item": [
+				{
+					"name": "All players",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/players",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"players"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Competitions",
+			"item": [
+				{
+					"name": "All competitions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/competitions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"competitions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/pa165/api/v2"
+		},
+		{
+			"key": "teamWithPlayer",
+			"value": "1"
+		},
+		{
+			"key": "playerWithTeam",
+			"value": "1"
+		},
+		{
+			"key": "teamWithPlayers",
+			"value": "3"
+		},
+		{
+			"key": "teamWithPlayersAbbr",
+			"value": "RDOGS"
+		}
+	]
+}
