@@ -15,19 +15,20 @@ Check our [project wiki](https://github.com/kaprijela/PA165-esports/wiki) for mo
 
 ### Setup
 
-First, you need to have installed `Node.js` and `npm`. Here you can get both at once: https://nodejs.org/en/
+First, you need to have installed `Node.js` and `npm`.
+Here you can get both at once: https://nodejs.org/en/
 Verify everything works by running `node -v` and `npm -v`.
 
-Then go to the `esports-angular-new` directory, which contains our Angular application, and
-run `npm install @angular/cli -g` to install `angular-cli`. Verify by running `ng -v`. Then run `npm install` to install
-npm dependencies.
+Then go to the `esports-angular` directory, which contains our Angular application, and run `npm install @angular/cli -g` to install `angular-cli`.
+Verify by running `ng -v`.
+Then run `npm install` to install npm dependencies.
 
 ### Running
 
-Go to the `esports-angular` directory and run: `cd .. && mvn clean install && cd esports-angular && mvn cargo:run`. This
+Go to the `esports-rest` directory and run: `cd .. && mvn clean install && cd esports-rest && mvn cargo:run`. This
 starts the Tomcat server with our REST service, let it run in the background.
 
-Next, launch another instance of the terminal, and run `ng serve` to start the `angular-cli` development server.
+Next, launch another instance of the terminal, and run `ng serve` in the `esports-angular` directory to start the `angular-cli` development server.
 
 ### How to test the REST API
 
