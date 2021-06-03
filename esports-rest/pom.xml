@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>esports-angular</artifactId>
+    <artifactId>esports-rest</artifactId>
     <packaging>war</packaging>
 
     <dependencies>
