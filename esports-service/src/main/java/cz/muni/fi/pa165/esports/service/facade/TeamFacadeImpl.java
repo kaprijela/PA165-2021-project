@@ -27,11 +27,14 @@ import java.util.List;
 @Transactional
 public class TeamFacadeImpl implements TeamFacade {
 
-    @Inject
     TeamService teamService;
+    BeanMappingService bms;
 
     @Inject
-    BeanMappingService bms;
+    public TeamFacadeImpl(TeamService teamService, BeanMappingService beanMappingService) {
+        this.teamService = teamService;
+        this.bms = beanMappingService;
+    }
 
     @Override
     public List<TeamDTO> getAllTeams() {
@@ -73,7 +76,7 @@ public class TeamFacadeImpl implements TeamFacade {
     }
 
     @Override
-    public void kickPlayerFromTeam(TeamDTO team, PlayerDTO player) {
+    public void removePlayerFromTeam(TeamDTO team, PlayerDTO player) {
         teamService.removePlayer(bms.mapTo(team, Team.class), bms.mapTo(player, Player.class));
     }
 

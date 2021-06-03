@@ -72,7 +72,7 @@ public interface TeamFacade {
      * @param team   team that is kicking the player
      * @param player player to kick from the team
      */
-    void kickPlayerFromTeam(TeamDTO team, PlayerDTO player);
+    void removePlayerFromTeam(TeamDTO team, PlayerDTO player);
 
     /**
      * Calculate average match score for a team in a given competition.

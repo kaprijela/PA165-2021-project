@@ -1,36 +1,71 @@
-<div *ngIf="team">
-  <h1 class="mt-4">{{team.name}} [{{team.abbreviation}}]</h1>
-  <div *ngIf="team.players.length > 0">
+<div *ngIf="team" class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="mt-4 mb-4">{{team.name}} <span class="text-muted">[{{team.abbreviation}}]</span></h1>
+    </div>
+  </div>
+
+  <div class="team-section" id="team-members">
     <h3>Team members</h3>
-    <ul>
-      <li *ngFor="let player of team.players">
-        {{player.name}}
-      </li>
-    </ul>
+    <div *ngIf="team.players.length > 0">
+      <div class="row row-cols-5">
+        <div *ngFor="let player of team.players" class="p-0">
+            <div class="card pt-1 pb-1 ms-1 me-1 mb-2 align-middle">
+              <div class="card-body">
+                <h5 class="card-title mb-2"><i class="bi bi-person-circle inline-right me-2"></i>{{player.name}}</h5>
+                <a class="card-link" routerLink="/players/{{player.id}}">Player profile</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="team.players.length == 0">
+      No players.
+    </div>
   </div>
-  <p>not working : :(</p>
-  <div class="form-group col-md-6 align-items-center">
-    <form class="form-login" [formGroup]="addPlayer">
 
-      <label for="playerAdd">Name</label>
-      <input type="number" class="form-control mb-1" id="playerAdd" required placeholder="Name of a Player"
-             formControlName="playerAdd">
-
-      <br/>
-      <button class="btn  btn-block btn-primary" type="submit" (click)="add()">Add a team</button>
-    </form>
+  <div class="team-section" id="team-stats">
+    <h3>Team statistics</h3>
+    <!-- TODO -->
   </div>
 
+  <!-- TODO: show only if user is a team manager -->
+  <div class="team-section" id="team-management">
+    <h3>Team management <span class="ms-1 badge bg-danger">Danger zone</span></h3>
+    <div class="form-group">
+      <form [formGroup]="addPlayer" class="">
+        <label class="" for="playerAdd">Player ID</label>
+        <div class="row">
+          <div class="col">
+            <input class="form-control mb-1" formControlName="playerAdd" id="playerAdd" placeholder="123" required
+                   type="number">
+          </div>
+          <div class="col-auto">
+            <button (click)="add()" class="btn btn-success me-2" type="submit"><i
+              class="bi bi-person-plus inline-right me-1"></i> Add to team
+            </button>
+            <button (click)="remove()" class="btn btn-danger" type="submit"><i
+              class="bi bi-person-dash inline-right me-1"></i> Remove from team
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
 
-  <div class="form-group col-md-6 align-items-center">
-    <form class="form-login" [formGroup]="removePlayer">
-
-      <label for="playerRem">Name</label>
-      <input type="number" class="form-control mb-1" id="playerRem" required placeholder="Name of a team"
-             formControlName="playerRem">
-
-      <br/>
-      <button class="btn  btn-block btn-primary" type="submit" (click)="remove()">Remove a team</button>
-    </form>
+    <!--
+    <div class="form-group">
+      <form class="" [formGroup]="removePlayer">
+        <label for="playerRemove">Remove player from team</label>
+        <div class="row">
+          <div class="col">
+            <input type="number" class="form-control mb-1" id="playerRemove" required placeholder="Player ID" formControlName="playerRem">
+          </div>
+          <div class="col-auto">
+          </div>
+        </div>
+      </form>
+    </div>
+    -->
   </div>
 </div>

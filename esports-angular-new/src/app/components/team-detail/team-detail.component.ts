@@ -16,20 +16,12 @@ export class TeamDetailComponent implements OnInit {
 
   constructor(private teamService: TeamService,
               private router: Router,
-              private route: ActivatedRoute, private formBuilder: FormBuilder) {
-  }
+              private route: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    const param = this.route.snapshot.paramMap.get("id");
-    const arg = this.route.snapshot.paramMap.get("name");
-    if (param) {
-      const id = +param;
-      this.getTeam(id);
-    }
-    if (arg) {
-      const name = arg;
-      console.log(arg)
-      this.getTeamName(name);
+    const abbreviation = this.route.snapshot.paramMap.get("abbr");
+    if (abbreviation) {
+      this.getTeam(abbreviation);
     }
     this.addPlayer = this.formBuilder.group({
       playerAdd: new FormControl(),
@@ -39,18 +31,9 @@ export class TeamDetailComponent implements OnInit {
     });
   }
 
-  getTeam(id: number) {
+  getTeam(abbreviation: string) {
     console.log("getTeam")
-    this.teamService.findById(id).subscribe(data => {
-      this.team = data;
-    })
-  }
-
-  getTeamName(name: string) {
-    console.log("getTeam")
-    this.teamService.findByName(name).subscribe(data => {
-      this.team = data;
-    })
+    this.teamService.findByAbbreviation(abbreviation).subscribe(data => {this.team = data;})
   }
 
   add() {

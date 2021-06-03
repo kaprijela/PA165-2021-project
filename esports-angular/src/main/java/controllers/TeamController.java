@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
 import cz.muni.fi.pa165.esports.dto.StatisticsDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;
+import cz.muni.fi.pa165.esports.enums.Game;
+import cz.muni.fi.pa165.esports.exceptions.EsportsServiceException;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
 import cz.muni.fi.pa165.esports.facade.TeamFacade;
@@ -12,74 +14,63 @@ import exception.ResourceAlreadyExistingException;
 import exception.ResourceNotFoundException;
 import exception.ServerProblemException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+/**
+ * REST controller for the Team entity
+ *
+ * @author Gabriela Kandova
+ */
 @Slf4j
 @RestController
-@ExposesResourceFor(CompetitionDTO.class)
 @RequestMapping("/teams")
 public class TeamController {
 
     TeamFacade teamFacade;
-
-    @Inject
-    public TeamController(TeamFacade teamFacade) {
-        this.teamFacade = teamFacade;
-    }
-
-    @Inject
     PlayerFacade playerFacade;
-
-    @Inject
     CompetitionFacade competitionFacade;
 
+    @Inject
+    public TeamController(TeamFacade teamFacade,
+                          PlayerFacade playerFacade,
+                          CompetitionFacade competitionFacade) {
+        this.teamFacade = teamFacade;
+        this.playerFacade = playerFacade;
+        this.competitionFacade = competitionFacade;
+    }
+
+    /* GET operations */
+
     /**
-     * Get list of Competitions curl -i -X GET http://localhost:8080/pa165/api/v2/teams/
+     * Gets all registered teams.
      *
-     * @return List<TeamsDTO>
+     * @return set of {@link TeamDTO}
      */
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public final Set<TeamDTO> getAllTeams() {
-        log.debug("rest getAllTeams()");
+        log.debug("REST getAllTeams()");
         return new HashSet<>(teamFacade.getAllTeams());
     }
 
     /**
-     * Create a Team
+     * Gets a team according to its ID.
      *
-     * @return created TeamDTO
+     * @param id ID of the sought team
+     * @return team ({@link TeamDTO}) with the given abbreviation if it exists
+     * @throws ResourceNotFoundException if a team with the given ID not found
      */
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final TeamDTO createTeam(@RequestBody @Valid TeamDTO teamDTO, BindingResult bindingResult) throws Exception {
-        log.debug("restv1 createTeam()");
-        if (bindingResult.hasErrors()) {
-            log.error("failed validation {}", bindingResult.toString());
-            throw new InvalidRequestException("Failed validation");
-        }
-        try {
-            Long team = teamFacade.registerNewTeam(teamDTO);
-            return teamFacade.findTeamById(team);
-        } catch (Exception ex) {
-            throw new ResourceAlreadyExistingException(ex.getMessage());
-        }
-    }
-
-    /**
-     * GET a Team by ID
-     *
-     * @return TeamDTO
-     */
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public final TeamDTO getById(@PathVariable("id") Long id) throws Exception {
-        log.debug("restv1 get by id {}", id);
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO getById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        log.debug("REST getById({})", id);
 
         TeamDTO teamDTO = teamFacade.findTeamById(id);
         if (teamDTO == null) {
@@ -89,131 +80,241 @@ public class TeamController {
     }
 
     /**
-     * GET a Team by NAME
+     * Gets a team according to its abbreviation.
      *
-     * @return TeamDTO
+     * @param abbreviation abbreviation of the sought team
+     * @return team ({@link TeamDTO}) with the given abbreviation if it exists
+     * @throws ResourceNotFoundException if a team with the given abbreviation is not found
      */
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public final TeamDTO getByName(@PathVariable("name") String name) throws Exception {
-        log.debug("restv1 get by name {}", name);
-
-        TeamDTO teamByName = teamFacade.findTeamByName(name);
-        if (teamByName == null) {
-            throw new ResourceNotFoundException("Competition not found");
-        }
-        return teamByName;
-    }
-
-    /**
-     * GET a Team by ABBREVIATION
-     *
-     * @return TeamDTO
-     */
-    @RequestMapping(value = "/abbreviation/{abbreviation}", method = RequestMethod.GET)
-    public final TeamDTO getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws Exception {
-        log.debug("restv1 get by abbreviation {}", abbreviation);
+    @GetMapping(value = "/abbr/{abbreviation}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO getByAbbreviation(@PathVariable("abbreviation") String abbreviation) throws ResourceNotFoundException {
+        log.debug("REST getByAbbreviation({})", abbreviation);
 
         TeamDTO teamDTO = teamFacade.findTeamByAbbreviation(abbreviation);
         if (teamDTO == null) {
-            throw new ResourceNotFoundException("Competition not found");
+            throw new ResourceNotFoundException("Team not found");
         }
         return teamDTO;
     }
 
     /**
-     * Delete a Competition by ID
-     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void deleteById(@PathVariable("id") Long id) throws Exception {
-        log.debug("restv1 delete by id {}", id);
-        try {
-            teamFacade.removeTeam(teamFacade.findTeamById(id));
-        } catch (IllegalArgumentException ex) {
-            log.error("team " + id + " not found");
-            throw new ResourceNotFoundException("competition " + id + " not found");
-        } catch (Throwable ex) {
-            log.error("cannot delete competition " + id + " :" + ex.getMessage());
-            Throwable rootCause = ex;
-            while ((ex = ex.getCause()) != null) {
-                rootCause = ex;
-                log.error("caused by : " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
-            }
-            throw new ServerProblemException(rootCause.getMessage());
-        }
-    }
-
-
-    /**
-     * ADD Player to a Team
+     * Gets a list of the team's members.
      *
-     * @return playerDTO
+     * @param teamId ID of the examined team
+     * @return set of players {@link PlayerDTO}
      */
-    //garbage error handling
-    @RequestMapping(value = "add/{idTeam}/addPlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final PlayerDTO addPlayerToTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer) {
-        log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
+    @GetMapping(value = "/{id}/players", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Set<PlayerDTO> getPlayers(@PathVariable("id") Long teamId) throws ResourceNotFoundException {
+        log.debug("REST getPlayers({})", teamId);
 
-        TeamDTO teamById = teamFacade.findTeamById(idTeam);
-        PlayerDTO playerById = playerFacade.findPlayerById(idPlayer);
-
-        if (teamById == null || playerById == null) {
-            throw new ResourceNotFoundException("Competition not found");
+        TeamDTO team = teamFacade.findTeamById(teamId);
+        if (team == null) {
+            throw new ResourceNotFoundException("Team not found");
         }
-        try {
-            teamFacade.addPlayerToTeam(teamById, playerById);
-        } catch (Exception e) {
-            log.error("Exception: {}", e.getMessage());
-        }
-        return playerById;
-    }
 
-
-    /**
-     * Remove Player from a TEam by ID of the player
-     *
-     * @return playerDTO
-     */
-    @RequestMapping(value = "remove/{idTeam}/removePlayer/{idPlayer}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final PlayerDTO removePlayerFromTeam(@PathVariable("idTeam") Long idTeam, @PathVariable("idPlayer") Long idPlayer) {
-        log.debug("restv1 add player: {} to team with id: {}", idPlayer, idTeam);
-
-        TeamDTO teamById = teamFacade.findTeamById(idTeam);
-        PlayerDTO playerById = playerFacade.findPlayerById(idPlayer);
-
-        if (teamById == null || playerById == null) {
-            throw new ResourceNotFoundException("Competition not found");
-        }
-        try {
-            teamFacade.kickPlayerFromTeam(teamById, playerById);
-        } catch (Exception e) {
-            log.error("Exception: {}", e.getMessage());
-        }
-        return playerById;
+        return new HashSet<>(team.getPlayers());
     }
 
     /**
-     * GET average Team Score for Competition by Team and competition ID
+     * Gets a list of the team's members.
      *
-     * @return statisticsDTO
+     * @param teamAbbreviation abbreviation of the examined team
+     * @return set of players {@link PlayerDTO}
      */
-    @RequestMapping(value = "{id}/getCompetitionStatistics/{competitionId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final StatisticsDTO getAverageTeamScoreForCompetition(@PathVariable("id") Long idTeam, @PathVariable("competitionId") Long idCompetition) {
-        log.debug("restv1 get statitistics for team: {} team in competition: {}", idTeam, idTeam);
+    @GetMapping(value = "/abbr/{abbreviation}/players", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<PlayerDTO> getPlayersByTeamAbbreviation(@PathVariable("abbreviation") String teamAbbreviation) throws ResourceNotFoundException {
+        log.debug("REST getPlayersByTeamName({})", teamAbbreviation);
 
-        TeamDTO teamById = teamFacade.findTeamById(idTeam);
-        CompetitionDTO competitionById = competitionFacade.findCompetitionById(idTeam);
+        TeamDTO team = teamFacade.findTeamByAbbreviation(teamAbbreviation);
+        if (team == null) {
+            throw new ResourceNotFoundException("Team not found");
+        }
 
-        if (teamById == null || competitionById == null) {
+        return new ArrayList<>(team.getPlayers());
+    }
+
+    /**
+     * Gets the average score for a team when participating in a competition.
+     *
+     * @param teamId ID of the examined team
+     * @param competitionId ID of the examined competition
+     * @return {@link StatisticsDTO}
+     */
+    @RequestMapping(value = "/{teamId}/competitions/{compId}/statistics/average", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final StatisticsDTO getAverageTeamScoreForCompetition(@PathVariable("teamId") Long teamId, @PathVariable("compId") Long competitionId) {
+        log.debug("REST get average score for team {} in competition {}", teamId, competitionId);
+
+        TeamDTO teamById = teamFacade.findTeamById(teamId);
+        if (teamById == null) {
+            throw new ResourceNotFoundException("Team not found");
+        }
+
+        CompetitionDTO competitionById = competitionFacade.findCompetitionById(teamId);
+        if (competitionById == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
-        Double result = null;
+
+        Double result;
         try {
             result = teamFacade.getAverageTeamScoreForCompetition(teamById, competitionById);
         } catch (Exception e) {
             log.error("Exception: {}", e.getMessage());
+            throw new ServerProblemException(e.getMessage());
         }
         StatisticsDTO statisticsDTO = new StatisticsDTO();
         statisticsDTO.setScore(result);
         return statisticsDTO;
+    }
+
+    /**
+     * Gets the average score of a team in a specific game.
+     *
+     * @param teamId ID of the examined team
+     * @param game string representation of a {@link Game}
+     * @return {@link StatisticsDTO}
+     * @throws ResourceNotFoundException when the team or game don't exist
+     * @throws ServerProblemException when the calculation fails
+     */
+    @GetMapping(value = "/{teamId}/games/{game}/statistics/average", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final StatisticsDTO getAverageTeamScoreForGame(@PathVariable("teamId") Long teamId, @PathVariable("game") String game) {
+        log.debug("REST get average score for team {} in game {}", teamId, game);
+
+        TeamDTO teamById = teamFacade.findTeamById(teamId);
+        if (teamById == null) {
+            throw new ResourceNotFoundException("Team not found");
+        }
+
+        Game gameEnum;
+        try {
+            gameEnum = Game.valueOf(game);
+        } catch (IllegalArgumentException iae) {
+            throw new ResourceNotFoundException("Game not found");
+        }
+
+        Double result;
+        try {
+            result = teamFacade.getAverageTeamScoreForGame(teamById, gameEnum);
+        } catch (Exception ex) {
+            log.error("Exception: {}", ex.getMessage());
+            throw new ServerProblemException(ex.getMessage());
+        }
+
+        StatisticsDTO statisticsDTO = new StatisticsDTO();
+        statisticsDTO.setScore(result);
+        return statisticsDTO;
+    }
+
+    /* POST operations */
+
+    /**
+     * Registers a new team in the system.
+     *
+     * @param teamDTO team to be created
+     * @param bindingResult TODO
+     * @return newly created team {@link TeamDTO}
+     * @throws RuntimeException if the request is not valid or such a team already exists in the system
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final TeamDTO createTeam(@RequestBody @Valid TeamDTO teamDTO, BindingResult bindingResult) throws RuntimeException {
+        log.debug("REST createTeam()");
+        if (bindingResult.hasErrors()) {
+            log.error("failed validation during createTeam() {}", bindingResult);
+            throw new InvalidRequestException("Failed validation");
+        }
+
+        try {
+            Long team = teamFacade.registerNewTeam(teamDTO);
+            return teamFacade.findTeamById(team);
+        } catch (Exception ex) {
+            throw new ResourceAlreadyExistingException(ex.getMessage()); // FIXME
+        }
+    }
+
+    /**
+     * Adds a player to a team.
+     *
+     * @param teamId ID of the team that is getting a new player
+     * @param playerId ID of the player who is joining the team
+     */
+    @PostMapping(value = "/{teamId}/players/{playerId}")
+    public final void addPlayerToTeam(@PathVariable("teamId") Long teamId, @PathVariable("playerId") Long playerId) {
+        log.debug("REST add player {} to team {}", playerId, teamId);
+
+        TeamDTO teamById = teamFacade.findTeamById(teamId);
+        if (teamById == null) {
+            throw new ResourceNotFoundException("Team not found");
+        }
+
+        PlayerDTO playerById = playerFacade.findPlayerById(playerId);
+        if (playerById == null) {
+            throw new ResourceNotFoundException("Player not found");
+        }
+
+        try {
+            teamFacade.addPlayerToTeam(teamById, playerById);
+        } catch (EsportsServiceException e) {
+            throw new InvalidRequestException(e.getMessage());
+        } catch (Exception e) {
+            log.error("Exception: {}", e.getMessage());
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+    }
+
+    /* DELETE operations */
+
+    /**
+     * Deletes a registered team from the system.
+     *
+     * @param id ID of the team to be deleted
+     */
+    @DeleteMapping(value = "/{id}")
+    public final void deleteById(@PathVariable("id") Long id) {
+        log.debug("REST delete by id {}", id);
+        TeamDTO team = teamFacade.findTeamById(id);
+
+        if (team == null) {
+            throw new ResourceNotFoundException("Team not found");
+        }
+
+        try {
+            teamFacade.removeTeam(team);
+        } catch (Exception ex) {
+            log.error("Exception: {}", ex.getMessage());
+            throw new ServerProblemException(ex.getMessage());
+        }
+    }
+
+    /**
+     * Removes a player from a team.
+     *
+     * @param teamId ID of the team from which to remove the player
+     * @param playerId ID of the player who is leaving the team
+     * @throws ResourceNotFoundException if the team or the player do not exist
+     * @throws InvalidRequestException if the player is not a member of the team
+     * @throws ServerProblemException if something else went wrong
+     */
+    @DeleteMapping(value = "/{teamId}/players/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void removePlayerFromTeam(@PathVariable("teamId") Long teamId, @PathVariable("playerId") Long playerId) {
+        log.debug("REST remove player {} from team {}", playerId, teamId);
+
+        TeamDTO teamById = teamFacade.findTeamById(teamId);
+        if (teamById == null) {
+            throw new ResourceNotFoundException("Team not found");
+        }
+
+        PlayerDTO playerById = playerFacade.findPlayerById(playerId);
+        if (playerById == null) {
+            throw new ResourceNotFoundException("Player not found");
+        }
+
+        try {
+            teamFacade.removePlayerFromTeam(teamById, playerById);
+        } catch (EsportsServiceException e) {
+            log.error("Exception: {}", e.getMessage());
+            throw new InvalidRequestException(e.getMessage());
+        } catch (Exception e) {
+            log.error("Exception: {}", e.getMessage());
+            throw new ServerProblemException(e.getMessage());
+        }
     }
 }
