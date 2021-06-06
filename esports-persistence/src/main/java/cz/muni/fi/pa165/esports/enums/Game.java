@@ -4,5 +4,14 @@ package cz.muni.fi.pa165.esports.enums;
  */
 public enum Game {
     FIFA,
-    LOL
+    LOL,
+    CSGO,
+    Overwatch,
+    Evolve,
+    RocketLeague,
+    Fortnite,
+    PUBG,
+    CallOfDuty,
+    AgeOfEmpires2,
+    Left4Dead
 }
