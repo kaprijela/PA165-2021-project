@@ -1,6 +1,7 @@
 package cz.muni.pa165.sampledata;
 
 import cz.muni.fi.pa165.esports.entity.*;
+import cz.muni.fi.pa165.esports.enums.Game;
 import cz.muni.fi.pa165.esports.enums.Gender;
 import cz.muni.fi.pa165.esports.enums.Role;
 import cz.muni.fi.pa165.esports.service.*;
@@ -97,15 +98,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
         /* load players */
 
-        Player player = new Player();
-        player.setName("Radko");
-        player.setGender(Gender.MALE);
-        orcs.addPlayer(player);
-        playerService.create(player);
-        MatchRecord m1 = new MatchRecord();
-        m1.setMatchNumber(5L);
-        m1.setPlayer(player);
-        matchRecordService.create(m1);
+        Player radko = new Player();
+        radko.setName("Radko");
+        radko.setGender(Gender.MALE);
+        orcs.addPlayer(radko);
+        playerService.create(radko);
 
         Player mrWhite = new Player();
         mrWhite.setName("Larry");
@@ -140,30 +137,45 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Player mrsRed = new Player();
         mrsRed.setName(mrWhite.getName());
         mrsRed.setGender(Gender.FEMALE);
+        elves.addPlayer(mrsRed);
         playerService.create(mrsRed);
 
         /* load competitions */
 
         Competition c1 = new Competition();
-        Competition c2 = new Competition();
-        Competition c3 = new Competition();
-
-        c1.setId(1L);
-        c2.setId(2L);
-        c3.setId(3L);
-
         c1.setName("Japan League 2021");
-        c2.setName("Nordic Championship 2021");
-        c3.setName("Masters Clash Championship");
-
-        c1.addTeam(orcs);
-
         c1.setLocation("Japan");
-        c2.setLocation("Oslo");
-        c3.setLocation("London");
-
+        c1.setGame(Game.LOL);
+        c1.addTeam(orcs);
+        c1.addTeam(elves);
         competitionService.createCompetition(c1);
+
+        Competition c2 = new Competition();
+        c2.setName("Nordic Championship 2021");
+        c2.setLocation("Oslo");
+        c2.setGame(Game.CSGO);
         competitionService.createCompetition(c2);
+
+        Competition c3 = new Competition();
+        c3.setName("Masters Clash Championship");
+        c3.setLocation("London");
+        c3.setGame(Game.AgeOfEmpires2);
         competitionService.createCompetition(c3);
+
+        MatchRecord m1 = new MatchRecord();
+        m1.setMatchNumber(1);
+        m1.setPlayer(radko);
+        m1.setTeam(orcs);
+        m1.setCompetition(c1);
+        m1.setScore(14);
+        matchRecordService.create(m1);
+
+        MatchRecord m2 = new MatchRecord();
+        m2.setMatchNumber(1);
+        m2.setPlayer(mrsRed);
+        m2.setTeam(elves);
+        m2.setCompetition(c1);
+        m2.setScore(16);
+        matchRecordService.create(m2);
     }
 }

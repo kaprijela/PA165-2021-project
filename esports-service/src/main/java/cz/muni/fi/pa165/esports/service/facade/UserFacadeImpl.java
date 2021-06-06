@@ -19,11 +19,15 @@ import java.util.List;
 @Service
 @Transactional
 public class UserFacadeImpl implements UserFacade {
-    @Inject
-    private BeanMappingService beanMappingService;
+
+    private final UserService userService;
+    private final BeanMappingService beanMappingService;
 
     @Inject
-    private UserService userService;
+    public UserFacadeImpl(UserService userService, BeanMappingService beanMappingService) {
+        this.userService = userService;
+        this.beanMappingService = beanMappingService;
+    }
 
     @Override
     public Long registerNewUser(UserDTO user, String password) throws ValidationException {

@@ -87,6 +87,6 @@ public class TeamFacadeImpl implements TeamFacade {
 
     @Override
     public Double getAverageTeamScoreForGame(TeamDTO team, Game game) {
-        return teamService.getAverageTeamScoreForGame(bms.mapTo(team, Team.class), bms.mapTo(game, Game.class));
+        return teamService.getAverageTeamScoreForGame(bms.mapTo(team, Team.class), game);
     }
 }
