@@ -62,6 +62,8 @@ public class PlayerController {
      * Registers a new player in the system.
      *
      * @return newly created player {@link PlayerDTO}
+     * @throws InvalidRequestException if the player to be created is not valid
+     * @throws ResourceAlreadyExistingException if player with given parameters already exists
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public final PlayerDTO createPlayer(@RequestBody @Valid PlayerDTO playerDTO, BindingResult bindingResult) {
