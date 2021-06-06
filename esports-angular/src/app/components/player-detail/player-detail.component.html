@@ -1,8 +1,8 @@
 <div *ngIf="player">
   <h1 class="mt-4">{{player.name}}</h1>
   <p class="mt-4">Gender: {{player.gender}}</p>
-  <a [routerLink]="['/teams/name', player.team]" class="card-link">{{player.team}}</a>
+  <a *ngIf="player.team" routerLink="['/team/', player.team]">{{player.team}}</a>
 </div>
 <div *ngIf="statistics">
-  <p class="mt-4">Average Score: {{statistics.score}}</p>
+  <p class="mt-4">Average score: {{statistics.value}}</p>
 </div>

@@ -18,8 +18,9 @@ import {CompetitionNewComponent} from "./components/competition-new/competition-
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'player/:id', component: PlayerDetailComponent },
   { path: 'players', component: PlayerListComponent },
-  { path: 'players/id/:id', component: PlayerDetailComponent },
+  { path: 'players/new', component: PlayerNewComponent, canActivate: [AuthGuard], data: { role: ['PLAYER_MANAGER'] } },
   { path: 'competitions', component: CompetitionListComponent },
   { path: 'competitions/id/:id', component: CompetitionDetailComponent},
   { path: 'competitions/new', component: CompetitionNewComponent},
@@ -27,7 +28,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'teams/abbr/:abbr', component: TeamDetailComponent },
   { path: 'teams/new', component: TeamNewComponent, canActivate: [AuthGuard], data: { role: ['TEAM_MANAGER'] } },
-  { path: 'players/new', component: PlayerNewComponent, canActivate: [AuthGuard], data: { role: ['TEAM_MANAGER'] } },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', component: NotFoundComponent },
 ];
