@@ -41,19 +41,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     public void loadData() {
         /* load users */
 
-        // team manager
+        // admin
         SystemUser teamManager = new SystemUser();
         teamManager.setUsername("teamAdmin");
         teamManager.setEmail("team.admin@esports.org");
-        teamManager.setRole(Role.TEAM_MANAGER);
+        teamManager.setRole(Role.ADMIN);
         userService.create(teamManager, "admin");
-
-        // competition manager
-        SystemUser competitionManager = new SystemUser();
-        competitionManager.setUsername("compAdmin");
-        competitionManager.setEmail("comp.admin@esports.org");
-        competitionManager.setRole(Role.COMPETITION_MANAGER);
-        userService.create(competitionManager, "admin");
 
         // player
         SystemUser playerUser = new SystemUser();
@@ -67,14 +60,6 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         lurker.setUsername("lurker");
         lurker.setEmail("lurker456@esports.org");
         userService.create(lurker, "lurk-lurk");
-
-        // both a player and a manager
-        SystemUser playerManager = new SystemUser();
-        playerManager.setUsername("playerManager");
-        playerManager.setEmail("player.manager@esports.org");
-        playerManager.setRole(Role.PLAYER);
-        playerManager.setRole(Role.TEAM_MANAGER); // do multiple roles work?
-        userService.create(playerManager, "admin");
 
         /* load teams */
 
