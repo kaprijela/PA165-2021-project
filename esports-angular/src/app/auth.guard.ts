@@ -67,12 +67,12 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
             }
           }
         }
-        this.router.navigate(['/unauthorized']);
+        this.router.navigateByUrl("/unauthorized").then();
         return false;
       }
       return true;
     }
-    this.router.navigate(['/unauthorized']);
+    this.router.navigateByUrl("/unauthorized").then();
     return false;
   }
 }
