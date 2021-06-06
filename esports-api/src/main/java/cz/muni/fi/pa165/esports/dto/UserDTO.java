@@ -6,7 +6,6 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Data transfer object for the User entity.
@@ -18,8 +17,8 @@ import java.util.Set;
 public class UserDTO {
     private Long id;
     private String username;
-    @NonNull private String email;
-    private Set<Role> roles;
+    private String email;
+    private Role role;
 
     @Override
     public boolean equals(Object o) {
