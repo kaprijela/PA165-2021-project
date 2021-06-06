@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -46,6 +46,6 @@ public class ServiceConfiguration {
 
     @Bean
     public PasswordEncoder encoder() {
-        return new Argon2PasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 }
