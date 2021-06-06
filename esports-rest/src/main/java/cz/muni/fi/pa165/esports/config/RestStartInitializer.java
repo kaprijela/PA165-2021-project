@@ -1,4 +1,4 @@
-package config;
+package cz.muni.fi.pa165.esports.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

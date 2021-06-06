@@ -1,12 +1,12 @@
-package controllers;
+package cz.muni.fi.pa165.esports.controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.PlayerDTO;
 import cz.muni.fi.pa165.esports.dto.StatisticsDTO;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
-import exception.InvalidRequestException;
-import exception.ResourceAlreadyExistingException;
-import exception.ResourceNotFoundException;
+import cz.muni.fi.pa165.esports.exceptions.InvalidRequestException;
+import cz.muni.fi.pa165.esports.exceptions.ResourceAlreadyExistingException;
+import cz.muni.fi.pa165.esports.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;

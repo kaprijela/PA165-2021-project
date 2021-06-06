@@ -1,4 +1,4 @@
-package config;
+package cz.muni.fi.pa165.esports.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.muni.pa165.sampledata.EshopWithSampleDataConfiguration;

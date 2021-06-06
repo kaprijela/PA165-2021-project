@@ -1,4 +1,4 @@
-package exception;
+package cz.muni.fi.pa165.esports.exceptions;
 
 /**
  * Exception converted by MyExceptionHandler to NOT_FOUND HTTP status.

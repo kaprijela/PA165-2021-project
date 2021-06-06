@@ -1,4 +1,4 @@
-package controllers;
+package cz.muni.fi.pa165.esports.controllers;
 
 import cz.muni.fi.pa165.esports.dto.AuthenticatedUserDTO;
 import cz.muni.fi.pa165.esports.enums.Role;

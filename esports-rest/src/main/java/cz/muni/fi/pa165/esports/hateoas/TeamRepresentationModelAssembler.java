@@ -1,4 +1,4 @@
-package hateoas;
+package cz.muni.fi.pa165.esports.hateoas;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.TeamDTO;

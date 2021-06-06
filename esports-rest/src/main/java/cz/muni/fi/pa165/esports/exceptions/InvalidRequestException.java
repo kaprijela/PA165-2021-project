@@ -1,4 +1,4 @@
-package exception;
+package cz.muni.fi.pa165.esports.exceptions;
 
 /**
  * Invalid request exception.
