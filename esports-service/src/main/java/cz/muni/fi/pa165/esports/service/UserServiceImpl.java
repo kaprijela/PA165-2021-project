@@ -11,14 +11,15 @@ import java.util.List;
 
 /**
  * @author Elena Álvarez
- * <p>
- * Implementation of the {@link UserServiceImpl}. This class is part of the
+ *
+ * Implementation of the {@link UserService}. This class is part of the
  * service module of the application that provides the implementation of the
  * business logic (main logic of the application).
  */
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
 
@@ -41,10 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(SystemUser systemUser) {
-
+        userDao.delete(systemUser);
     }
 
-    //Getters
     @Override
     public List<SystemUser> findAll() {
         return userDao.findAll();
@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
         return userDao.findByEmail(email);
     }
 
-
     //Check
     @Override
     public boolean isAuthenticated(SystemUser systemUser, String password) {
@@ -74,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isAdmin(Long id) {
-        SystemUser systemUserBd = userDao.findById(id);
+        SystemUser systemUserBd = findById(id);
         if (systemUserBd != null)
             return systemUserBd.isAdmin();
         return false;
