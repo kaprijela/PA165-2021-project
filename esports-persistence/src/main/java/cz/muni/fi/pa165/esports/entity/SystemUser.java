@@ -43,6 +43,8 @@ public class SystemUser {
 
     private Role role;
 
+    private boolean isAdmin;
+
     public SystemUser(@NotBlank @NotNull String username, @NotBlank @NotNull String passwordHash, @NotBlank @NotNull @Email String email) {
         this.username = username;
         this.passwordHash = passwordHash;
