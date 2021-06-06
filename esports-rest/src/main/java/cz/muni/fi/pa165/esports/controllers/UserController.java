@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.esports.controllers;
 import cz.muni.fi.pa165.esports.dto.AuthenticatedUserDTO;
 import cz.muni.fi.pa165.esports.dto.UserDTO;
 import cz.muni.fi.pa165.esports.enums.Role;
+import cz.muni.fi.pa165.esports.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.esports.facade.UserFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -25,18 +26,11 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public List<Role> login(@RequestBody AuthenticatedUserDTO user) {
-        log.info(user.getUsername(), user.getPassword());
-        if ("teamAdmin".equals(user.getUsername()) && "admin".equals(user.getPassword())) {
-            return Arrays.asList(Role.TEAM_MANAGER, Role.PLAYER);
+    public Role login(@RequestBody AuthenticatedUserDTO user) {
+        if (userFacade.isAuthenticated(user)) {
+            return userFacade.isAdmin(userFacade.findByUsername(user.getUsername())) ? Role.ADMIN : Role.PLAYER;
         }
-        if ("compAdmin".equals(user.getUsername()) && "admin".equals(user.getPassword())) {
-            return Collections.singletonList(Role.COMPETITION_MANAGER);
-        }
-        if ("player".equals(user.getUsername()) && "player".equals(user.getPassword())) {
-            return Collections.singletonList(Role.PLAYER);
-        }
-        return null;
+        throw new InvalidRequestException("Wrong credentials");
     }
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
