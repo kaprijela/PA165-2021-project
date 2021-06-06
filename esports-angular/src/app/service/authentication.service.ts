@@ -44,21 +44,12 @@ export class AuthenticationService {
     return !(user === null)
   }
 
-  public getRoles(): string[] {
-    const role = sessionStorage.getItem("user-role");
-    if (role) {
-      return role.split(",")
-    }
-    return [];
+  public getRole(): string | null {
+    return sessionStorage.getItem("user-role");
   }
 
   public isRole(role: string): boolean {
-    const roles = this.getRoles();
-    for (let i = 0; i < roles.length; i++) {
-      if (roles[i] === role) {
-        return true;
-      }
-    }
-    return false;
+    const roles_user = this.getRole();
+    return roles_user == role
   }
 }
