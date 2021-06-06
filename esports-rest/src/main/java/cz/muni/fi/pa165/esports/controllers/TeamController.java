@@ -1,10 +1,8 @@
 package cz.muni.fi.pa165.esports.controllers;
 
-import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
-import cz.muni.fi.pa165.esports.dto.PlayerDTO;
-import cz.muni.fi.pa165.esports.dto.StatisticsDTO;
-import cz.muni.fi.pa165.esports.dto.TeamDTO;
+import cz.muni.fi.pa165.esports.dto.*;
 import cz.muni.fi.pa165.esports.enums.Game;
+import cz.muni.fi.pa165.esports.enums.StatisticType;
 import cz.muni.fi.pa165.esports.exceptions.EsportsServiceException;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.PlayerFacade;
@@ -138,10 +136,12 @@ public class TeamController {
      *
      * @param teamId ID of the examined team
      * @param competitionId ID of the examined competition
-     * @return {@link StatisticsDTO}
+     * @return {@link TeamStatisticsDTO}
+     * @throws ResourceNotFoundException if the team or competition with the given ID does not exist
+     * @throws ServerProblemException if the calculation failed
      */
     @RequestMapping(value = "/{teamId}/competitions/{compId}/statistics/average", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final StatisticsDTO getAverageTeamScoreForCompetition(@PathVariable("teamId") Long teamId, @PathVariable("compId") Long competitionId) {
+    public final TeamStatisticsDTO getAverageTeamScoreForCompetition(@PathVariable("teamId") Long teamId, @PathVariable("compId") Long competitionId) {
         log.debug("REST get average score for team {} in competition {}", teamId, competitionId);
 
         TeamDTO teamById = teamFacade.findTeamById(teamId);
@@ -161,9 +161,7 @@ public class TeamController {
             log.error("Exception: {}", e.getMessage());
             throw new ServerProblemException(e.getMessage());
         }
-        StatisticsDTO statisticsDTO = new StatisticsDTO();
-        statisticsDTO.setScore(result);
-        return statisticsDTO;
+        return new TeamStatisticsDTO(teamId, result, StatisticType.AVERAGE);
     }
 
     /**
@@ -171,12 +169,12 @@ public class TeamController {
      *
      * @param teamId ID of the examined team
      * @param game string representation of a {@link Game}
-     * @return {@link StatisticsDTO}
+     * @return {@link TeamStatisticsDTO}
      * @throws ResourceNotFoundException when the team or game don't exist
      * @throws ServerProblemException when the calculation fails
      */
     @GetMapping(value = "/{teamId}/games/{game}/statistics/average", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final StatisticsDTO getAverageTeamScoreForGame(@PathVariable("teamId") Long teamId, @PathVariable("game") String game) {
+    public final TeamStatisticsDTO getAverageTeamScoreForGame(@PathVariable("teamId") Long teamId, @PathVariable("game") String game) {
         log.debug("REST get average score for team {} in game {}", teamId, game);
 
         TeamDTO teamById = teamFacade.findTeamById(teamId);
@@ -199,9 +197,7 @@ public class TeamController {
             throw new ServerProblemException(ex.getMessage());
         }
 
-        StatisticsDTO statisticsDTO = new StatisticsDTO();
-        statisticsDTO.setScore(result);
-        return statisticsDTO;
+        return new TeamStatisticsDTO(teamId, result, StatisticType.AVERAGE);
     }
 
     /* POST operations */
@@ -245,7 +241,7 @@ public class TeamController {
             throw new ResourceNotFoundException("Team not found");
         }
 
-        PlayerDTO playerById = playerFacade.findPlayerById(playerId);
+        PlayerDTO playerById = playerFacade.getPlayerById(playerId);
         if (playerById == null) {
             throw new ResourceNotFoundException("Player not found");
         }
@@ -302,7 +298,7 @@ public class TeamController {
             throw new ResourceNotFoundException("Team not found");
         }
 
-        PlayerDTO playerById = playerFacade.findPlayerById(playerId);
+        PlayerDTO playerById = playerFacade.getPlayerById(playerId);
         if (playerById == null) {
             throw new ResourceNotFoundException("Player not found");
         }
