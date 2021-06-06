@@ -77,15 +77,15 @@ public class MatchRecordFacadeImpl implements MatchRecordFacade {
     }
 
     @Override
-    public List<MatchRecordDTO> findMatchRecordByCompetition(String competitionId) {
-        Competition competition = competitionService.findByName(competitionId);
+    public List<MatchRecordDTO> findMatchRecordByCompetition(String competitionName) {
+        Competition competition = competitionService.findByName(competitionName);
         List<MatchRecord> matchRecord = matchRecordService.findByCompetition(competition);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
 
     @Override
-    public List<MatchRecordDTO> findMatchRecordByTeam(String teamId) {
-        Team team = teamService.findByName(teamId);
+    public List<MatchRecordDTO> findMatchRecordByTeam(String teamName) {
+        Team team = teamService.findByName(teamName);
         List<MatchRecord> matchRecord = matchRecordService.findByTeam(team);
         return (matchRecord == null) ? null : beanMappingService.mapTo(matchRecord, MatchRecordDTO.class);
     }
