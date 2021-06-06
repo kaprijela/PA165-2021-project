@@ -13,7 +13,7 @@
             <div class="card pt-1 pb-1 ms-1 me-1 mb-2 align-middle">
               <div class="card-body">
                 <h5 class="card-title mb-2"><i class="bi bi-person-circle inline-right me-2"></i>{{player.name}}</h5>
-                <a class="card-link" routerLink="/players/{{player.id}}">Player profile</a>
+                <a class="card-link" [routerLink]="['/player/', player.id]">Player profile</a>
               </div>
             </div>
         </div>

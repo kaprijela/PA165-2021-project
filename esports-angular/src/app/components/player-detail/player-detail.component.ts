@@ -15,9 +15,7 @@ export class PlayerDetailComponent implements OnInit {
 
   constructor(private playerService: PlayerService,
               private router: Router,
-              private route: ActivatedRoute) {
-
-  }
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get("id");
@@ -29,17 +27,14 @@ export class PlayerDetailComponent implements OnInit {
   }
 
   private getPlayer(id: number) {
-    console.log("getPlayer")
     this.playerService.findById(id).subscribe(data => {
       this.player = data;
     })
   }
 
   private getStatsPlayer(id: number) {
-    console.log("getPlayer")
-    this.playerService.getPlayerScore(id).subscribe(data => {
+    this.playerService.getPlayerAverageScore(id).subscribe(data => {
       this.statistics = data;
     })
   }
-
 }

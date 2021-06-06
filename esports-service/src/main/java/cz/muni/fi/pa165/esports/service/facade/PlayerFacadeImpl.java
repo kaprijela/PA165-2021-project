@@ -19,20 +19,26 @@ import java.util.List;
 @Transactional
 public class PlayerFacadeImpl implements PlayerFacade {
 
-    @Inject
-    private PlayerService playerService;
+    private final PlayerService playerService;
+    private final BeanMappingService beanMappingService;
 
     @Inject
-    private BeanMappingService beanMappingService;
+    public PlayerFacadeImpl(
+            PlayerService playerService,
+            BeanMappingService beanMappingService
+    ) {
+        this.playerService = playerService;
+        this.beanMappingService = beanMappingService;
+    }
 
     @Override
-    public PlayerDTO findPlayerById(Long id) {
+    public PlayerDTO getPlayerById(Long id) {
         Player player = playerService.findById(id);
         return (player == null) ? null : beanMappingService.mapTo(player, PlayerDTO.class);
     }
 
     @Override
-    public List<PlayerDTO> findPlayerByName(String name) {
+    public List<PlayerDTO> getPlayersByName(String name) {
         List<Player> players = playerService.findByName(name);
         return (players.isEmpty()) ? null : beanMappingService.mapTo(players, PlayerDTO.class);
     }
@@ -61,7 +67,7 @@ public class PlayerFacadeImpl implements PlayerFacade {
     }
 
     @Override
-    public Double getPlayerAverage(Long playerId) {
+    public Double getPlayerAverageScore(Long playerId) {
         return playerService.getPlayerAverage(playerId);
     }
 }

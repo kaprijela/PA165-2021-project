@@ -16,7 +16,7 @@ public interface PlayerFacade {
      * @param id type long
      * @return a player
      */
-    PlayerDTO findPlayerById(Long id);
+    PlayerDTO getPlayerById(Long id);
 
     /**
      * Find a player by name
@@ -24,7 +24,7 @@ public interface PlayerFacade {
      * @param Name type string
      * @return a collection of players
      */
-    List<PlayerDTO> findPlayerByName(String Name);
+    List<PlayerDTO> getPlayersByName(String Name);
 
     /**
      * Register a player, authentication will be added later
@@ -40,5 +40,5 @@ public interface PlayerFacade {
      */
     List<PlayerDTO> getAllPlayers();
 
-    Double getPlayerAverage(Long playerId);
+    Double getPlayerAverageScore(Long playerId);
 }

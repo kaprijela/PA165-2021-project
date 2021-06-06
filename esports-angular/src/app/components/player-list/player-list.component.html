@@ -5,8 +5,8 @@
     </div>
     <div class="col-auto">
       <!-- button for registering a new player -->
-      <a href="/players/new" class="btn create">
-        <i class="bi bi-plus-circle-fill inline-right" aria-hidden="true"></i>
+      <a routerLink="/players/new" class="btn create">
+        <i class="bi bi-plus-circle inline-right" aria-hidden="true"></i>
         Register a new player
       </a>
     </div>
@@ -26,7 +26,7 @@
       <td>{{player.id}}</td>
       <td>
         <div>
-          <a href="/players/{{player.id}}">
+          <a href="/player/{{player.id}}">
             {{player.name}}
           </a>
         </div>
@@ -34,7 +34,7 @@
       <td>{{player.gender | titlecase}}</td>
       <td>
         <div>
-          <a href="/teams/name/{{player.team}}">
+          <a href="/team/{{player.team}}">
             {{player.team}}
           </a>
         </div>

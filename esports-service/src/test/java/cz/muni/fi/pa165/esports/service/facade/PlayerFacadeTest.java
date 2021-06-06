@@ -45,7 +45,7 @@ public class PlayerFacadeTest {
      */
     @Test
     public void testFindPlayerById() {
-        playerFacade.findPlayerById(1L);
+        playerFacade.getPlayerById(1L);
         Mockito.verify(playerService, Mockito.times(1)).findById(1L);
     }
 
@@ -54,7 +54,7 @@ public class PlayerFacadeTest {
      */
     @Test
     public void testFindPlayerByName() {
-        playerFacade.findPlayerByName("Alice");
+        playerFacade.getPlayersByName("Alice");
         Mockito.verify(playerService, Mockito.times(1)).findByName("Alice");
     }
 

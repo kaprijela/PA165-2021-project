@@ -61,7 +61,6 @@ public class PlayerServiceImpl implements PlayerService {
         if (numberOfMatches == 0) {
             return 0.0;
         }
-//        return Double.valueOf(2);
         return ((double) totalScore / numberOfMatches);
     }
 

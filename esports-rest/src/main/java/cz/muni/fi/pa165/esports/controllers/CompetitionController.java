@@ -2,12 +2,14 @@ package cz.muni.fi.pa165.esports.controllers;
 
 import cz.muni.fi.pa165.esports.dto.CompetitionDTO;
 import cz.muni.fi.pa165.esports.dto.MatchRecordDTO;
+import cz.muni.fi.pa165.esports.dto.TeamDTO;
 import cz.muni.fi.pa165.esports.facade.CompetitionFacade;
 import cz.muni.fi.pa165.esports.facade.MatchRecordFacade;
 import cz.muni.fi.pa165.esports.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.esports.exceptions.ResourceAlreadyExistingException;
 import cz.muni.fi.pa165.esports.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.esports.exceptions.ServerProblemException;
+import cz.muni.fi.pa165.esports.facade.TeamFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
@@ -25,34 +27,62 @@ public class CompetitionController {
 
     private final CompetitionFacade competitionFacade;
     private final MatchRecordFacade matchRecordFacade;
+    private final TeamFacade teamFacade;
 
     @Inject
-    public CompetitionController(CompetitionFacade competitionFacade, MatchRecordFacade matchRecordFacade) {
+    public CompetitionController(
+        CompetitionFacade competitionFacade,
+        TeamFacade teamFacade,
+        MatchRecordFacade matchRecordFacade
+    ) {
         this.competitionFacade = competitionFacade;
+        this.teamFacade = teamFacade;
         this.matchRecordFacade = matchRecordFacade;
     }
 
+    /* GET */
+
     /**
-     * Get list of Competitions curl -i -X GET http://localhost:8080/pa165/api/v2/competitions/
+     * Gets a list of registered competitions.
      *
-     * @return List<CompetitionDTO>
+     * @return list of {@link CompetitionDTO}
      */
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<CompetitionDTO> getAllCompetitions() {
         log.debug("rest getAllCompetitions()");
         return competitionFacade.getAllCompetitions();
     }
 
     /**
-     * Create a Competition
+     * Gets a competition by its ID.
      *
-     * @return created CompetitionDTO
+     * @param id ID of the sought competition
+     * @return {@link CompetitionDTO} if a competition with the given ID exists
+     * @throws ResourceNotFoundException if a competition with the given ID does not exist
      */
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final CompetitionDTO createCompetition(@RequestBody CompetitionDTO competitionDTO, BindingResult bindingResult) throws Exception {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public final CompetitionDTO getCompetitionById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        log.debug("REST getCompetitionById({})", id);
+
+        CompetitionDTO competitionById = competitionFacade.findCompetitionById(id);
+        if (competitionById == null) {
+            throw new ResourceNotFoundException("Competition not found");
+        }
+        return competitionById;
+    }
+
+    /* POST */
+
+    /**
+     * Registers a competition in the system.
+     *
+     * @return created {@link CompetitionDTO} if the operation was successful
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final CompetitionDTO createCompetition(@RequestBody CompetitionDTO competitionDTO, BindingResult bindingResult) {
         log.debug("restv1 createCompetition()");
         if (bindingResult.hasErrors()) {
-            log.error("failed validation {}", bindingResult.toString());
+            log.error("failed validation {}", bindingResult);
             throw new InvalidRequestException("Failed validation");
         }
         try {
@@ -64,42 +94,63 @@ public class CompetitionController {
     }
 
     /**
-     * GET a Competition by name
+     * Adds a team to the participants of a competition.
      *
-     * @return CompetitionDTO
+     * @param competitionId ID of the competition to which the team is to be added
+     * @param teamId ID of the team to be added to the competition
+     * @return {@link CompetitionDTO}
+     * @throws ResourceNotFoundException if the competition or team with the given id were not found
+     * @throws ServerProblemException if the operation failed
      */
-    @GetMapping(value = "/name/{name}")
-    public final CompetitionDTO getByName(@PathVariable("name") String name) throws Exception {
-        log.debug("restv1 get by name {}", name);
+    @PostMapping(value = "/{competitionId}/teams/{teamId}")
+    public final CompetitionDTO addTeamToCompetition(@PathVariable("competitionId") Long competitionId, @PathVariable("teamId") Long teamId) {
+        log.debug("REST add team {} to competition {}", teamId, competitionId);
 
-        CompetitionDTO competitionByName = competitionFacade.findCompetitionByName(name);
-        if (competitionByName == null) {
-            throw new ResourceNotFoundException("Competition not found");
-        }
-        return competitionByName;
-    }
-
-    /**
-     * GET a Competition by name
-     *
-     * @return CompetitionDTO
-     */
-    @GetMapping(value = "/id/{id}")
-    public final CompetitionDTO getById(@PathVariable("id") Long id) throws Exception {
-        log.debug("restv1 get by id {}", id);
-
-        CompetitionDTO competitionById = competitionFacade.findCompetitionById(id);
+        CompetitionDTO competitionById = competitionFacade.findCompetitionById(competitionId);
         if (competitionById == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
-        return competitionById;
+
+        TeamDTO teamById = teamFacade.findTeamById(teamId);
+        if (teamById == null) {
+            throw new ResourceNotFoundException("Team not found");
+        }
+
+        try {
+            competitionFacade.addTeam(competitionId, teamById.getName());
+        } catch (Exception e) {
+            throw new ServerProblemException(e.getMessage());
+        }
+        return competitionFacade.findCompetitionById(competitionId);
     }
 
     /**
-     * Delete a Competition
+     * Adds a match record to a competition.
+     *
+     * @param competitionId ID of the competition to which the record is to be added
+     * @return newly created {@link MatchRecordDTO}
+     */
+    @PostMapping("/{id}/records/")
+    public final MatchRecordDTO addMatchRecordToCompetition(@PathVariable("id") Long competitionId, @RequestBody MatchRecordDTO matchRecord) {
+        log.debug("rest addMatchRecordToCompetition({})", competitionId);
+
+        try {
+            Long newId = matchRecordFacade.create(matchRecord);
+            return matchRecordFacade.findMatchRecordBbyId(newId);
+        } catch (Exception e) {
+            throw new ResourceAlreadyExistingException(e.getMessage());
+        }
+    }
+
+    /* DELETE */
+
+    /**
+     * Deletes a registered competition from the system.
+     *
+     * @param id ID of the competition to be deleted
      */
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void deleteById(@PathVariable("id") Long id) throws Exception {
+    public final void deleteById(@PathVariable("id") Long id) {
         log.debug("restv1 delete by id {}", id);
         try {
             competitionFacade.deleteCompetition(id);
@@ -118,49 +169,33 @@ public class CompetitionController {
     }
 
     /**
-     * ADD a Team to a Competition by Team and Competition ID
+     * Removes a team from a competition.
      *
-     * @return competitionDTO
+     * @param competitionId ID of the competition from which to remove the team
+     * @param teamId ID of the team to be removed from the competition
+     * @throws ResourceNotFoundException if the competition or team with the given id were not found
+     * @throws ServerProblemException if the operation failed
      */
-    @RequestMapping(value = "add/{id}/addTeam/{team}", method = RequestMethod.GET)
-    public final CompetitionDTO addTeamToCompetition(@PathVariable("id") Long id, @PathVariable("team") String team) throws Exception {
-        log.debug("restv1 delete by id {}", id);
-        try {
-            competitionFacade.addTeam(id, team);
-        } catch (Exception e) {
+    @DeleteMapping(value = "/{competitionId}/teams/{teamId}")
+    public final void removeTeamFromCompetition(@PathVariable("competitionId") Long competitionId, @PathVariable("teamId") Long teamId) {
+        log.debug("REST remove team {} from competition {}", teamId, competitionId);
+
+        CompetitionDTO competitionById = competitionFacade.findCompetitionById(competitionId);
+        if (competitionById == null) {
             throw new ResourceNotFoundException("Competition not found");
         }
-        return competitionFacade.findCompetitionById(id);
+
+        TeamDTO teamById = teamFacade.findTeamById(teamId);
+        if (teamById == null) {
+            throw new ResourceNotFoundException("Team not found");
+        }
+
+        try {
+            competitionFacade.removeTeam(competitionId, teamById.getName());
+        } catch (Exception e) {
+            throw new ServerProblemException(e.getMessage());
+        }
+        // TODO: if team is not present at the competition
     }
 
-    /**
-     * Remove a Team from Competition by Team and Competition ID
-     *
-     */
-    @RequestMapping(value = "remove/{id}/removeTeam/{team}", method = RequestMethod.GET)
-    public final CompetitionDTO removeTeamFromCompetition(@PathVariable("id") Long id, @PathVariable("team") String team) throws Exception {
-        log.debug("restv1 delete by id {}", id);
-        try {
-            competitionFacade.removeTeam(id, team);
-        } catch (Exception e) {
-            throw new ResourceNotFoundException("Competition not found");
-        }
-        return competitionFacade.findCompetitionById(id);
-    }
-
-    /**
-     * ADD Matchrecord to a Competition
-     *
-     * @return competitionDTO
-     */
-    @PostMapping("/{id}/records/")
-    public final MatchRecordDTO addMatchRecordToCompetition(@PathVariable("id") Long competitionId, @RequestBody MatchRecordDTO matchRecord) {
-        log.debug("rest add match record");
-        try {
-            Long newId = matchRecordFacade.create(matchRecord);
-            return matchRecordFacade.findMatchRecordBbyId(newId);
-        } catch (Exception e) {
-            throw new ResourceAlreadyExistingException(e.getMessage());
-        }
-    }
 }
